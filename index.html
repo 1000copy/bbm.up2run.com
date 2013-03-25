@@ -1,3 +1,7 @@
+<?
+	session_start(); 
+	$_SESSION['user_id']=1;
+?>
 <html>
 <head>
 	<title>bbm.up2run.com</title>
@@ -17,11 +21,15 @@
 	<a href="testMysql.php"> testMysql.php </a><p>
 	<a href="books.php"> books </a><p>
 	<a href="c.php">c.php</a>
+	<a href="a_session.php">session</a>
 	<h1>It works!</h1>
-	<a href="book_list.php"> books only </a><p>
-	<a href="book_new.php"> add book</a>
-	<a href="book_edit.php?id=1">edit book </a>
-	<a href="book_upload.php">edit book </a>
+	<a href="book_list.php"> books only </a><br/>
+	<a href="book_new.php"> add book</a><br/>
+	<a href="book_edit.php?id=1">edit book </a><br/>
+	<a href="book_upload.php">book upload </a><br/>
+	<a href="book_clear_all.php">book clear all </a><br/>
+	<a href="login.php">login</a><br/>
+	<a href="logout.php">logout </a><br/>
 </div>
 </body></html>
 

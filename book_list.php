@@ -1,3 +1,4 @@
+<? session_start()?>
 <html >
 <head>
 	<title>books</title>
@@ -27,12 +28,14 @@
 	value="<?echo $_POST["title"]; ?>"/>
 	<input type="submit" value="search"/>
 	<a href ="book_new.php">new book</a>
+	<a href ="book_upload.php">upload</a>
 </form>
 <table cellpadding="2">
 	<tr>
 		<th>OP</th>
 		<th>id</th>
 		<th>book title</th>
+		<th>devoter</th>
 	</tr>
 <?
 	
@@ -41,9 +44,9 @@
 		$page = 1;
 	$pagerecords = 10 ;
 	$from = ($page-1)*$pagerecords;
-	$to = $page*$pagerecords;
+	$to = $pagerecords;
 	if ($dbcheck) {
-		$sql = "select id ,title  from book";
+		$sql = "select b.id ,b.title ,u.fullname from book b left join user u on b.devote_id = u.id ";
 		if ($action=="search"){
 			$title = trim($_POST['title']);
 			if($title != "")
@@ -70,7 +73,8 @@
 				 echo "<tr>" .
 				 	  "<td>" . $url_e. $url_d. "</td>" . 
 				 	  "<td>" . $row[0] . "</td>" .
-				 	  "<td>" . $row[1] . "</td>" ."<tr>";
+				 	  "<td>" . $row[1] . "</td>" .
+				 	  "<td>" . $row[2] . "</td>" ."<tr>";
 			}
 		} 
 	}
@@ -79,7 +83,10 @@
 <?	
 	include "paginator.php";
 	$target = $_SERVER['PHP_SELF'];
-	echo getPaginationString($page, $total_records, $pagerecords, 1, $target, $pagestring = "?page=");
+	echo getPaginationString($page, $total_records, 
+		$pagerecords, 1, $target, $pagestring = "?page=");
+	echo "totals: " . $total_records;
+	echo "&nbsp;users: " . $_SESSION["user_name"];
 ?>
 </div><!-- end #wrapper -->
 </body>
