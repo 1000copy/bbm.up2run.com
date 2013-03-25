@@ -26,9 +26,11 @@
 	<input type="text" placeholder="some book title..." id="title" name="title" 
 	value="<?echo $_POST["title"]; ?>"/>
 	<input type="submit" value="search"/>
+	<a href ="book_new.php">new book</a>
 </form>
 <table cellpadding="2">
 	<tr>
+		<th>OP</th>
 		<th>id</th>
 		<th>book title</th>
 	</tr>
@@ -63,7 +65,12 @@
 		}else
 		if (mysql_num_rows($result) > 0) {
 			while ($row = mysql_fetch_row($result)) {
-				 echo "<tr><td>" . $row[0] . "</td>" . "<td>" . $row[1] . "</tr>";
+				 $url_e = "<a href='book_edit.php?id=".$row[0]."'>Edit</a>&nbsp;" ;
+				 $url_d = "<a href='book_delete.php?id=".$row[0]."'>Del</a>" ;
+				 echo "<tr>" .
+				 	  "<td>" . $url_e. $url_d. "</td>" . 
+				 	  "<td>" . $row[0] . "</td>" .
+				 	  "<td>" . $row[1] . "</td>" ."<tr>";
 			}
 		} 
 	}
