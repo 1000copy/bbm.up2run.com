@@ -46,7 +46,7 @@
 	$from = ($page-1)*$pagerecords;
 	$to = $pagerecords;
 	if ($dbcheck) {
-		$sql = "select b.id ,b.title ,u.fullname from book b left join user u on b.devote_id = u.id ";
+		$sql = "select b.id ,b.title ,u.fullname,b.devote_id from book b left join user u on b.devote_id = u.id ";
 		if ($action=="search"){
 			$title = trim($_POST['title']);
 			if($title != "")
@@ -68,9 +68,15 @@
 		}else
 		if (mysql_num_rows($result) > 0) {
 			while ($row = mysql_fetch_row($result)) {
-				 $url_e = "<a href='book_edit.php?id=".$row[0]."'>Edit</a>&nbsp;" ;
-				 $url_d = "<a href='book_delete.php?id=".$row[0]."'>Del</a>" ;
-				 echo "<tr>" .
+				$devote_id = $row[3];
+				$curr_user_id = $_SESSION["user_id"];
+				$url_e ="";
+				$url_d ="";
+				if ($devote_id == $curr_user_id){
+					 $url_e = "<a href='book_edit.php?id=".$row[0]."'>Edit</a>&nbsp;" ;
+					 $url_d = "<a href='book_delete.php?id=".$row[0]."'>Del</a>" ;
+				}
+				echo "<tr>" .
 				 	  "<td>" . $url_e. $url_d. "</td>" . 
 				 	  "<td>" . $row[0] . "</td>" .
 				 	  "<td>" . $row[1] . "</td>" .
