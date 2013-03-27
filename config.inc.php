@@ -40,4 +40,7 @@
 	function db_fetch_row( $ds ){
 		return mysql_fetch_row($ds);
 	}
+	function is_login(){
+		return isset($_SESSION["user_id"]);  
+	}
 ?>

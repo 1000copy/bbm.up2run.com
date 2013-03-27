@@ -19,6 +19,7 @@ drop table  if exists user;
 create table user(
 	 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
      fullname NVARCHAR(100) NOT NULL,
+     password varchar(100),
      email varchar(100) ,
      weibo varchar(100) 
 );

@@ -6,7 +6,7 @@
 	if (!$result){
 		echo mysql_error();
 	}else {
-		header("Location:/");
+		header("Location:/book_list.php");
 		exit;
 	}
 ?>

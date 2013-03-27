@@ -4,6 +4,7 @@
 	<title>books</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" >
+	<LINK REL="StyleSheet" HREF="bootstrap/css/bootstrap.min.css" TYPE="text/css" >
 	<style type="text/css">
 	#wrapper {
 		width: 600px;
@@ -23,22 +24,27 @@
 
 <h1>books </h1>
 
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>?action=search"  method="post">
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>?action=search"  method="post" class="form-inline">
 	<input type="text" placeholder="some book title..." id="title" name="title" 
-	value="<?echo $_POST["title"]; ?>"/>
-	<input type="submit" value="search"/>
-	<a href ="book_new.php">new book</a>
-	<a href ="book_upload.php">upload</a>
+	value="<?echo $_POST["title"]; ?>" class="search-query input-medium"/>
+	<input type="submit" value="search" class="btn-primary"/>
+	<? if (is_login()) { ?>
+		<a href ="book_new.php" class="btn">new book</a>
+		<a href ="book_upload.php" class="btn">upload</a>
+		<a href="logout.php" class="btn">logout</a>		
+	<?}else{?>
+		<a href="login.php" class="btn">login</a>
+	<? } ?>
+
 </form>
-<table cellpadding="2">
+<table cellpadding="2" class="table table-striped table-bordered">
 	<tr>
-		<th>OP</th>
-		<th>id</th>
+		<th>#</th>
+		<th>No.</th>
 		<th>book title</th>
 		<th>devoter</th>
 	</tr>
 <?
-	
 	$page = $_GET['page'];
 	if (!$page)
 		$page = 1;
@@ -92,8 +98,12 @@
 	echo getPaginationString($page, $total_records, 
 		$pagerecords, 1, $target, $pagestring = "?page=");
 	echo "totals: " . $total_records;
-	echo "&nbsp;users: " . $_SESSION["user_name"];
+	echo "&nbsp; ";
+	if (is_login())
+	 	echo "user:". $_SESSION["user_name"];
 ?>
+
+
 </div><!-- end #wrapper -->
 </body>
 </html>
