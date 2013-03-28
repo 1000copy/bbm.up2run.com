@@ -7,15 +7,17 @@
 	if ($action=="login"){
 		$fullname = $_POST['users'];
 		$password = $_POST['password'];
-		$result = db_query ("select fullname ,password from user where fullname='${fullname}'");
+		$result = db_query ("select fullname ,password,id from user where fullname='${fullname}'");
 		if (!$result){
 			die (mysql_error());
 		}
 		if (db_row_count($result) >0 ){
 			$row = db_fetch_row($result);
 			if ($row[1] == md5($password)){
-				$_SESSION['user_id'] = $user_id ;
+				$_SESSION['user_id'] = $row[2];
 				$_SESSION['user_name'] = $row[0];
+				// echo $row[0];
+				// echo $user_id;
 				header("Location:/book_list.php");
 			}else{
 				die("user / password do not match");	
@@ -48,7 +50,7 @@
 	}
 	</style>
 </head>
-<body>
+<body>	
 	<div id="wrapper">
 		<h1>login </h1>
 		<form action="<? echo $_SERVER['PHP_SELF'] ?>?action=login" method="post">

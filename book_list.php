@@ -1,4 +1,8 @@
 <? session_start()?>
+<?php
+	include "config.inc.php";
+	$action = htmlspecialchars($_GET['action'], ENT_QUOTES);
+?>
 <html >
 <head>
 	<title>books</title>
@@ -8,18 +12,34 @@
 	<style type="text/css">
 	#wrapper {
 		width: 600px;
-		margin: 20px auto 0;
+		margin: 60px auto 0;
+		padding-top: 200px；
 		font: 1.2em Verdana, Arial, sans-serif;
 	}
 	</style>
 </head>
 <body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+		<a class="brand" href="#">Book borrowing </a>
+		<ul class="nav">
+		<li class="active"><a href="/book_list.php">Home</a></li>
+		<? if (!is_login()){ ?>
+			<li><a href="/login.php" >Login</a></li>
+		<?}else{?>
+			<li><a href="/logout.php">Logout</a></li>
+			<p class="navbar-text pull-right">
+            	<a href="#" class="navbar-link"><? echo $_SESSION['user_name']?></a>
+        	</p>
+		<?}?>
+		</ul>
+      	
+    </div>
+  </div>
+</div>
 <div id="wrapper">
 	
-<?php
-	include "config.inc.php";
-	$action = htmlspecialchars($_GET['action'], ENT_QUOTES);
-?>
 
 
 <h1>books </h1>
