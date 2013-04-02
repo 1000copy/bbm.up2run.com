@@ -1,4 +1,13 @@
 <?
+	// error_reporting(E_ALL ^ E_NOTICE);
+	// header('Cache-control: private'); // IE 6 FIX
+	// // always modified 
+	// header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT'); 
+	// // HTTP/1.1 
+	// header('Cache-Control: no-store, no-cache, must-revalidate'); 
+	// header('Cache-Control: post-check=0, pre-check=0', false); 
+	// // HTTP/1.0 
+	// header('Pragma: no-cache');
 	$hostname ="127.0.0.1";
 	$username = "root";
 	$password = "";
@@ -15,20 +24,6 @@
         	echo mysql_error();
 		}
 	}
-		// $sql = "SHOW TABLES FROM `$database`";
-		// 	$result = mysql_query($sql);
-		// 	if (mysql_num_rows($result) > 0) {
-		// 		echo "<p>Available tables:</p>\n";
-		// 		echo "<pre>\n";
-		// 		while ($row = mysql_fetch_row($result)) {
-		// 			echo "{$row[0]}\n";
-		// 		}
-		// 		echo "</pre>\n";
-		// 	} else {
-		// 		echo "<p>The database '" . $database . "' contains no tables.</p>\n";
-		// 		echo mysql_error();
-		// 	}
-	// return result
 	function db_query($sql){
 		return mysql_query($sql);
 	}
@@ -41,6 +36,28 @@
 		return mysql_fetch_row($ds);
 	}
 	function is_login(){
-		return isset($_SESSION["user_id"]);  
+		return isset($_SESSION["user_name"]);  
+	}
+	// autologin
+	function login_verify_ok($usr,$password_hash){
+		// echo $usr.$password_hash;
+		$result = db_query ("select fullname,id from user where fullname='${fullname}' and password = '${password_hash}'");
+		if (!$result ||db_row_count($result) >0 ){
+			// echo "nono";
+			return false;
+		}
+		{
+			// echo "yes";
+			$row = db_fetch_row($result);
+			$_SESSION['user_id'] = $row[1];
+			$_SESSION['user_name'] = $row[0];
+			return true ;
+		}
+	}
+	$cookie_name = 'siteAuth';
+	$cookie_time = (3600 * 24 * 30); // 30 days
+	if(!$_SESSION['user_name'])
+	{
+		include_once 'autologin.php';
 	}
 ?>

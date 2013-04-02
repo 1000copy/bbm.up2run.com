@@ -1,12 +1,16 @@
 <?
 	session_start(); 
-?>
-<?
+	if($_SESSION['user_name'])
+	{
+		header("Location: book_list.php");
+		exit;
+	}
 	include "config.inc.php";
 	$action = $_GET['action'];
 	if ($action=="login"){
 		$fullname = $_POST['users'];
 		$password = $_POST['password'];
+		$autologin = $_POST['autologin'];
 		$result = db_query ("select fullname ,password,id from user where fullname='${fullname}'");
 		if (!$result){
 			die (mysql_error());
@@ -16,8 +20,11 @@
 			if ($row[1] == md5($password)){
 				$_SESSION['user_id'] = $row[2];
 				$_SESSION['user_name'] = $row[0];
-				// echo $row[0];
-				// echo $user_id;
+				$password_hash = md5($password); 
+				$url = 'usr='.$fullname.'&hash='.$password_hash;
+				// echo "url:".$url .$cookie_time;
+				setcookie ($cookie_name, $url, time() + $cookie_time);
+				// echo $_COOKIE[$cookie_name];
 				header("Location:/book_list.php");
 			}else{
 				die("user / password do not match");	
@@ -25,15 +32,6 @@
 		}else
 			die("user / password do not match - 1");	
 
-	}else{
-		// $result = db_query ("select id,fullname from user ");
-		// if (!$result){
-		// 	die (mysql_error());
-		// }
-		// if(db_row_count($result) == 0 )
-		// {
-		// 	exit ;
-		// }
 	}
 ?>
 
@@ -56,6 +54,7 @@
 		<form action="<? echo $_SERVER['PHP_SELF'] ?>?action=login" method="post">
 		<input type="text" placeholder="email" name="users" class="input" /><br/>
 		<input type="password" placeholder="password" name="password" class="input" /><br/>
+		<input type="checkbox" name="autologin" value="1"/>Remember Me <br/>
 	  	<input type="submit" value="登录" class="btn" />
 	  	<a href="user_new.php" class="btn">注册</a>
 		</form>

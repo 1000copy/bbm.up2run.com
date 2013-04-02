@@ -2,6 +2,11 @@
 <?php
 	include "config.inc.php";
 	$action = htmlspecialchars($_GET['action'], ENT_QUOTES);
+	if(!isSet($_SESSION['user_name']))
+	{
+		header("Location: login.php");
+		exit;
+	}
 ?>
 <html >
 <head>
