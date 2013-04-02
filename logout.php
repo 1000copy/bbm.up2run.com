@@ -1,7 +1,6 @@
 <?
 	session_start(); 
 	include "config.inc.php" ;
-	// $user_id = $_SESSION["user_name"];
 	if(isSet($_SESSION['user_name'])){
 		unset($_SESSION["user_id"]);  
 		unset($_SESSION["user_name"]);  

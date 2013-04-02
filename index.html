@@ -1,6 +1,5 @@
 <?
 	session_start(); 
-	$_SESSION['user_id']=1;
 ?>
 <html>
 <head>
@@ -17,6 +16,18 @@
 </head>
 <body>
 <div id="index">
+	<h1>books</h1>
+	<a href="user_new.php">  new  </a>&nbsp;
+	<a href="book_list.php"> list </a>&nbsp;
+	<a href="book_new.php"> add </a>&nbsp;
+	<a href="book_edit.php?id=1">edit  </a>&nbsp;
+	<a href="book_upload.php">upload </a>&nbsp;
+	<a href="book_clear_all.php">clear all </a>&nbsp;
+	<h1>users</h1>
+	<a href="user_list.php"> list </a>
+	<h1>login</h1>
+	<a href="login.php">login</a>&nbsp;
+	<a href="logout.php">logout </a>&nbsp;
 	<h1>It tests!</h1>
 	<a href="a.php" class="btn"> a.php </a>&nbsp;
 	<a href="testMysql.php" class="btn"> testMysql.php </a>&nbsp;
@@ -24,15 +35,7 @@
 	<a href="c.php" class="btn">c.php</a>
 	<a href="niubi_test.php" class="btn"> niubi test </a>&nbsp;
 	<a href="a_session.php" class="btn">session</a>
-	<h1>It works!</h1>
-	<a href="user_new.php"> user new  </a>&nbsp;
-	<a href="book_list.php"> book list </a>&nbsp;
-	<a href="book_new.php"> add book</a>&nbsp;
-	<a href="book_edit.php?id=1">edit book </a>&nbsp;
-	<a href="book_upload.php">book upload </a>&nbsp;
-	<a href="book_clear_all.php">book clear all </a>&nbsp;
-	<a href="login.php">login</a>&nbsp;
-	<a href="logout.php">logout </a>&nbsp;
+	<a href="douban.php" class="btn">douban</a>
 </div>
 </body></html>
 

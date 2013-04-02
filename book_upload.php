@@ -51,12 +51,13 @@
 			move_uploaded_file($src,$dst);
 			$file = fopen($dst,'r');
 			while(!feof($file)) { 
-				$line = fgets($file);
-				$sql = "insert into book (title,devote_id)values('${line}',${user_id})";
-				// echo $sql;
-				$result = mysql_query($sql);
-				if (!$result){
-					echo mysql_error();
+				$line = trim(fgets($file));
+				if (!empty($line)){
+					$sql = "insert into book (title,devote_id)values('${line}',${user_id})";
+					$result = mysql_query($sql);
+					if (!$result){
+						echo mysql_error();
+					}
 				}
 			}
 			fclose($file);

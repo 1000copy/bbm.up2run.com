@@ -54,6 +54,16 @@
 			return true ;
 		}
 	}
+	function login_required(){
+		if(!isSet($_SESSION['user_name']))
+		{
+			header("Location: login.php");
+			exit;
+		}
+	}
+	function bs_here(){
+		echo '<LINK REL="StyleSheet" HREF="bootstrap/css/bootstrap.min.css" TYPE="text/css" >';
+	}
 	$cookie_name = 'siteAuth';
 	$cookie_time = (3600 * 24 * 30); // 30 days
 	if(!$_SESSION['user_name'])

@@ -2,18 +2,14 @@
 <?php
 	include "config.inc.php";
 	$action = htmlspecialchars($_GET['action'], ENT_QUOTES);
-	if(!isSet($_SESSION['user_name']))
-	{
-		header("Location: login.php");
-		exit;
-	}
+	login_required();
 ?>
 <html >
 <head>
-	<title>books</title>
+	<title>users</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" >
-	<? bs_here();?>
+	<LINK REL="StyleSheet" HREF="bootstrap/css/bootstrap.min.css" TYPE="text/css" >
 	<style type="text/css">
 	#wrapper {
 		width: 600px;
@@ -26,30 +22,22 @@
 <body>
 <? include "banner.php" ?>
 <div id="wrapper">
-	
-
-
-<h1>books </h1>
-
+<h1>users </h1>
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>?action=search"  method="post" class="form-inline">
-	<input type="text" placeholder="some book title..." id="title" name="title" 
+	<input type="text" placeholder="some user name ..." id="email" name="email" 
 	value="<?echo $_POST["title"]; ?>" class="search-query input-medium"/>
 	<input type="submit" value="search" class="btn-primary"/>
 	<? if (is_login()) { ?>
-		<a href ="book_new.php" class="btn">new book</a>
-		<a href ="book_upload.php" class="btn">upload</a>
-		<a href="logout.php" class="btn">logout</a>		
+		<a href ="user_new.php" class="btn">new</a>
 	<?}else{?>
 		<a href="login.php" class="btn">login</a>
 	<? } ?>
-
 </form>
 <table cellpadding="2" class="table table-striped table-bordered">
 	<tr>
 		<th>#</th>
 		<th>No.</th>
-		<th>book title</th>
-		<th>devoter</th>
+		<th>email</th>
 	</tr>
 <?
 	$page = $_GET['page'];
@@ -59,13 +47,11 @@
 	$from = ($page-1)*$pagerecords;
 	$to = $pagerecords;
 	if ($dbcheck) {
-		$sql = "select b.id ,b.title ,u.fullname,b.devote_id from book b left join user u on b.devote_id = u.id ";
+		$sql = "select id  ,email from user u ";
 		if ($action=="search"){
-			$title = trim($_POST['title']);
-			if($title != "")
-				$sql = $sql . " where title like '%". $title ."%' ";
-			
-			//echo $sql ;
+			$email = trim($_POST['email']);
+			if($email != "")
+				$sql = $sql . " where email like '%". $email ."%' ";
 		}
 		$count_sql = "select count(1) from (${sql}) balias";
 		$sql = $sql . " limit ${from},${to}";
@@ -81,19 +67,13 @@
 		}else
 		if (mysql_num_rows($result) > 0) {
 			while ($row = mysql_fetch_row($result)) {
-				$devote_id = $row[3];
-				$curr_user_id = $_SESSION["user_id"];
-				$url_e ="";
-				$url_d ="";
-				if ($devote_id == $curr_user_id){
-					 $url_e = "<a href='book_edit.php?id=".$row[0]."'>Edit</a>&nbsp;" ;
-					 $url_d = "<a href='book_delete.php?id=".$row[0]."'>Del</a>" ;
-				}
+				$url_e = "<a href='user_edit.php?id=".$row[0]."'>Edit</a>&nbsp;" ;
+				$url_d = "<a href='user_delete.php?id=".$row[0]."'>Del</a>" ;
 				echo "<tr>" .
-				 	  "<td>" . $url_e. $url_d. "</td>" . 
-				 	  "<td>" . $row[0] . "</td>" .
-				 	  "<td>" . $row[1] . "</td>" .
-				 	  "<td>" . $row[2] . "</td>" ."<tr>";
+					  "<td>" . $url_e. $url_d. "</td>" . 
+					  "<td>" . $row[0] . "</td>" .
+					  "<td>" . $row[1] . "</td>" .
+					  "<tr>";
 			}
 		} 
 	}

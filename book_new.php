@@ -3,10 +3,11 @@
 	<title>books</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" >
+	<LINK REL="StyleSheet" HREF="bootstrap/css/bootstrap.min.css" TYPE="text/css" >
 	<style type="text/css">
 	#wrapper {
 		width: 600px;
-		margin: 20px auto 0;
+		margin: 60px auto 0;
 		font: 1.2em Verdana, Arial, sans-serif;
 	}
 	</style>
@@ -23,8 +24,12 @@
 	</script>
 </head>
 <body>
+<? 
+include "config.inc.php";
+include "banner.php" ;
+?>
 <div id="wrapper">
-	<h1>book new </h1>
+	<h1>book edit</h1>
 	<form action="<?php echo $_SERVER['PHP_SELF']; ?>?action=save"  method="post" 
 		onsubmit="return validateForm()" 
 		name = "myForm"
@@ -36,7 +41,7 @@
 	</form>
 </div>
 <?php
-		include "config.inc.php";
+		
 		$action = $_GET['action'];
 		if ($action=="save"){
 			$title = $_POST['title'];
