@@ -10,19 +10,21 @@
 		if (db_row_count($result) >0){
 			$row = db_fetch_row($result);
 			$title = $row[0];
-			$sql = "update book set borrowed = 1 where id='${id}'";
-			// echo $sql;
+			$sql = "select id from  book where id='${id}' and  borrowed = 0 ";
 			$result = db_query($sql);
-			$user_id = $_SESSION['user_id'];
-			$book_id = $id ;
-			$sql = "insert into borrowed (user_id,book_id) values('${user_id}','${book_id}')";
-			echo $sql;
-			$result = db_query($sql);
-			if (!$result)
-				echo mysql_error();
+			if (db_row_count($result)>0){
+				$sql = "update book set borrowed = 1 where id='${id}'";
+				// echo $sql;
+				$result = db_query($sql);
+				$user_id = $_SESSION['user_id'];
+				$book_id = $id ;
+				$sql = "insert into borrowed (user_id,book_id) values('${user_id}','${book_id}')";
+				echo $sql;
+				$result = db_query($sql);
+				if (!$result)
+					echo mysql_error();
+			}
 		}
-		// header("Location:/book_list.php");
-		// exit;
 	}
 ?>
 <html>
@@ -61,7 +63,7 @@
 	$from = ($page-1)*$pagerecords;
 	$to = $pagerecords;
 	if ($dbcheck) {
-		$sql = "select bo.title  from borrowed b left join user u on b.user_id = u.id left join book bo on b.book_id = bo.id ";
+		$sql = "select bo.id ,bo.title ,bo.devote_id from borrowed b left join user u on b.user_id = u.id left join book bo on b.book_id = bo.id ";
 		$count_sql = "select count(1) from (${sql}) balias";
 		$sql = $sql . " limit ${from},${to}";
 		echo $count_sql;
@@ -85,7 +87,8 @@
 				echo "<tr>" .
 				 	  "<td>" . $btn_group. "</td>" . 
 				 	  "<td>" . $row[0] . "</td>" .
-				 	  // "<td>" . $row[1] . "</td>" .
+				 	  "<td>" . $row[1] . "</td>" .
+				 	  "<td>" . $row[2] . "</td>" .
 				 	  "<tr>";
 			}
 		} 

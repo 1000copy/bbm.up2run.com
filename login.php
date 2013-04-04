@@ -11,22 +11,22 @@
 		$fullname = $_POST['users'];
 		$password = $_POST['password'];
 		$autologin = $_POST['autologin'];
-		$result = db_query ("select fullname ,password,id from user where email='${fullname}'");
+		$result = db_query ("select email ,password,id from user where email='${fullname}'");
 		if (!$result){
 			die (mysql_error());
 		}
 		if (db_row_count($result) >0 ){
 			$row = db_fetch_row($result);
 			if ($row[1] == md5($password )){
-				$_SESSION['user_id'] = $row[2];
-				// echo $row[2];
-				$_SESSION['user_name'] = $row[0];
+				$user_id = $row[2];
+				$user_name = $row[0];
+				$_SESSION['user_id'] = $user_id;
+				$_SESSION['user_name'] = $user_name;
 				$password_hash = md5($password); 
 				$url = 'usr='.$fullname.'&hash='.$password_hash;
-				// echo "url:".$url .$cookie_time;
 				setcookie ($cookie_name, $url, time() + $cookie_time);
-				// echo $_COOKIE[$cookie_name];
-				header("Location:/book_list.php");
+				header("Location:/book_list.php?user_id=${user_id}");
+				// print_r($_SESSION);
 			}else{
 				die("user / password do not match");	
 			}

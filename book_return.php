@@ -1,4 +1,5 @@
 <?
+	session_start();
 	include "config.inc.php";
 	$id = $_GET['id'];
 	$sql = "select title from book where id='${id}'";
@@ -9,16 +10,25 @@
 		if (db_row_count($result) >0){
 			$row = db_fetch_row($result);
 			$title = $row[0];
-			$sql = "update book set borrowed = 0 where id='${id}'";
+			$sql = "select id from  book where id='${id}' and  borrowed = 1 ";
 			$result = db_query($sql);
+			if (db_row_count($result)>0){
+				$sql = "update book set borrowed = 0 where id='${id}'";
+				$result = db_query($sql);
+				$user_id = $_SESSION['user_id'];
+				$book_id = $id ;
+				$sql = "insert into returned (user_id,book_id) values('${user_id}','${book_id}')";
+				echo $sql;
+				$result = db_query($sql);
+				if (!$result)
+					echo mysql_error();
+			}
 		}
-		// header("Location:/book_list.php");
-		// exit;
 	}
 ?>
 <html>
 <head>
-	<title>returned </title>
+	<title>borrowed </title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<LINK REL="StyleSheet" HREF="bootstrap/css/bootstrap.min.css" TYPE="text/css" >
 	<style type="text/css">
@@ -33,17 +43,17 @@
 <body>	
 	<? include "banner.php";?>
 	<div id="wrapper">
-		<h1>returned  </h1>
+		<h1>borrowed  </h1>
 		<p>  <?echo $title;?></p>
 		<a href="book_list.php" class="btn">back list</a>
-	<table cellpadding="2" class="table table-striped table-bordered">
+		<table cellpadding="2" class="table table-striped table-bordered">
 	<tr>
 		<th>#</th>
 		<th>No.</th>
 		<th>book title</th>
 		<th>devoter</th>
 	</tr>
-	<h1>returned cart </h1>
+	<h1>cart</h1>
 <?
 	$page = $_GET['page'];
 	if (!$page)
@@ -52,17 +62,9 @@
 	$from = ($page-1)*$pagerecords;
 	$to = $pagerecords;
 	if ($dbcheck) {
-		$sql = "select bo.title  from borrowed b left join user u on b.user_id = u.id left join book bo on b.book_id = bo.id ";
-		if ($action=="search"){
-			$title = trim($_POST['title']);
-			if($title != "")
-				$sql = $sql . " where title like '%". $title ."%' ";
-			
-			//echo $sql ;
-		}
+		$sql = "select bo.id ,bo.title ,bo.devote_id from returned b left join user u on b.user_id = u.id left join book bo on b.book_id = bo.id ";
 		$count_sql = "select count(1) from (${sql}) balias";
 		$sql = $sql . " limit ${from},${to}";
-		// echo $sql;
 		echo $count_sql;
 		$result = db_query($count_sql);
 		$row = mysql_fetch_row($result);
@@ -84,7 +86,8 @@
 				echo "<tr>" .
 				 	  "<td>" . $btn_group. "</td>" . 
 				 	  "<td>" . $row[0] . "</td>" .
-				 	  // "<td>" . $row[1] . "</td>" .
+				 	  "<td>" . $row[1] . "</td>" .
+				 	  "<td>" . $row[2] . "</td>" .
 				 	  "<tr>";
 			}
 		} 
@@ -101,6 +104,6 @@
 	if (is_login())
 	 	echo "user:". $_SESSION["user_name"];
 ?>
-</div>
+	</div>
 </body>
 </html>

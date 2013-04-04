@@ -120,7 +120,8 @@
 	echo "&nbsp; ";
 	if (is_login())
 	 	echo "user:". $_SESSION["user_name"];
-	 	echo "user_id:". $_SESSION["user_id"];
+	 	echo "uid:".  $_SESSION["user_id"];
+	 	// print_r($_SESSION);
 ?>
 
 

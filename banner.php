@@ -11,6 +11,7 @@
 			<li><a href="/logout.php">Logout</a></li>
 			<p class="navbar-text pull-right">
             	<a href="#" class="navbar-link"><? echo $_SESSION['user_name']?></a>
+            	<a href="#" class="navbar-link"><? echo $_SESSION['user_id']?></a>
         	</p>
 		<?}?>
 		</ul>
