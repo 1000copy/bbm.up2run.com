@@ -49,6 +49,7 @@
 		<th>#</th>
 		<th>No.</th>
 		<th>book title</th>
+		<th>borrowed</th>
 		<th>devoter</th>
 	</tr>
 <?
@@ -59,7 +60,7 @@
 	$from = ($page-1)*$pagerecords;
 	$to = $pagerecords;
 	if ($dbcheck) {
-		$sql = "select b.id ,b.title ,u.fullname,b.devote_id from book b left join user u on b.devote_id = u.id ";
+		$sql = "select b.id ,b.title ,u.fullname,b.devote_id,b.borrowed from book b left join user u on b.devote_id = u.id ";
 		if ($action=="search"){
 			$title = trim($_POST['title']);
 			if($title != "")
@@ -83,16 +84,27 @@
 			while ($row = mysql_fetch_row($result)) {
 				$devote_id = $row[3];
 				$curr_user_id = $_SESSION["user_id"];
+				$borrowed = $row[4]==1;
 				$url_e ="";
 				$url_d ="";
+				$url_borrow="";
+				$url_return="";
+				if (!$borrowed)
+					$url_borrow = "<a class='' href='book_borrow.php?id=".$row[0]."'>Borrow</a>&nbsp;" ;
+				else
+					$url_return = "<a class='' href='book_return.php?id=".$row[0]."'>Return</a>&nbsp;" ;
 				if ($devote_id == $curr_user_id){
-					 $url_e = "<a href='book_edit.php?id=".$row[0]."'>Edit</a>&nbsp;" ;
-					 $url_d = "<a href='book_delete.php?id=".$row[0]."'>Del</a>" ;
+					 $url_e = "<a  href='book_edit.php?id=".$row[0]."'>Edit</a>&nbsp;" ;
+					 $url_d = "<a  href='book_delete.php?id=".$row[0]."'>Del</a>&nbsp;" ;
+				
 				}
+				$bstr = $row[4]==1?"true":"false";
+				$btn_group = "<div class=''>".$url_e. $url_d.$url_borrow.$url_return."</div>" ;
 				echo "<tr>" .
-				 	  "<td>" . $url_e. $url_d. "</td>" . 
+				 	  "<td>" . $btn_group. "</td>" . 
 				 	  "<td>" . $row[0] . "</td>" .
 				 	  "<td>" . $row[1] . "</td>" .
+				 	  "<td>" . $bstr . "</td>" .
 				 	  "<td>" . $row[2] . "</td>" ."<tr>";
 			}
 		} 
@@ -108,6 +120,7 @@
 	echo "&nbsp; ";
 	if (is_login())
 	 	echo "user:". $_SESSION["user_name"];
+	 	echo "user_id:". $_SESSION["user_id"];
 ?>
 
 

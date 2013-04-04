@@ -11,14 +11,15 @@
 		$fullname = $_POST['users'];
 		$password = $_POST['password'];
 		$autologin = $_POST['autologin'];
-		$result = db_query ("select fullname ,password,id from user where fullname='${fullname}'");
+		$result = db_query ("select fullname ,password,id from user where email='${fullname}'");
 		if (!$result){
 			die (mysql_error());
 		}
 		if (db_row_count($result) >0 ){
 			$row = db_fetch_row($result);
-			if ($row[1] == md5($password)){
+			if ($row[1] == md5($password )){
 				$_SESSION['user_id'] = $row[2];
+				// echo $row[2];
 				$_SESSION['user_name'] = $row[0];
 				$password_hash = md5($password); 
 				$url = 'usr='.$fullname.'&hash='.$password_hash;
