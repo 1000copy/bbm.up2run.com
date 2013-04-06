@@ -62,7 +62,9 @@
 	$from = ($page-1)*$pagerecords;
 	$to = $pagerecords;
 	if ($dbcheck) {
-		$sql = "select bo.id ,bo.title ,bo.devote_id from returned b left join user u on b.user_id = u.id left join book bo on b.book_id = bo.id ";
+		$sql = "select bo.id ,bo.title ,bo.devote_id from
+				returned b left join user u on b.user_id = u.id 
+				left join book bo on b.book_id = bo.id ";
 		$count_sql = "select count(1) from (${sql}) balias";
 		$sql = $sql . " limit ${from},${to}";
 		echo $count_sql;

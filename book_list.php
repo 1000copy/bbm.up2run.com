@@ -88,18 +88,15 @@
 				$url_e ="";
 				$url_d ="";
 				$url_borrow="";
-				$url_return="";
 				if (!$borrowed)
 					$url_borrow = "<a class='' href='book_borrow.php?id=".$row[0]."'>Borrow</a>&nbsp;" ;
-				else
-					$url_return = "<a class='' href='book_return.php?id=".$row[0]."'>Return</a>&nbsp;" ;
 				if ($devote_id == $curr_user_id){
 					 $url_e = "<a  href='book_edit.php?id=".$row[0]."'>Edit</a>&nbsp;" ;
 					 $url_d = "<a  href='book_delete.php?id=".$row[0]."'>Del</a>&nbsp;" ;
 				
 				}
 				$bstr = $row[4]==1?"true":"false";
-				$btn_group = "<div class=''>".$url_e. $url_d.$url_borrow.$url_return."</div>" ;
+				$btn_group = "<div class=''>".$url_e. $url_d.$url_borrow."</div>" ;
 				echo "<tr>" .
 				 	  "<td>" . $btn_group. "</td>" . 
 				 	  "<td>" . $row[0] . "</td>" .

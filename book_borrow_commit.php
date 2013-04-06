@@ -1,30 +1,14 @@
 <?
 	session_start();
 	include "config.inc.php";
-	$id = $_GET['id'];
-	$sql = "select title from book where id='${id}'";
-	$result = db_query($sql);
-	if (!$result){
-		echo mysql_error();
-	}else {
-		if (db_row_count($result) >0){
-			$row = db_fetch_row($result);
-			$title = $row[0];
-			$sql = "select id from  book where id='${id}' and  borrowed = 0 ";
-			$result = db_query($sql);
-			if (db_row_count($result)>0){
-				$sql = "update book set borrowed = 1 where id='${id}'";
-				// echo $sql;
-				$result = db_query($sql);
-				$user_id = $_SESSION['user_id'];
-				$book_id = $id ;
-				$sql = "insert into borrowed (user_id,book_id) values('${user_id}','${book_id}')";
-				echo $sql;
-				$result = db_query($sql);
-				if (!$result)
-					echo mysql_error();
-			}
-		}
+	$user_id = $_SESSION['user_id'];
+	$action = $_GET['action'];
+	if ($action =="commit"){
+		$sql = "update borrowed set commited = 1 where user_id='${user_id}'";
+		// echo $sql;
+		$result = db_query($sql);
+		if (!$result)
+			echo mysql_error();
 	}
 ?>
 <html>
@@ -47,15 +31,13 @@
 		<h1>borrowed  </h1>
 		<p>  <?echo $title;?></p>
 		<a href="book_list.php" class="btn">back list</a>
-		<a href="book_borrow_commit.php?action=commit" class="btn">commit</a>
-		<h1>cart</h1>
 		<table cellpadding="2" class="table table-striped table-bordered">
-		<tr>
-			<th>#</th>
-			<th>No.</th>
-			<th>book title</th>
-			<th>devoter</th>
-		</tr>
+	<tr>
+		<th>#</th>
+		<th>No.</th>
+		<th>book title</th>
+		<th>devoter</th>
+	</tr>
 	
 <?
 	$page = $_GET['page'];
@@ -66,12 +48,13 @@
 	$to = $pagerecords;
 	if ($dbcheck) {
 		$sql = "select bo.id ,bo.title ,bo.devote_id from borrowed b 
-			left join user u on b.user_id = u.id 
-			left join book bo on b.book_id = bo.id 
-			where b.commited=0 ";
+		left join user u on b.user_id = u.id 
+		left join book bo on b.book_id = bo.id 
+		where commited= 1
+		";
 		$count_sql = "select count(1) from (${sql}) balias";
 		$sql = $sql . " limit ${from},${to}";
-		echo $count_sql;
+		// echo $count_sql;
 		$result = db_query($count_sql);
 		$row = mysql_fetch_row($result);
 		$total_records = $row[0];
@@ -87,7 +70,7 @@
 				$borrowed = $row[4]==1;
 				$url_e ="";
 				$url_d ="";
-				$url_d = "<a  href='book_remove_from_cart.php?id=".$row[0]."'>Remove from cart</a>&nbsp;" ;
+				$url_d = "" ;
 				$btn_group = "<div class=''>".$url_d."</div>" ;
 				echo "<tr>" .
 				 	  "<td>" . $btn_group. "</td>" . 

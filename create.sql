@@ -1,3 +1,4 @@
+# export PATH=$PATH:/usr/local/mysql-5.6.10-osx10.7-x86_64/bin
 create database bb;
 use bb;
 drop table  if exists book;
@@ -29,6 +30,7 @@ insert into user (email,password)values("lqiao@qq.com",'d41d8cd98f00b204e9800998
 drop table  if exists borrowed;
 create table borrowed(
      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     commited int not null default 0,
      user_id int not null,
      book_id int not null
 );
@@ -36,9 +38,7 @@ create table borrowed(
 drop table  if exists returned;
 create table returned(
      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     commited int not null default 0,
      user_id int not null,
      book_id int not null
 );
-
-
-
