@@ -11,15 +11,18 @@
 	$user_id = $uid;
 	if ($action=="approve_all"){
 		$sql = 'update book set state = 3 where state =2 and devote_id ='.$uid; // 3== accept
-		// echo $sql;
-		// $b ="da";
-		// $a ="eee${b}ffff";
-		// echo $a;
 		$result = db_query($sql);
 		if (!result)
 			echo mysql_error();
-		// echo $result ;
-		// header("Location: book_list.php");
+	}
+	if ($action=="approve"){
+		$selected = $_POST['selected'];
+		print_r($selected);
+		exit;
+		$sql = 'update book set state = 3 where state =2 and devote_id ='.$uid; // 3== accept
+		$result = db_query($sql);
+		if (!result)
+			echo mysql_error();
 	}
 ?>
 <html >
@@ -50,6 +53,8 @@
 	value="<?echo $_POST["title"]; ?>" class="search-query input-medium"/>
 	<input type="submit" value="search" class="btn-primary"/>
 	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=approve_all" class="btn">approve all</a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=approve" class="btn">approve</a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=reject" class="btn">reject</a>
 </form>
 <table cellpadding="2" class="table table-striped table-bordered">
 	<tr>
@@ -96,8 +101,8 @@
 				$url_e ="";
 				$url_d ="";
 				$url_borrow="";
-				// if (!$borrowed)
-				// 	$url_borrow = "<a class='' href='book_borrow.php?id=".$row[0]."'>Borrow</a>&nbsp;" ;
+				$id = $row[0];
+				$url_check="<input type='checkbox' value='<? echo $id; ?>' name='selected' checked/>";
 				if ($devote_id == $curr_user_id){
 					 $url_e = "<a  href='book_edit.php?id=".$row[0]."'>Edit</a>&nbsp;" ;
 					 $url_d = "<a  href='book_delete.php?id=".$row[0]."'>Del</a>&nbsp;" ;
@@ -105,7 +110,7 @@
 				}
 				$bstr = get_state($row[4]);
 				// $bstr = $row[4];
-				$btn_group = "<div class=''>".$url_e. $url_d.$url_borrow."</div>" ;
+				$btn_group = "<div class=''>". $url_check . $url_e. $url_d.$url_borrow."</div>" ;
 				echo "<tr>" .
 				 	  "<td>" . $btn_group. "</td>" . 
 				 	  "<td>" . $row[0] . "</td>" .
