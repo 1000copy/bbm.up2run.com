@@ -1,32 +1,14 @@
 <?
 	session_start();
 	include "config.inc.php";
-	$id = $_GET['id'];
-	$sql = "select title from book where id='${id}'";
-	$result = db_query($sql);
-	if (!$result){
-		echo mysql_error();
-	}else {
-		if (db_row_count($result) >0){
-			$row = db_fetch_row($result);
-			$title = $row[0];
-			$sql = "select id from  book where id='${id}' ";
-			$result = db_query($sql);
-			if (!result){
-				echo mysql_error();
-			}else if (db_row_count($result)>0){
-				$user_id = $_SESSION['user_id'];
-				$sql = "update book set state = 1,borrow_user_id =${user_id}  where id=${id}";
-				echo $sql;
-				$result = db_query($sql);
-				// $book_id = $id ;
-				// $sql = "insert into borrowed (user_id,book_id) values('${user_id}','${book_id}')";
-				// echo $sql;
-				// $result = db_query($sql);
-				if (!$result)
-					echo mysql_error();
-			}
-		}
+	$user_id = $_SESSION['user_id'];
+	$action = $_GET['action'];
+	$target = $_SERVER['PHP_SELF'];
+	if ($action =="confirm_all"){
+		$sql = "update book set state = 0 where state = 4 and devote_id ='${user_id}'";//2==commit
+		$result = db_query($sql);
+		if (!$result)
+			echo mysql_error();
 	}
 ?>
 <html>
@@ -46,18 +28,17 @@
 <body>	
 	<? include "banner.php";?>
 	<div id="wrapper">
-		<h1>borrowed  </h1>
+		<h1>return confirm  </h1>
 		<p>  <?echo $title;?></p>
 		<a href="book_list.php" class="btn">back list</a>
-		<a href="book_borrow_commit.php?action=commit" class="btn">commit</a>
-		<h1>cart</h1>
+		<a href="<?echo $target."?action=confirm_all";?>" class="btn">confirm all</a>
 		<table cellpadding="2" class="table table-striped table-bordered">
-		<tr>
-			<th>#</th>
-			<th>No.</th>
-			<th>book title</th>
-			<th>devoter</th>
-		</tr>
+	<tr>
+		<th>#</th>
+		<th>No.</th>
+		<th>book title</th>
+		<th>devoter</th>
+	</tr>
 	
 <?
 	$page = $_GET['page'];
@@ -67,10 +48,12 @@
 	$from = ($page-1)*$pagerecords;
 	$to = $pagerecords;
 	if ($dbcheck) {
-		$sql = "select bo.id ,bo.title ,bo.devote_id ,u.email 
-			from book bo
-			left join user u on bo.devote_id = u.id 
-			where bo.state = 1 ";//1== incart
+		$sql = "select bo.id ,bo.title ,u2.email 
+		from book bo 
+		left join user u1 on bo.borrow_user_id = u1.id 
+		left join user u2 on bo.devote_id = u2.id 
+		where bo.state = 4 and bo.devote_id = ${user_id}
+		";//2== commit
 		$count_sql = "select count(1) from (${sql}) balias";
 		$sql = $sql . " limit ${from},${to}";
 		// echo $count_sql;
@@ -89,13 +72,13 @@
 				$borrowed = $row[4]==1;
 				$url_e ="";
 				$url_d ="";
-				$url_d = "<a  href='book_remove_from_cart.php?id=".$row[0]."'>Remove from cart</a>&nbsp;" ;
+				$url_d = "" ;
 				$btn_group = "<div class=''>".$url_d."</div>" ;
 				echo "<tr>" .
 				 	  "<td>" . $btn_group. "</td>" . 
 				 	  "<td>" . $row[0] . "</td>" .
 				 	  "<td>" . $row[1] . "</td>" .
-				 	  "<td>" . $row[3] . "</td>" .
+				 	  "<td>" . $row[2] . "</td>" .
 				 	  "<tr>";
 			}
 		} 
@@ -104,12 +87,13 @@
 </table>
 <?	
 	include "paginator.php";
-	$target = $_SERVER['PHP_SELF'];
+	
 	echo getPaginationString($page, $total_records, 
 		$pagerecords, 1, $target, $pagestring = "?page=");
 	echo "totals: " . $total_records;
 	echo "&nbsp; ";
-	
+	if (is_login())
+	 	echo "user:". $_SESSION["user_name"];
 ?>
 	</div>
 </body>

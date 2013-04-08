@@ -7,6 +7,20 @@
 		header("Location: login.php");
 		exit;
 	}
+	$uid = $_SESSION['user_id'];
+	$user_id = $uid;
+	if ($action=="approve_all"){
+		$sql = 'update book set state = 3 where state =2 and devote_id ='.$uid; // 3== accept
+		// echo $sql;
+		// $b ="da";
+		// $a ="eee${b}ffff";
+		// echo $a;
+		$result = db_query($sql);
+		if (!result)
+			echo mysql_error();
+		// echo $result ;
+		// header("Location: book_list.php");
+	}
 ?>
 <html >
 <head>
@@ -29,29 +43,20 @@
 	
 
 
-<h1>books </h1>
+<h1>books commited </h1>
 
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>?action=search"  method="post" class="form-inline">
 	<input type="text" placeholder="some book title..." id="title" name="title" 
 	value="<?echo $_POST["title"]; ?>" class="search-query input-medium"/>
 	<input type="submit" value="search" class="btn-primary"/>
-	<? if (is_login()) { ?>
-		<a href ="book_new.php" class="btn">new book</a>
-		<a href ="book_upload.php" class="btn">upload</a>
-		<!-- <a href="logout.php" class="btn">logout</a>		 -->
-	<?}else{?>
-		<a href="login.php" class="btn">login</a>
-	<? } ?>
-
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=approve_all" class="btn">approve all</a>
 </form>
-<table  class="table table-striped table-bordered">
+<table cellpadding="2" class="table table-striped table-bordered">
 	<tr>
 		<th>#</th>
 		<th>No.</th>
 		<th>book title</th>
-		<th>borrowed</th>
 		<th>devoter</th>
-		<th>borrower</th>
 	</tr>
 <?
 	$page = $_GET['page'];
@@ -61,13 +66,9 @@
 	$from = ($page-1)*$pagerecords;
 	$to = $pagerecords;
 	if ($dbcheck) {
-		$sql = "
-select b.id ,b.title ,u.email as devoter_name,b.devote_id,b.state ,b.borrow_user_id ,
-u1.email as b_name
-from book b 
-left join user u on b.devote_id = u.id
-left join user u1 on b.borrow_user_id = u1.id		
-		 ";
+		$sql = "select b.id ,b.title ,u.email,b.devote_id,b.state 
+		from book b left join user u on b.devote_id = u.id 
+		where u.id = ${user_id} and state=2 ";//commit
 		if ($action=="search"){
 			$title = trim($_POST['title']);
 			if($title != "")
@@ -95,23 +96,22 @@ left join user u1 on b.borrow_user_id = u1.id
 				$url_e ="";
 				$url_d ="";
 				$url_borrow="";
-				if (!$borrowed)
-					$url_borrow = "<a class='' href='book_borrow.php?id=".$row[0]."'>Borrow</a>&nbsp;" ;
+				// if (!$borrowed)
+				// 	$url_borrow = "<a class='' href='book_borrow.php?id=".$row[0]."'>Borrow</a>&nbsp;" ;
 				if ($devote_id == $curr_user_id){
 					 $url_e = "<a  href='book_edit.php?id=".$row[0]."'>Edit</a>&nbsp;" ;
 					 $url_d = "<a  href='book_delete.php?id=".$row[0]."'>Del</a>&nbsp;" ;
 				
 				}
 				$bstr = get_state($row[4]);
+				// $bstr = $row[4];
 				$btn_group = "<div class=''>".$url_e. $url_d.$url_borrow."</div>" ;
 				echo "<tr>" .
 				 	  "<td>" . $btn_group. "</td>" . 
 				 	  "<td>" . $row[0] . "</td>" .
 				 	  "<td>" . $row[1] . "</td>" .
-				 	  "<td>" . $bstr . "</td>" .
-				 	  "<td>" .abbr($row[2]) . "</td>".
-				 	  "<td>" . abbr($row[6]) . "</td>".
-				 	  "<tr>";
+				 	  // "<td>" . $bstr . "</td>" .
+				 	  "<td>" . $row[2] . "</td>" ."<tr>";
 			}
 		} 
 	}

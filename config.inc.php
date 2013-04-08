@@ -64,6 +64,29 @@
 	function bs_here(){
 		echo '<LINK REL="StyleSheet" HREF="bootstrap/css/bootstrap.min.css" TYPE="text/css" >';
 	}
+	function abbr($s){
+		$r = substr($s,0,6).'...';
+		if ($r=='...')return '';
+		return $r;
+		// return $s;
+	}
+	function get_state($state){
+		switch ($state)
+		{
+		case 0:
+		  return 'normal';
+		case 1:
+		  return 'incart';
+		case 2:
+		  return 'commit';
+		case 3:
+		  return 'accept';
+		case 4:
+		  return 'return commit';
+		default:
+		  return 'error state';
+		}
+	}
 	$cookie_name = 'siteAuth';
 	$cookie_time = (3600 * 24 * 30); // 30 days
 	if(!$_SESSION['user_name'])

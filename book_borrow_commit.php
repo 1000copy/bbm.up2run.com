@@ -4,8 +4,7 @@
 	$user_id = $_SESSION['user_id'];
 	$action = $_GET['action'];
 	if ($action =="commit"){
-		$sql = "update borrowed set commited = 1 where user_id='${user_id}'";
-		// echo $sql;
+		$sql = "update book set state = 2 where borrow_user_id='${user_id}'";//2==commit
 		$result = db_query($sql);
 		if (!$result)
 			echo mysql_error();
@@ -13,7 +12,7 @@
 ?>
 <html>
 <head>
-	<title>borrowed </title>
+	<title>Waiting approvision </title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<LINK REL="StyleSheet" HREF="bootstrap/css/bootstrap.min.css" TYPE="text/css" >
 	<style type="text/css">
@@ -28,7 +27,7 @@
 <body>	
 	<? include "banner.php";?>
 	<div id="wrapper">
-		<h1>borrowed  </h1>
+		<h1>Waiting approve  </h1>
 		<p>  <?echo $title;?></p>
 		<a href="book_list.php" class="btn">back list</a>
 		<table cellpadding="2" class="table table-striped table-bordered">
@@ -47,11 +46,12 @@
 	$from = ($page-1)*$pagerecords;
 	$to = $pagerecords;
 	if ($dbcheck) {
-		$sql = "select bo.id ,bo.title ,bo.devote_id from borrowed b 
-		left join user u on b.user_id = u.id 
-		left join book bo on b.book_id = bo.id 
-		where commited= 1
-		";
+		$sql = "select bo.id ,bo.title ,u2.email 
+		from book bo 
+		left join user u1 on bo.borrow_user_id = u1.id 
+		left join user u2 on bo.devote_id = u2.id 
+		where bo.state = 2 and bo.borrow_user_id = ${user_id}
+		";//2== commit
 		$count_sql = "select count(1) from (${sql}) balias";
 		$sql = $sql . " limit ${from},${to}";
 		// echo $count_sql;
