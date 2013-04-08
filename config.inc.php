@@ -24,6 +24,14 @@
         	echo mysql_error();
 		}
 	}
+	try{
+		$DB  = new DB();
+		$link = $DB ->connect($hostname, $username, $password);
+		$dbcheck = $DB->select("$database");
+    	$DB->query("set names utf8;");
+    }catch(Dbe $e){
+    	echo $e->getMessage();
+    }
 	function db_query($sql){
 		return mysql_query($sql);
 	}
@@ -104,6 +112,17 @@
 		public function query ($sql){
 			return $this->db_check(mysql_query($sql));
 		}
+		// public function query_array ($sql){
+		// 	return $this -> query_array($sql,0);
+		// }
+		public function query_array ($sql,$column){
+			$result = $this->db_check(mysql_query($sql));
+			$arr = Array();
+			while($row = $this -> fetch_row($result)){
+				array_push($arr,$row[$column]);
+			}
+			return $arr ;
+		}
 		public function num_rows($result){
 			return $this->db_check(mysql_num_rows($result));
 		}
@@ -116,4 +135,5 @@
 			return $r;
 		}
 	}
+
 ?>

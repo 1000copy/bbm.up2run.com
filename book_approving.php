@@ -2,28 +2,67 @@
 <?php
 	include "config.inc.php";
 	$action = htmlspecialchars($_GET['action'], ENT_QUOTES);
+	$act = $_POST['act'];
 	if(!isSet($_SESSION['user_name']))
 	{
 		header("Location: login.php");
 		exit;
 	}
 	$uid = $_SESSION['user_id'];
+	$user_name = $_SESSION['user_name'];
 	$user_id = $uid;
-	if ($action=="approve_all"){
+	$to = "2392349@qq.com";
+	// $message = "Hello! This is a simple email message.";
+	$message = "--";
+	$from = $user_name ;
+	$headers = "From: $from";
+
+	if ($act=="approve_all"){
+		$sql = "select title from book where state =2 and devote_id =${uid}";
+		try{
+			$arr = $DB -> query_array($sql,0);
+		}catch(Dbe $e){echo $e->getMessage();}
+		$subject = "Your apply for book is approved ";
+		$message = implode(",",$arr);
 		$sql = 'update book set state = 3 where state =2 and devote_id ='.$uid; // 3== accept
 		$result = db_query($sql);
 		if (!result)
 			echo mysql_error();
+
+		
 	}
-	if ($action=="approve"){
+	if ($act=="reject_all"){
+		$sql = 'update book set state = 0 where state =2 and devote_id ='.$uid; // 3== accept
+		$result = db_query($sql);
+		if (!result)
+			echo mysql_error();
+		$subject = "Your apply for book is rejected ";
+	}
+	if ($act=="approve"){
 		$selected = $_POST['selected'];
-		print_r($selected);
-		exit;
-		$sql = 'update book set state = 3 where state =2 and devote_id ='.$uid; // 3== accept
+		$id_list = implode(",",$selected);
+		// echo $id_list;
+		// // exit;
+		$sql = "update book set state = 3 where id in(${id_list})";
+		// echo $sql;
+		// exit;
 		$result = db_query($sql);
 		if (!result)
 			echo mysql_error();
+		$subject = "Your apply for book is approved(partly) ";
 	}
+	if ($act=="reject"){
+		$selected = $_POST['selected'];
+		$id_list = implode(",",$selected);
+		$sql = "update book set state = 0 where id in(${id_list})";
+		$result = db_query($sql);
+		if (!result)
+			echo mysql_error();
+		$subject = "Your apply for book is reject(partly) ";
+	}
+	
+	mail($to,$subject,$message,$headers);
+	// echo "Mail Sent.";
 ?>
 <html >
 <head>
@@ -51,11 +90,11 @@
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>?action=search"  method="post" class="form-inline">
 	<input type="text" placeholder="some book title..." id="title" name="title" 
 	value="<?echo $_POST["title"]; ?>" class="search-query input-medium"/>
-	<input type="submit" value="search" class="btn-primary"/>
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=approve_all" class="btn">approve all</a>
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=approve" class="btn">approve</a>
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=reject" class="btn">reject</a>
-</form>
+	<input type="submit" value="search" class="btn-primary" name="act"/>
+	<input type="submit" value="approve_all" class="btn" name="act"/>
+	<input type="submit" value="reject_all" class="btn" name="act"/>
+	<input type="submit" value="approve" class="btn" name="act"/>
+	<input type="submit" value="reject" class="btn" name="act"/>
 <table cellpadding="2" class="table table-striped table-bordered">
 	<tr>
 		<th>#</th>
@@ -102,7 +141,7 @@
 				$url_d ="";
 				$url_borrow="";
 				$id = $row[0];
-				$url_check="<input type='checkbox' value='<? echo $id; ?>' name='selected' checked/>";
+				$url_check="<input type='checkbox' value='${id}' name='selected[]' checked/>";
 				if ($devote_id == $curr_user_id){
 					 $url_e = "<a  href='book_edit.php?id=".$row[0]."'>Edit</a>&nbsp;" ;
 					 $url_d = "<a  href='book_delete.php?id=".$row[0]."'>Del</a>&nbsp;" ;
@@ -122,6 +161,7 @@
 	}
 ?>
 </table>
+</form>
 <?	
 	include "paginator.php";
 	$target = $_SERVER['PHP_SELF'];
