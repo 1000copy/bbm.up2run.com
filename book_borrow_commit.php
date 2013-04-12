@@ -46,6 +46,7 @@
 	$from = ($page-1)*$pagerecords;
 	$to = $pagerecords;
 	if ($dbcheck) {
+		echo $user_id;
 		$sql = "select bo.id ,bo.title ,u2.email 
 		from book bo 
 		left join user u1 on bo.borrow_user_id = u1.id 
@@ -54,7 +55,7 @@
 		";//2== commit
 		$count_sql = "select count(1) from (${sql}) balias";
 		$sql = $sql . " limit ${from},${to}";
-		// echo $count_sql;
+		echo $count_sql;
 		$result = db_query($count_sql);
 		$row = mysql_fetch_row($result);
 		$total_records = $row[0];

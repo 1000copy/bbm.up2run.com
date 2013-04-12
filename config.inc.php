@@ -49,8 +49,11 @@
 	// autologin
 	function login_verify_ok($usr,$password_hash){
 		// echo $usr.$password_hash;
-		$result = db_query ("select fullname,id from user where fullname='${fullname}' and password = '${password_hash}'");
-		if (!$result ||db_row_count($result) >0 ){
+		$sql = "select email,id from user 
+			where email='${usr}' and password = '${password_hash}'";
+		$result = db_query ($sql);
+		// echo $sql ;
+		if (!$result || db_row_count($result) == 0 ){
 			// echo "nono";
 			return false;
 		}
@@ -97,9 +100,10 @@
 	}
 	$cookie_name = 'siteAuth';
 	$cookie_time = (3600 * 24 * 30); // 30 days
-	if(!$_SESSION['user_name'])
+	if(!$_SESSION['user_name'] && isSet($cookie_name) && isSet($_COOKIE[$cookie_name]))
 	{
-		include_once 'autologin.php';
+		parse_str($_COOKIE[$cookie_name]);
+		login_verify_ok($usr,$hash);
 	}
 	class Dbe extends Exception{}
 	class DB {
@@ -112,9 +116,6 @@
 		public function query ($sql){
 			return $this->db_check(mysql_query($sql));
 		}
-		// public function query_array ($sql){
-		// 	return $this -> query_array($sql,0);
-		// }
 		public function query_array ($sql,$column){
 			$result = $this->db_check(mysql_query($sql));
 			$arr = Array();
@@ -135,5 +136,4 @@
 			return $r;
 		}
 	}
-
 ?>
