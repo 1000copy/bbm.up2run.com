@@ -12,6 +12,7 @@
 	$username = "root";
 	$password = "";
 	$database = "bb";
+	$ddd = NULL;
 	$link = mysql_connect("$hostname", "$username", "$password");
 	if (!$link) {
 		echo "<p>Could not connect to the server '" . $hostname . "'</p>\n";
@@ -25,10 +26,8 @@
 		}
 	}
 	try{
-		$DB  = new DB();
-		$link = $DB ->connect($hostname, $username, $password);
-		$dbcheck = $DB->select("$database");
-    	$DB->query("set names utf8;");
+		$ddd  = new DB();
+		
     }catch(Dbe $e){
     	echo $e->getMessage();
     }
@@ -107,6 +106,11 @@
 	}
 	class Dbe extends Exception{}
 	class DB {
+		function _construct(){
+			$link = $this -> connect($hostname, $username, $password);
+			$dbcheck = $this ->select("$database");
+	    	$this->query("set names utf8;");
+		}
 		public function connect($hostname, $username, $password){
 			return $this->db_check( mysql_connect($hostname, $username, $password));
 		}
@@ -134,6 +138,59 @@
 			if (!$r)
 				throw new Dbe(mysql_error());
 			return $r;
+		}
+	}
+	date_default_timezone_set('UTC');
+	include_once 'KLogger.php';
+	class Log{
+		var $file ;
+		var $_log ;
+		public function Log(){
+			$this -> file = $_SERVER['DOCUMENT_ROOT']."/test/log1.txt";
+			echo $this -> file ;
+			$this -> _log= new Logger($this -> file);
+			// var_dump($this -> _log);
+		}
+		// $log->log('Example Notice',Logger::NOTICE);
+		// $log->log('Example Warning',Logger::WARNING);
+		// $log->log('Example Error',Logger::ERROR);
+		// $log->log('Example Fatal',Logger::FATAL);
+		// $log->log('要了老命',Logger::FATAL);		
+		function warn($msg){
+			// echo "abc";
+			// var_dump($this -> _log);
+			$this-> _log -> log($msg,Logger::WARNING);
+		}
+	}
+	class Book {
+		private $log ;
+		function __construct(){
+			$this -> log = new Log();
+		}
+		function commit($user_id){
+			try{
+				// set to commit state
+				$sql = "update book set state = 2 where borrow_user_id='${user_id}' and state=1";
+				$d = new DB();
+				$result = $d->query($sql);
+				$sql = "select b.devote_id , GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email
+					from book b left join user u on b.devote_id = u.id 
+					where state = 2 and borrow_user_id =${user_id} 
+					group by b.devote_id";
+				$result = $d->query($sql);
+				$from =  $_SESSION['user_name'];
+				while ($row = $d->fetch_row($result)){
+					$email = $row[2];
+					$books = $row[1];
+					$this -> send_mail($email,$books,$from,"borrow book notifycation");
+					$this -> log -> warn("send apply mail: ${books} to ${email} from ${from} ");
+				}
+			}catch (Exception $e ){echo $e->getMessage();}
+
+		}
+		function send_mail($to,$message,$from,$subject){
+			$headers = "From: $from";
+			mail($to,$subject,$message,$headers);
 		}
 	}
 ?>

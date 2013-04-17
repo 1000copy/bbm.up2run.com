@@ -28,9 +28,10 @@ left join user u on b.borrow_user_id = u.id
 where state =2 and devote_id =${uid} and borrow_user_id is not null
 group by borrow_user_id
 			";
-			$result = $DB -> query($sql);
+			$d = new DB();
+			$result = $d -> query($sql);
 			$subject = "Your apply for book is approved__ ";
-			while ($row = $DB -> fetch_row($result)){
+			while ($row = $d -> fetch_row($result)){
 				$message = $row[1] ;
 				$to = $row[2];
 				// test 
@@ -49,7 +50,8 @@ group by borrow_user_id
 	if ($act=="reject_all"){
 		try{
 			$sql = 'update book set state = 0 where state =2 and devote_id ='.$uid; 
-			$result = $DB -> query($sql);
+			$d = new DB();
+			$result = $d -> query($sql);
 			$subject = "Your apply for book is rejected ";
 			$sql = "
 select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email
@@ -58,8 +60,8 @@ left join user u on b.borrow_user_id = u.id
 where state =2 and devote_id =${uid} and borrow_user_id is not null
 group by borrow_user_id
 			";
-			$result = $DB -> query($sql);
-			while ($row = $DB -> fetch_row($result)){
+			$result = $d -> query($sql);
+			while ($row = $d -> fetch_row($result)){
 				$message = $row[1] ;
 				$to = $row[2];
 				mail($to,$subject,$message,$headers);
