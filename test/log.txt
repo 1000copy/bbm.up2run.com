@@ -1,1 +1,19 @@
---
+-[12.04.2013 - 09:35:48][NOTICE] - Example Notice
+[12.04.2013 - 09:35:48][!WARNING!] - Example Warning
+[12.04.2013 - 09:35:48][!!ERROR!!] - Example Error
+[12.04.2013 - 09:35:48][!!!FATAL!!!] - Example Fatal
+[17.04.2013 - 01:16:38][NOTICE] - Example Notice
+[17.04.2013 - 01:16:38][!WARNING!] - Example Warning
+[17.04.2013 - 01:16:38][!!ERROR!!] - Example Error
+[17.04.2013 - 01:16:38][!!!FATAL!!!] - Example Fatal
+[17.04.2013 - 01:16:38][!!!FATAL!!!] - 要了老命
+[17.04.2013 - 01:17:18][NOTICE] - Example Notice
+[17.04.2013 - 01:17:18][!WARNING!] - Example Warning
+[17.04.2013 - 01:17:18][!!ERROR!!] - Example Error
+[17.04.2013 - 01:17:18][!!!FATAL!!!] - Example Fatal
+[17.04.2013 - 01:17:18][!!!FATAL!!!] - 要了老命
+[17.04.2013 - 01:18:07][NOTICE] - Example Notice
+[17.04.2013 - 01:18:07][!WARNING!] - Example Warning
+[17.04.2013 - 01:18:07][!!ERROR!!] - Example Error
+[17.04.2013 - 01:18:07][!!!FATAL!!!] - Example Fatal
+[17.04.2013 - 01:18:07][!!!FATAL!!!] - 要了老命

@@ -1,148 +1,143 @@
 <?php
-	
-	/* Finally, A light, permissions-checking logging class. 
-	 * 
-	 * Author	: Kenneth Katzgrau < katzgrau@gmail.com >
-	 * Date	: July 26, 2008
-	 * Comments	: Originally written for use with wpSearch
-	 * Website	: http://codefury.net
-	 * Version	: 1.0
-	 *
-	 * Usage: 
-	 *		$log = new KLogger ( "log.txt" , KLogger::INFO );
-	 *		$log->LogInfo("Returned a million search results");	//Prints to the log file
-	 *		$log->LogFATAL("Oh dear.");				//Prints to the log file
-	 *		$log->LogDebug("x = 5");					//Prints nothing due to priority setting
-	*/
-	
-	class KLogger
-	{
-		
-		const DEBUG 	= 1;	// Most Verbose
-		const INFO 		= 2;	// ...
-		const WARN 		= 3;	// ...
-		const ERROR 	= 4;	// ...
-		const FATAL 	= 5;	// Least Verbose
-		const OFF 		= 6;	// Nothing at all.
-		
-		const LOG_OPEN 		= 1;
-		const OPEN_FAILED 	= 2;
-		const LOG_CLOSED 	= 3;
-		
-		/* Public members: Not so much of an example of encapsulation, but that's okay. */
-		public $Log_Status 	= KLogger::LOG_CLOSED;
-		public $DateFormat	= "Y-m-d G:i:s";
-		public $MessageQueue;
-	
-		private $log_file;
-		private $priority = KLogger::INFO;
-		
-		private $file_handle;
-		
-		public function __construct( $filepath , $priority )
-		{
-			if ( $priority == KLogger::OFF ) return;
-			
-			$this->log_file = $filepath;
-			$this->MessageQueue = array();
-			$this->priority = $priority;
-			
-			if ( file_exists( $this->log_file ) )
-			{
-				if ( !is_writable($this->log_file) )
-				{
-					$this->Log_Status = KLogger::OPEN_FAILED;
-					$this->MessageQueue[] = "The file exists, but could not be opened for writing. Check that appropriate permissions have been set.";
-					return;
-				}
-			}
-			
-			if ( $this->file_handle = fopen( $this->log_file , "a" ) )
-			{
-				$this->Log_Status = KLogger::LOG_OPEN;
-				$this->MessageQueue[] = "The log file was opened successfully.";
-			}
-			else
-			{
-				$this->Log_Status = KLogger::OPEN_FAILED;
-				$this->MessageQueue[] = "The file could not be opened. Check permissions.";
-			}
-			
-			return;
-		}
-		
-		public function __destruct()
-		{
-			if ( $this->file_handle )
-				fclose( $this->file_handle );
-		}
-		
-		public function LogInfo($line)
-		{
-			$this->Log( $line , KLogger::INFO );
-		}
-		
-		public function LogDebug($line)
-		{
-			$this->Log( $line , KLogger::DEBUG );
-		}
-		
-		public function LogWarn($line)
-		{
-			$this->Log( $line , KLogger::WARN );	
-		}
-		
-		public function LogError($line)
-		{
-			$this->Log( $line , KLogger::ERROR );		
-		}
+class LogFileDoesNotExistExeception extends Exception {}
+class LogFileOpenErrorException extends Exception {}
+class LogFileNotOpenException extends Exception {}
+class LogFileAlreadyExistsException extends Exception {}
+class FileCreationErrorException extends Exception {}
+class NotAStringException extends Exception {}
+class NotAIntegerException extends Exception {}
+class InvalidMessageTypeException extends Exception {}
+?>
+<?php
 
-		public function LogFatal($line)
-		{
-			$this->Log( $line , KLogger::FATAL );
-		}
-		
-		public function Log($line, $priority)
-		{
-			if ( $this->priority <= $priority )
-			{
-				$status = $this->getTimeLine( $priority );
-				$this->WriteFreeFormLine ( "$status $line \n" );
-			}
-		}
-		
-		public function WriteFreeFormLine( $line )
-		{
-			if ( $this->Log_Status == KLogger::LOG_OPEN && $this->priority != KLogger::OFF )
-			{
-			    if (fwrite( $this->file_handle , $line ) === false) {
-			        $this->MessageQueue[] = "The file could not be written to. Check that appropriate permissions have been set.";
-			    }
-			}
-		}
-		
-		private function getTimeLine( $level )
-		{
-			// $time = date( $this->DateFormat );
-		
-			switch( $level )
-			{
-				case KLogger::INFO:
-					return "$time - INFO  -->";
-				case KLogger::WARN:
-					return "$time - WARN  -->";				
-				case KLogger::DEBUG:
-					return "$time - DEBUG -->";				
-				case KLogger::ERROR:
-					return "$time - ERROR -->";
-				case KLogger::FATAL:
-					return "$time - FATAL -->";
-				default:
-					return "$time - LOG   -->";
-			}
-		}
-		
+/**
+ * Logger class.
+ * Usefull to log notices, warnings, errors or fatal errors into a logfile.
+ * @author gehaxelt
+ * @version 1.1
+ */
+class Logger {
+	
+	private $logfilehandle=NULL;
+	
+	const NOTICE='[NOTICE]';
+	const WARNING='[!WARNING!]';
+	const ERROR='[!!ERROR!!]';
+	const FATAL='[!!!FATAL!!!]';
+	
+	/**
+	 * Contructor of Logger.
+	 * Opens the new logfile
+	 * @param string $logfile is the path to a logfile
+	 */
+	public function __construct($logfile) {
+		if($this->logfilehandle==NULL)
+			$this->openLogFile($logfile);
 	}
-
-
+	/**
+	 * Destructor of Logger
+	 */
+	public function __destruct() {
+		$this->closeLogFile();
+	}
+	/**
+	 * Logs the message into the logfile.
+	 * @param string $message message to write into the logfile
+	 * @param int $messageType (optional) urgency of the messagee. Possible constants are: notice, warning, error, fatal. Default value: warning
+	 * @throws LogFileNotOpenException
+	 * @throws NotAStringException
+	 * @throws NotAIntegerException
+	 * @throws InvalidMessageTypeException
+	 */
+	public function log($message,$messageType=Logger::WARNING) {
+		if($this->logfilehandle==NULL)
+			throw new LogFileNotOpenException('Logfile is not opened.');
+		
+		if(!is_string($message))
+			throw new NotAStringException('$message is not a string');
+		
+		if($messageType != Logger::NOTICE && $messageType != Logger::WARNING && $messageType != Logger::ERROR && $messageType != Logger::FATAL)
+			throw new InvalidMessageTypeException('Wrong $messagetype given');
+		
+		$this->writeToLogFile("[".$this->getTime()."]".$messageType." - ".$message);
+	}
+	
+	/**
+	 * Writes content to the logfile
+	 * @param string $message
+	 */
+	private function writeToLogFile($message) {
+		flock($this->logfilehandle,LOCK_EX);
+		fwrite($this->logfilehandle,$message."\n");
+		flock($this->logfilehandle,LOCK_UN);
+	}
+	
+	/**
+	 * Returns the current timestamp in dd.mm.YYYY - HH:MM:SS format
+	 * @return string with the current date
+	 */
+	private function getTime() {
+		return date("d.m.Y - H:i:s");
+	}
+	
+	/**
+	 * Closes the current logfile.
+	 */
+	public function closeLogFile() {
+		if($this->logfilehandle!=NULL) {
+			fclose($this->logfilehandle);
+			$this->logfilehandle=NULL;
+		}
+	}
+	
+	/**
+	 * Opens a given logfile and closes the old one before, if another logfile was opened before.
+	 * @param string $logfile is a path to a logfile
+	 * @throws LogFileOpenErrorException
+	 */
+	public function openLogFile($logfile) {
+		
+		$this->closeLogFile(); //close old logfile if opened;
+		
+		$this->logfilehandle=@fopen($logfile,"a");
+		
+		if(!$this->logfilehandle) {
+			// throw new LogFileOpenErrorException('Could not open Logfile in append-mode');
+			$arr = error_get_last();
+			throw new LogFileOpenErrorException($arr['message']);
+		}
+	} 
+	
+	/**
+	 * Convenience function to wrap logger->log($message,$messagetype);
+	 * @param string $message
+	 */
+	public function notice($message) {
+		$this->log($message,Logger::NOTICE);
+	}
+	
+	/**
+	 * Convenience function to wrap logger->log($message,$messagetype);
+	 * @param string $message
+	 */
+	public function warn($message) {
+		$this->log($message,Logger::WARNING);
+	}
+	
+	/**
+	 * Convenience function to wrap logger->log($message,$messagetype);
+	 * @param string $message
+	 */
+	public function error($message) {
+		$this->log($message,Logger::ERROR);
+	}
+	
+	/**
+	 * Convenience function to wrap logger->log($message,$messagetype);
+	 * @param string $message
+	 */
+	public function fatal($message) {
+		$this->log($message,Logger::FATAL);
+	}
+}
 ?>

@@ -11,32 +11,62 @@
 	$uid = $_SESSION['user_id'];
 	$user_name = $_SESSION['user_name'];
 	$user_id = $uid;
-	$to = "2392349@qq.com";
-	// $message = "Hello! This is a simple email message.";
-	$message = "--";
+	// $to = "2392349@qq.com";
+	// $message = "--";
 	$from = $user_name ;
 	$headers = "From: $from";
-
+	
 	if ($act=="approve_all"){
-		$sql = "select title from book where state =2 and devote_id =${uid}";
-		try{
-			$arr = $DB -> query_array($sql,0);
-		}catch(Dbe $e){echo $e->getMessage();}
-		$subject = "Your apply for book is approved ";
-		$message = implode(",",$arr);
-		$sql = 'update book set state = 3 where state =2 and devote_id ='.$uid; // 3== accept
-		$result = db_query($sql);
-		if (!result)
-			echo mysql_error();
-
 		
+		// echo $sql;		
+		try{
+			// GROUP_CONCAT 后多一个空格，然后，调试了半小时！ shit cound  not be worse
+			$sql = "
+select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email
+from book b
+left join user u on b.borrow_user_id = u.id 
+where state =2 and devote_id =${uid} and borrow_user_id is not null
+group by borrow_user_id
+			";
+			$result = $DB -> query($sql);
+			$subject = "Your apply for book is approved__ ";
+			while ($row = $DB -> fetch_row($result)){
+				$message = $row[1] ;
+				$to = $row[2];
+				// test 
+				$to = "2392349@qq.com";
+				mail($to,$subject,$message,$headers);
+			}
+			// echo "---";
+			$sql = "update book set state = 3 where state =2 and devote_id =${uid}"; 
+			// echo $sql;
+			$result = db_query ($sql);
+			if (!$result)
+				echo mysql_error();
+
+		}catch(Exception $e){echo $e->getMessage();}
 	}
 	if ($act=="reject_all"){
-		$sql = 'update book set state = 0 where state =2 and devote_id ='.$uid; // 3== accept
-		$result = db_query($sql);
-		if (!result)
-			echo mysql_error();
-		$subject = "Your apply for book is rejected ";
+		try{
+			$sql = 'update book set state = 0 where state =2 and devote_id ='.$uid; 
+			$result = $DB -> query($sql);
+			$subject = "Your apply for book is rejected ";
+			$sql = "
+select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email
+from book b
+left join user u on b.borrow_user_id = u.id 
+where state =2 and devote_id =${uid} and borrow_user_id is not null
+group by borrow_user_id
+			";
+			$result = $DB -> query($sql);
+			while ($row = $DB -> fetch_row($result)){
+				$message = $row[1] ;
+				$to = $row[2];
+				mail($to,$subject,$message,$headers);
+			}
+
+		}catch(Exception $e){echo $e->getMessage();}
+		
 	}
 	if ($act=="approve"){
 		$selected = $_POST['selected'];
@@ -60,9 +90,6 @@
 			echo mysql_error();
 		$subject = "Your apply for book is reject(partly) ";
 	}
-	
-	mail($to,$subject,$message,$headers);
-	// echo "Mail Sent.";
 ?>
 <html >
 <head>
@@ -100,7 +127,8 @@
 		<th>#</th>
 		<th>No.</th>
 		<th>book title</th>
-		<th>devoter</th>
+		<!-- <th>devoter</th> -->
+		<th>borrower</th>
 	</tr>
 <?
 	$page = $_GET['page'];
@@ -110,9 +138,12 @@
 	$from = ($page-1)*$pagerecords;
 	$to = $pagerecords;
 	if ($dbcheck) {
-		$sql = "select b.id ,b.title ,u.email,b.devote_id,b.state 
-		from book b left join user u on b.devote_id = u.id 
-		where u.id = ${user_id} and state=2 ";//commit
+		$sql = "select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as b_email
+		from book b 
+		left join user u on b.devote_id = u.id 
+		left join user u1 on b.borrow_user_id = u1.id 
+		where u.id = ${user_id} and state=2 
+		";//commit
 		if ($action=="search"){
 			$title = trim($_POST['title']);
 			if($title != "")
@@ -148,14 +179,18 @@
 				
 				}
 				$bstr = get_state($row[4]);
+				$title = $row[1];
+				$borrower_email = $row[5];
 				// $bstr = $row[4];
 				$btn_group = "<div class=''>". $url_check . $url_e. $url_d.$url_borrow."</div>" ;
 				echo "<tr>" .
 				 	  "<td>" . $btn_group. "</td>" . 
-				 	  "<td>" . $row[0] . "</td>" .
-				 	  "<td>" . $row[1] . "</td>" .
+				 	  "<td>" . $id  . "</td>" .
+				 	  "<td>" . $title . "</td>" .
 				 	  // "<td>" . $bstr . "</td>" .
-				 	  "<td>" . $row[2] . "</td>" ."<tr>";
+				 	  // "<td>" . $row[2] . "</td>" .
+				 	  "<td>" . $borrower_email . "</td>" .
+				 	  "<tr>";
 			}
 		} 
 	}
