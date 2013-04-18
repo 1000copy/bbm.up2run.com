@@ -15,60 +15,12 @@
 	// $message = "--";
 	$from = $user_name ;
 	$headers = "From: $from";
-	
+	$book = new Book;
 	if ($act=="approve_all"){
-		
-		// echo $sql;		
-		try{
-			// GROUP_CONCAT 后多一个空格，然后，调试了半小时！ shit cound  not be worse
-			$sql = "
-select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email
-from book b
-left join user u on b.borrow_user_id = u.id 
-where state =2 and devote_id =${uid} and borrow_user_id is not null
-group by borrow_user_id
-			";
-			$d = new DB();
-			$result = $d -> query($sql);
-			$subject = "Your apply for book is approved__ ";
-			while ($row = $d -> fetch_row($result)){
-				$message = $row[1] ;
-				$to = $row[2];
-				// test 
-				$to = "2392349@qq.com";
-				mail($to,$subject,$message,$headers);
-			}
-			// echo "---";
-			$sql = "update book set state = 3 where state =2 and devote_id =${uid}"; 
-			// echo $sql;
-			$result = db_query ($sql);
-			if (!$result)
-				echo mysql_error();
-
-		}catch(Exception $e){echo $e->getMessage();}
+		$book-> approve_all($uid,$user_name);
 	}
 	if ($act=="reject_all"){
-		try{
-			$sql = 'update book set state = 0 where state =2 and devote_id ='.$uid; 
-			$d = new DB();
-			$result = $d -> query($sql);
-			$subject = "Your apply for book is rejected ";
-			$sql = "
-select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email
-from book b
-left join user u on b.borrow_user_id = u.id 
-where state =2 and devote_id =${uid} and borrow_user_id is not null
-group by borrow_user_id
-			";
-			$result = $d -> query($sql);
-			while ($row = $d -> fetch_row($result)){
-				$message = $row[1] ;
-				$to = $row[2];
-				mail($to,$subject,$message,$headers);
-			}
-
-		}catch(Exception $e){echo $e->getMessage();}
-		
+		$book -> reject_all($uid,$user_name);
 	}
 	if ($act=="approve"){
 		$selected = $_POST['selected'];

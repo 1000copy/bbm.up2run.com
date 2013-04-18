@@ -26,7 +26,7 @@ date_default_timezone_set('UTC');
 	}
 	// echo $_SERVER['DOCUMENT_ROOT'];
 	// $file = "/Users/lcjun/bbm.up2run.com/test/log.txt";
-	$file = $_SERVER['DOCUMENT_ROOT']."/test/log.txt";
+	$file = $_SERVER['DOCUMENT_ROOT']."/test/log1.txt";
 	// echo $_SERVER['PHP_SELF'];
 	// echo $_SERVER['PATH_INFO'];
 	// echo "<br/>";
@@ -50,7 +50,9 @@ date_default_timezone_set('UTC');
 	// 	echo $e->getMessage();
 	// }
 	$log = new Log();
-	$log -> warn("some thing by oo");
+	$log -> warn("some thing by oo0");
+	$log -> warn("some thing by oo1");
+	$log -> warn("some thing by oo2");
 	// 5.5 才支持
 	// finally{ 
 	// 	echo "unset";

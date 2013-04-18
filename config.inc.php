@@ -132,15 +132,16 @@
 			return $this->db_check(mysql_num_rows($result));
 		}
 		public function fetch_row($result){
-			return $this->db_check(mysql_fetch_row($result));
+			return mysql_fetch_row($result);
 		}
 		function db_check($r){
 			if (!$r)
-				throw new Dbe(mysql_error());
+				throw new Exception(mysql_error());
 			return $r;
 		}
 	}
-	date_default_timezone_set('UTC');
+	// date_default_timezone_set('UTC');
+	date_default_timezone_set('Asia/Chongqing');
 	include_once 'KLogger.php';
 	class Log{
 		var $file ;
@@ -151,15 +152,25 @@
 			$this -> _log= new Logger($this -> file);
 			// var_dump($this -> _log);
 		}
-		// $log->log('Example Notice',Logger::NOTICE);
-		// $log->log('Example Warning',Logger::WARNING);
-		// $log->log('Example Error',Logger::ERROR);
-		// $log->log('Example Fatal',Logger::FATAL);
-		// $log->log('要了老命',Logger::FATAL);		
-		function warn($msg){
+		public function warn($msg){
 			// echo "abc";
 			// var_dump($this -> _log);
 			$this-> _log -> log($msg,Logger::WARNING);
+		}
+		public function notice($msg){
+			// echo "abc";
+			// var_dump($this -> _log);
+			$this-> _log -> log($msg,Logger::NOTICE);
+		}
+		public function error($msg){
+			// echo "abc";
+			// var_dump($this -> _log);
+			$this-> _log -> log($msg,Logger::ERROR);
+		}
+		public function fatal($msg){
+			// echo "abc";
+			// var_dump($this -> _log);
+			$this-> _log -> log($msg,Logger::FATAL);
 		}
 	}
 	class Book {
@@ -185,10 +196,64 @@
 					$this -> send_mail($email,$books,$from,"borrow book notifycation");
 					$this -> log -> warn("send apply mail: ${books} to ${email} from ${from} ");
 				}
-			}catch (Exception $e ){echo $e->getMessage();}
+			}catch (Exception $e ){$this -> log -> warn($e->getMessage());}
 
 		}
-		function send_mail($to,$message,$from,$subject){
+		function reject_all($uid,$from){
+			$log = new Log();
+			$d = new DB();
+			try{
+				$subject = "Your apply for book is rejected ";
+				$sql = "
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where state =2 and devote_id =${uid} and borrow_user_id is not null
+					group by borrow_user_id
+				";
+				$result = $d -> query($sql);
+				while ($row = $d -> fetch_row($result)){
+					$message = $row[1] ;
+					$to = $row[2];
+					$log->warn("reject:${to},${message},from ${from}");
+					$this -> send_mail($to,$message,$from,$subject);
+				}
+				$sql = "update book set state = 0 where state =2 and devote_id =${uid}"; 
+				$log->warn("reject:${to},${message},from ${from}");
+				$result = $d -> query($sql);
+			}catch (Exception $e ){
+				$this -> log -> warn("${e}");
+				// why it(-> getMessage ) does not work ?
+				// $this -> log -> warn($e->getMessage());
+			}
+		}
+		function approve_all($uid,$user_name){
+			try{
+				// GROUP_CONCAT 后多一个空格，然后，调试了半小时！ shit could not be worse
+				$sql = "
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where state =2 and devote_id =${uid} and borrow_user_id is not null
+					group by borrow_user_id
+				";
+				$d = new DB();
+				$result = $d -> query($sql);
+				$subject = "Your apply for book is approved ";
+				$from = $user_name ;
+				while ($row = $d -> fetch_row($result)){
+					$message = $row[1] ;
+					$to = $row[2];
+					$this -> log->warn("approved:${to},${message},from ${from}");
+					$this -> send_mail($to,$message,$from,$subject);
+				}
+				$sql = "update book set state = 3 where state =2 and devote_id =${uid}"; 
+				$result = $d -> query($sql);
+			}catch(Exception $e){
+				$this -> log -> warn("${e}");
+			}
+		}
+		private function send_mail($to,$message,$from,$subject){
 			$headers = "From: $from";
 			mail($to,$subject,$message,$headers);
 		}
