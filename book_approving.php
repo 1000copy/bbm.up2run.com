@@ -24,25 +24,11 @@
 	}
 	if ($act=="approve"){
 		$selected = $_POST['selected'];
-		$id_list = implode(",",$selected);
-		// echo $id_list;
-		// // exit;
-		$sql = "update book set state = 3 where id in(${id_list})";
-		// echo $sql;
-		// exit;
-		$result = db_query($sql);
-		if (!result)
-			echo mysql_error();
-		$subject = "Your apply for book is approved(partly) ";
+		$book -> approve($selected,$uid);
 	}
 	if ($act=="reject"){
 		$selected = $_POST['selected'];
-		$id_list = implode(",",$selected);
-		$sql = "update book set state = 0 where id in(${id_list})";
-		$result = db_query($sql);
-		if (!result)
-			echo mysql_error();
-		$subject = "Your apply for book is reject(partly) ";
+		$book -> reject($selected,$uid);
 	}
 ?>
 <html >
@@ -158,10 +144,9 @@
 		$pagerecords, 1, $target, $pagestring = "?page=");
 	echo "totals: " . $total_records;
 	echo "&nbsp; ";
-	if (is_login())
-	 	echo "user:". $_SESSION["user_name"];
-	 	echo "uid:".  $_SESSION["user_id"];
-	 	// print_r($_SESSION);
+	// if (is_login())
+	//  	echo "user:". $_SESSION["user_name"];
+	//  	echo "uid:".  $_SESSION["user_id"];
 ?>
 
 

@@ -1,7 +1,7 @@
 <?
 	include "config.inc.php";
 	$id = $_GET['id'];
-	$sql = "update  book set state = 0 where id='${id}'"; // 0 = normal
+	$sql = "update  book set state = 0 ,borrow_user_id = null where id='${id}'"; // 0 = normal
 	$result = mysql_query($sql);
 	if (!$result){
 		echo mysql_error();

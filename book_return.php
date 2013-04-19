@@ -103,8 +103,8 @@
 		$pagerecords, 1, $target, $pagestring = "?page=");
 	echo "totals: " . $total_records;
 	echo "&nbsp; ";
-	if (is_login())
-	 	echo "user:". $_SESSION["user_name"];
+	// if (is_login())
+	//  	echo "user:". $_SESSION["user_name"];
 ?>
 	</div>
 </body>

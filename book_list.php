@@ -49,7 +49,7 @@
 		<th>#</th>
 		<th>No.</th>
 		<th>book title</th>
-		<th>borrowed</th>
+		<th>state</th>
 		<th>devoter</th>
 		<th>borrower</th>
 	</tr>
@@ -91,7 +91,7 @@ left join user u1 on b.borrow_user_id = u1.id
 			while ($row = mysql_fetch_row($result)) {
 				$devote_id = $row[3];
 				$curr_user_id = $_SESSION["user_id"];
-				$borrowed = $row[4]==1;
+				$borrowed = $row[4]!=0;
 				$url_e ="";
 				$url_d ="";
 				$url_borrow="";
@@ -124,9 +124,9 @@ left join user u1 on b.borrow_user_id = u1.id
 		$pagerecords, 1, $target, $pagestring = "?page=");
 	echo "totals: " . $total_records;
 	echo "&nbsp; ";
-	if (is_login())
-	 	echo "user:". $_SESSION["user_name"];
-	 	echo "uid:".  $_SESSION["user_id"];
+	// if (is_login())
+	//  	echo "user:". $_SESSION["user_name"];
+	//  	echo "uid:".  $_SESSION["user_id"];
 	 	// print_r($_SESSION);
 ?>
 

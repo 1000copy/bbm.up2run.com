@@ -218,7 +218,8 @@
 					$log->warn("reject:${to},${message},from ${from}");
 					$this -> send_mail($to,$message,$from,$subject);
 				}
-				$sql = "update book set state = 0 where state =2 and devote_id =${uid}"; 
+				$sql = "update book set state = 0 , borrow_user_id=null 
+					where state =2 and devote_id =${uid}"; 
 				$log->warn("reject:${to},${message},from ${from}");
 				$result = $d -> query($sql);
 			}catch (Exception $e ){
@@ -244,11 +245,74 @@
 				while ($row = $d -> fetch_row($result)){
 					$message = $row[1] ;
 					$to = $row[2];
-					$this -> log->warn("approved:${to},${message},from ${from}");
+					$this -> log->warn("approved_all:${to},${message},from ${from}");
 					$this -> send_mail($to,$message,$from,$subject);
 				}
 				$sql = "update book set state = 3 where state =2 and devote_id =${uid}"; 
 				$result = $d -> query($sql);
+			}catch(Exception $e){
+				$this -> log -> warn("${e}");
+			}
+		}
+		/// $selected == array of [book id]
+		function approve($selected,$uid){
+			$id_list = implode(",",$selected);
+			$d = new DB;
+			try{
+				// mail to borrowers
+				$from = $_SESSION["user_name"];
+				$subject = "Your apply for book is approved(partly) ";
+				$sql = "
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where 
+					state =2 and devote_id =${uid} and borrow_user_id is not null
+					and b.id in ($id_list)
+					group by borrow_user_id
+				";
+				$result = $d -> query($sql);
+				while ($row = $d -> fetch_row($result)){
+					$message = $row[1] ;
+					$to = $row[2];
+					$this -> log->warn("approved:${to},${message},from ${from}");
+					$this -> send_mail($to,$message,$from,$subject);
+				}
+				// update state = 3 
+				$sql = "update book set state = 3 where id in(${id_list})";
+				$result = $d -> query($sql);
+				
+			}catch(Exception $e){
+				$this -> log -> warn("${e}");
+			}
+		}
+		function reject($selected,$uid){
+			$id_list = implode(",",$selected);
+			$d = new DB;
+			try{
+				// mail to borrowers
+				$from = $_SESSION["user_name"];
+				$subject = "Your apply for book is approved(partly) ";
+				$sql = "
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where 
+					state =2 and devote_id =${uid} and borrow_user_id is not null
+					and b.id in ($id_list)
+					group by borrow_user_id
+				";
+				$result = $d -> query($sql);
+				while ($row = $d -> fetch_row($result)){
+					$message = $row[1] ;
+					$to = $row[2];
+					$this -> log->warn("rejected:${to},${message},from ${from}");
+					$this -> send_mail($to,$message,$from,$subject);
+				}
+				// update state = normal
+				$sql = "update book set state = 0 , borrow_user_id =null where id in(${id_list})";
+				$result = $d -> query($sql);
+				
 			}catch(Exception $e){
 				$this -> log -> warn("${e}");
 			}

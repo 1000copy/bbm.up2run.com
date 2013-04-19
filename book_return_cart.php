@@ -124,10 +124,10 @@
 		$pagerecords, 1, $target, $pagestring = "?page=");
 	echo "totals: " . $total_records;
 	echo "&nbsp; ";
-	if (is_login())
-	 	echo "user:". $_SESSION["user_name"];
-	 	echo "uid:".  $_SESSION["user_id"];
-	 	// print_r($_SESSION);
+	// if (is_login())
+	//  	echo "user:". $_SESSION["user_name"];
+	//  	echo "uid:".  $_SESSION["user_id"];
+	//  	// print_r($_SESSION);
 ?>
 
 
