@@ -148,7 +148,7 @@
 		var $_log ;
 		public function Log(){
 			$this -> file = $_SERVER['DOCUMENT_ROOT']."/test/log1.txt";
-			echo $this -> file ;
+			// echo $this -> file ;
 			$this -> _log= new Logger($this -> file);
 			// var_dump($this -> _log);
 		}
@@ -315,6 +315,32 @@
 				
 			}catch(Exception $e){
 				$this -> log -> warn("${e}");
+			}
+		}
+		function return_($selected,$uid){
+			$this -> log -> warn ("{$selected}");
+			$id_list = implode(",",$selected);
+			$d = new DB;
+			try{
+				// update state = return confirm
+				$sql = "update book set state = 4  
+					where id in(${id_list}) and state =3 and borrow_user_id =${uid}";
+				$result = $d -> query($sql);
+			}catch(Exception $e){
+				$this -> log -> warn("${e}");
+				$this -> log -> warn($sql);
+			}
+		}
+		function return_all($uid){
+			try{
+				// 4 - return 
+				$sql = "update book set state = 4 where state =3 and borrow_user_id =${uid}";
+				$db = new DB();
+				$result = $db -> query($sql);
+				header("Location: book_return_confirm.php");
+			}catch(Exception $e){
+				$log = new Log();
+				$log -> warn($e);
 			}
 		}
 		private function send_mail($to,$message,$from,$subject){

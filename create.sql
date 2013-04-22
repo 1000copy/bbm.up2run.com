@@ -28,9 +28,9 @@ create table user(
 );
 # password is space (md5..ed)
 insert into user (email,password)values("1000copy@gmail.com",'d41d8cd98f00b204e9800998ecf8427e');
-insert into user (email,password)values("lqiao@qq.com",'d41d8cd98f00b204e9800998ecf8427e');
+insert into user (email,password)values("2392349@qq.com",'d41d8cd98f00b204e9800998ecf8427e');
 
 INSERT INTO book VALUES 
-     (1,'失控',0,NULL,NULL,1,NULL),
-     (2,'追风筝的人',0,NULL,NULL,1,NULL),
-     (3,'灿烂千阳',0,NULL,NULL,1,NULL);
+     (1,'失控',0,0,0,1,NULL),
+     (2,'追风筝的人',0,0,NULL,1,NULL),
+     (3,'灿烂千阳',0,0,NULL,1,NULL);

@@ -9,14 +9,19 @@
 	}
 	$uid = $_SESSION['user_id'];
 	$user_id = $uid;
-	if ($action=="return_all"){
-		$sql = 'update book set state = 4 where state =3 and borrow_user_id ='.$uid; // 4 - return 
-		$result = db_query($sql);
-		if (!result)
-			echo mysql_error();	
-		echo $result ;
-		// header("Location: book_list.php");
+	$book = new Book();
+	switch ($_POST['rcart']) {
+		case 'return':
+			$selected = $_POST['selected'];
+			// die( $selected);
+			// die("some");
+			$book -> return_($selected,$uid);    
+		    break;
+		case 'return_all':
+			$book -> return_all($uid);    
+		    break;
 	}
+
 ?>
 <html >
 <head>
@@ -44,9 +49,10 @@
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>?action=search"  method="post" class="form-inline">
 	<input type="text" placeholder="some book title..." id="title" name="title" 
 	value="<?echo $_POST["title"]; ?>" class="search-query input-medium"/>
-	<input type="submit" value="search" class="btn-primary"/>
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=return_all" class="btn">return all</a>
-</form>
+	<input type="submit" name="rcart" class="btn-primary" value="search"/>
+	<input type="submit" name="rcart" class="btn" value="return_all"/>
+	<input type="submit" name="rcart" class="btn" value="return"/>
+
 <table cellpadding="2" class="table table-striped table-bordered">
 	<tr>
 		<th>#</th>
@@ -63,7 +69,8 @@
 	$from = ($page-1)*$pagerecords;
 	$to = $pagerecords;
 	if ($dbcheck) {
-		$sql = "select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+		$sql = "
+		select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
 		from book b 
 		left join user u on b.devote_id = u.id 
 		left join user u1 on b.borrow_user_id = u1.id 
@@ -72,7 +79,7 @@
 		if ($action=="search"){
 			$title = trim($_POST['title']);
 			if($title != "")
-				$sql = $sql . " where title like '%". $title ."%' ";
+				$sql = $sql . " and title like '%". $title ."%' ";
 			
 			//echo $sql ;
 		}
@@ -96,16 +103,18 @@
 				$url_e ="";
 				$url_d ="";
 				$url_borrow="";
-				if (!$borrowed)
-					$url_borrow = "<a class='' href='book_borrow.php?id=".$row[0]."'>Borrow</a>&nbsp;" ;
+				$id = $row[0] ;
+				$url_check="<input type='checkbox' value='${id}' name='selected[]' checked/>";
+				// if (!$borrowed)
+				// 	$url_borrow = "<a class='' href='book_borrow.php?id=".$row[0]."'>Borrow</a>&nbsp;" ;
 				if ($devote_id == $curr_user_id){
-					 $url_e = "<a  href='book_edit.php?id=".$row[0]."'>Edit</a>&nbsp;" ;
-					 $url_d = "<a  href='book_delete.php?id=".$row[0]."'>Del</a>&nbsp;" ;
+					 $url_e = "<a  href='book_edit.php?id=".$id."'>Edit</a>&nbsp;" ;
+					 $url_d = "<a  href='book_delete.php?id=".$id."'>Del</a>&nbsp;" ;
 				
 				}
 				$bstr = get_state($row[4]);
 				// $bstr = $row[4];
-				$btn_group = "<div class=''>".$url_e. $url_d.$url_borrow."</div>" ;
+				$btn_group = "<div class=''>".$url_e. $url_d.$url_check."</div>" ;
 				echo "<tr>" .
 				 	  "<td>" . $btn_group. "</td>" . 
 				 	  "<td>" . $row[0] . "</td>" .
@@ -117,6 +126,7 @@
 	}
 ?>
 </table>
+</form>
 <?	
 	include "paginator.php";
 	$target = $_SERVER['PHP_SELF'];
@@ -124,13 +134,7 @@
 		$pagerecords, 1, $target, $pagestring = "?page=");
 	echo "totals: " . $total_records;
 	echo "&nbsp; ";
-	// if (is_login())
-	//  	echo "user:". $_SESSION["user_name"];
-	//  	echo "uid:".  $_SESSION["user_id"];
-	//  	// print_r($_SESSION);
 ?>
-
-
 </div><!-- end #wrapper -->
 </body>
 </html>

@@ -5,7 +5,8 @@
 	$action = $_GET['action'];
 	$target = $_SERVER['PHP_SELF'];
 	if ($action =="confirm_all"){
-		$sql = "update book set state = 0 where state = 4 and devote_id ='${user_id}'";//2==commit
+		$sql = "update book set state = 0 ,borrow_user_id = null 
+			where state = 4 and devote_id ='${user_id}'";//2==commit
 		$result = db_query($sql);
 		if (!$result)
 			echo mysql_error();
@@ -60,7 +61,9 @@
 		$result = db_query($count_sql);
 		$row = mysql_fetch_row($result);
 		$total_records = $row[0];
-		// echo $total_records;
+		// $log = new Log();
+		// $log -> warn("begin log sql of returnconfirm:");
+		// $log -> warn($sql);
 		$result = mysql_query($sql);
 		if (!$result){
 			echo mysql_error();
@@ -92,8 +95,6 @@
 		$pagerecords, 1, $target, $pagestring = "?page=");
 	echo "totals: " . $total_records;
 	echo "&nbsp; ";
-	// if (is_login())
-	//  	echo "user:". $_SESSION["user_name"];
 ?>
 	</div>
 </body>
