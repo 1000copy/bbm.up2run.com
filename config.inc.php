@@ -348,4 +348,75 @@
 			mail($to,$subject,$message,$headers);
 		}
 	}
+	include "paginator.php";
+
+	class Pager{
+		public $total_records;
+		public $result ;
+		public $db ;
+		private $count_sql;
+		private $sql;
+		private $page;
+		private $pagerecords;
+		function __construct($sql,$page,$title){
+			$this -> db = $db = new DB;
+			if (!$page)
+				$page = 1;
+			$this -> page = $page ;
+			$pagerecords = 10 ;
+			$from = ($page-1)*$pagerecords;
+			$to = $pagerecords;
+			//
+			if($title != "")
+				$sql = $sql . " and title like '%". $title ."%' ";
+			$this -> count_sql = "select count(1) from (${sql}) balias";
+			$this -> sql = $sql . " limit ${from},${to}";
+			// echo $sql;
+			// echo $count_sql;
+			$this -> result = $db -> query ($this -> count_sql);
+			$row = $db -> fetch_row ($this -> result);
+			$this -> total_records = $row[0];
+			$this -> result = $db -> query($this -> sql);
+		}
+		public function pager_str(){
+			return getPaginationString(
+				$this -> page, 
+				$this->total_records, 
+				$this -> pagerecords, 
+				1,
+				$_SERVER['PHP_SELF'], 
+				"?page=");
+		}
+	}
+	class ReturnCartPager extends Pager{
+		private $sql ;
+		public $id ;
+		public $title ;
+		public $email ;
+		public $devote_id ;
+		public $state ;
+		
+		public function __construct($user_id,$page,$title){
+			$this -> sql = "
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = ${user_id} and state= 3 
+		";
+			parent::__construct($this-> sql,$page,$title);
+		}
+		public function next(){
+			$row = $this -> db -> fetch_row($this -> result);
+			if ($row){
+				$this -> id = $row[0] ;
+				$this -> title = $row[1] ;
+				$this -> email = $row[2] ;
+				$this -> devote_id = $row[3];
+				$this -> state = $row[4] ;
+				return true;
+			}else return false;
+		}
+
+	}
 ?>

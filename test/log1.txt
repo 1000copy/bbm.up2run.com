@@ -181,3 +181,21 @@ Stack trace:
 [22.04.2013 - 16:12:31][!WARNING!] - update book set state = 4  
 					where id in(,) and state =3 and borrow_user_id =1
 [22.04.2013 - 16:12:33][!WARNING!] - Array
+[22.04.2013 - 16:27:42][!WARNING!] - send apply mail: 失控 to 1000copy@gmail.com from 1000copy@gmail.com 
+[22.04.2013 - 16:27:44][!WARNING!] - approved_all:1000copy@gmail.com,失控,from 1000copy@gmail.com
+[22.04.2013 - 16:33:09][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:139
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(132): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/book_return_cart.php(106): DB->num_rows(Resource id #10)
+#2 {main}
+[22.04.2013 - 16:33:36][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:139
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(132): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/book_return_cart.php(109): DB->num_rows(Resource id #10)
+#2 {main}
+[22.04.2013 - 16:51:26][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:139
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(132): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/book_return_cart.php(125): DB->num_rows(Resource id #10)
+#2 {main}
+[22.04.2013 - 16:58:19][!WARNING!] - Array

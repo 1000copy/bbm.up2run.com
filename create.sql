@@ -34,3 +34,27 @@ INSERT INTO book VALUES
      (1,'失控',0,0,0,1,NULL),
      (2,'追风筝的人',0,0,NULL,1,NULL),
      (3,'灿烂千阳',0,0,NULL,1,NULL);
+
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+INSERT INTO book (title,state)VALUES ("some title",0);
+
+
+

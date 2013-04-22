@@ -62,78 +62,47 @@
 		<th>devoter</th>
 	</tr>
 <?
+	
 	$page = $_GET['page'];
-	if (!$page)
-		$page = 1;
-	$pagerecords = 10 ;
-	$from = ($page-1)*$pagerecords;
-	$to = $pagerecords;
-	if ($dbcheck) {
-		$sql = "
-		select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
-		from book b 
-		left join user u on b.devote_id = u.id 
-		left join user u1 on b.borrow_user_id = u1.id 
-		where u1.id = ${user_id} and state= 3 
-		";//3==accepted
-		if ($action=="search"){
-			$title = trim($_POST['title']);
-			if($title != "")
-				$sql = $sql . " and title like '%". $title ."%' ";
+	$curr_user_id = $_SESSION["user_id"];
+	$title = trim($_POST['title']);
+	$pager = new ReturnCartPager($curr_user_id,$page,$title);
+	try{
+		while ($pager ->next()) {
+			$id = $pager -> id ;
+			$title = $pager -> title;
+			$email = $pager -> email;
+			$devote_id = $pager -> devote_id;
+			$state = $pager -> state;
+			$borrowed = $pager -> state ==1;
+			$url_e ="";
+			$url_d ="";
+			$url_borrow="";
+			$url_check="<input type='checkbox' value='${id}' name='selected[]' checked/>";
+			if ($devote_id == $curr_user_id){
+				 $url_e = "<a  href='book_edit.php?id=".$id."'>Edit</a>&nbsp;" ;
+				 $url_d = "<a  href='book_delete.php?id=".$id."'>Del</a>&nbsp;" ;
 			
-			//echo $sql ;
-		}
-		$count_sql = "select count(1) from (${sql}) balias";
-		$sql = $sql . " limit ${from},${to}";
-		 // echo $sql;
-		// echo $count_sql;
-		$result = mysql_query($count_sql);
-		$row = mysql_fetch_row($result);
-		$total_records = $row[0];
-		// echo $total_records;
-		$result = mysql_query($sql);
-		if (!$result){
-			echo mysql_error();
-		}else
-		if (mysql_num_rows($result) > 0) {
-			while ($row = mysql_fetch_row($result)) {
-				$devote_id = $row[3];
-				$curr_user_id = $_SESSION["user_id"];
-				$borrowed = $row[4]==1;
-				$url_e ="";
-				$url_d ="";
-				$url_borrow="";
-				$id = $row[0] ;
-				$url_check="<input type='checkbox' value='${id}' name='selected[]' checked/>";
-				// if (!$borrowed)
-				// 	$url_borrow = "<a class='' href='book_borrow.php?id=".$row[0]."'>Borrow</a>&nbsp;" ;
-				if ($devote_id == $curr_user_id){
-					 $url_e = "<a  href='book_edit.php?id=".$id."'>Edit</a>&nbsp;" ;
-					 $url_d = "<a  href='book_delete.php?id=".$id."'>Del</a>&nbsp;" ;
-				
-				}
-				$bstr = get_state($row[4]);
-				// $bstr = $row[4];
-				$btn_group = "<div class=''>".$url_e. $url_d.$url_check."</div>" ;
-				echo "<tr>" .
-				 	  "<td>" . $btn_group. "</td>" . 
-				 	  "<td>" . $row[0] . "</td>" .
-				 	  "<td>" . $row[1] . "</td>" .
-				 	  // "<td>" . $bstr . "</td>" .
-				 	  "<td>" . $row[2] . "</td>" ."<tr>";
 			}
-		} 
-	}
+			$bstr = get_state($state);
+			// $bstr = $row[4];
+			$btn_group = "<div class=''>".$url_e. $url_d.$url_check."</div>" ;
+			echo "<tr>" .
+			 	  "<td>" . $btn_group. "</td>" . 
+			 	  "<td>" . $id . "</td>" .
+			 	  "<td>" . $title . "</td>" .
+			 	  // "<td>" . $bstr . "</td>" .
+			 	  "<td>" . $email . "</td>" ."<tr>";
+		}
+		
+	}catch(Exception $e ){$log = new Log();$log -> warn("${e}");}
+
 ?>
 </table>
 </form>
 <?	
-	include "paginator.php";
-	$target = $_SERVER['PHP_SELF'];
-	echo getPaginationString($page, $total_records, 
-		$pagerecords, 1, $target, $pagestring = "?page=");
-	echo "totals: " . $total_records;
-	echo "&nbsp; ";
+	echo $pager -> pager_str();
+	echo "totals: " . $pager -> total_records;
 ?>
 </div><!-- end #wrapper -->
 </body>
