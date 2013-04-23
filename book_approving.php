@@ -36,6 +36,7 @@
 	<title>books</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" >
+	<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" >
 	<? bs_here();?>
 	<style type="text/css">
 	#wrapper {
@@ -138,7 +139,7 @@
 </table>
 </form>
 <?	
-	include "paginator.php";
+	// include "paginator.php";
 	$target = $_SERVER['PHP_SELF'];
 	echo getPaginationString($page, $total_records, 
 		$pagerecords, 1, $target, $pagestring = "?page=");

@@ -199,3 +199,6 @@ Stack trace:
 #1 /Users/lcjun/bbm.up2run.com/book_return_cart.php(125): DB->num_rows(Resource id #10)
 #2 {main}
 [22.04.2013 - 16:58:19][!WARNING!] - Array
+[23.04.2013 - 15:58:24][!WARNING!] - Array
+[23.04.2013 - 15:58:26][!WARNING!] - Array
+[23.04.2013 - 15:58:28][!WARNING!] - Array

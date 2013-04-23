@@ -1,4 +1,5 @@
 <?
+	include_once "paginator.php";
 	// error_reporting(E_ALL ^ E_NOTICE);
 	// header('Cache-control: private'); // IE 6 FIX
 	// // always modified 
@@ -348,7 +349,7 @@
 			mail($to,$subject,$message,$headers);
 		}
 	}
-	include "paginator.php";
+
 
 	class Pager{
 		public $total_records;

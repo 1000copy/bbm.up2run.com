@@ -34,6 +34,7 @@
 	<title>borrowed </title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<LINK REL="StyleSheet" HREF="bootstrap/css/bootstrap.min.css" TYPE="text/css" >
+	<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" >
 	<style type="text/css">
 	#wrapper {
 		width: 600px;
@@ -103,7 +104,6 @@
 ?>
 </table>
 <?	
-	include "paginator.php";
 	$target = $_SERVER['PHP_SELF'];
 	echo getPaginationString($page, $total_records, 
 		$pagerecords, 1, $target, $pagestring = "?page=");

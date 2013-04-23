@@ -118,7 +118,7 @@ left join user u1 on b.borrow_user_id = u1.id
 ?>
 </table>
 <?	
-	include "paginator.php";
+	// include "paginator.php";
 	$target = $_SERVER['PHP_SELF'];
 	echo getPaginationString($page, $total_records, 
 		$pagerecords, 1, $target, $pagestring = "?page=");
