@@ -3,6 +3,20 @@
 
 create database bb;
 use bb;
+
+drop table  if exists borrow;
+create table borrow(
+     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     borrow_user_id int not null,
+     devote_user_id int not null,
+     w date 
+);
+drop table  if exists borrow_detail;
+create table borrow_detail(
+     borrow_id int,
+     book_id int not null
+);
+
 drop table  if exists book;
 create table book(
 	 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -33,28 +47,28 @@ insert into user (email,password)values("2392349@qq.com",'d41d8cd98f00b204e98009
 INSERT INTO book VALUES 
      (1,'失控',0,0,0,1,NULL),
      (2,'追风筝的人',0,0,NULL,1,NULL),
-     (3,'灿烂千阳',0,0,NULL,1,NULL);
+--      (3,'灿烂千阳',0,0,NULL,1,NULL);
 
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
-INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
+-- INSERT INTO book (title,state)VALUES ("some title",0);
 
 
 

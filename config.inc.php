@@ -129,6 +129,10 @@
 			}
 			return $arr ;
 		}
+		public function query_1_1 ($sql){
+			$arr = $this->query_array($sql,0);
+			return $arr[0] ;
+		}
 		public function num_rows($result){
 			return $this->db_check(mysql_num_rows($result));
 		}
@@ -233,7 +237,8 @@
 			try{
 				// GROUP_CONCAT 后多一个空格，然后，调试了半小时！ shit could not be worse
 				$sql = "
-					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
+					GROUP_CONCAT(b.id SEPARATOR ',' )
 					from book b
 					left join user u on b.borrow_user_id = u.id 
 					where state =2 and devote_id =${uid} and borrow_user_id is not null
@@ -244,16 +249,43 @@
 				$subject = "Your apply for book is approved ";
 				$from = $user_name ;
 				while ($row = $d -> fetch_row($result)){
+					// mail 
 					$message = $row[1] ;
 					$to = $row[2];
 					$this -> log->warn("approved_all:${to},${message},from ${from}");
 					$this -> send_mail($to,$message,$from,$subject);
+					// log
+					$book_ids= $row[3];
+					$arr_of_book_id = explode(",",$book_ids);
+					$borrow_user_id = $row[0];
+					$this->log__($uid,$borrow_user_id,$arr_of_book_id);
 				}
+				// update book state 
 				$sql = "update book set state = 3 where state =2 and devote_id =${uid}"; 
 				$result = $d -> query($sql);
+				
 			}catch(Exception $e){
 				$this -> log -> warn("${e}");
 			}
+		}
+		function log__($devote_user_id,$borrow_user_id,$arr_of_book_id){
+			$d = new DB;
+			$log = new Log;
+			$log->warn("books:{$arr_of_book_id}");
+			try{
+				$sql = "
+					insert into borrow (devote_user_id,borrow_user_id)
+					values({$devote_user_id},{$borrow_user_id})";
+				$d -> query($sql);
+				$sql = "SELECT LAST_INSERT_ID()";
+				$last_insert_id = $d -> query_1_1($sql);
+				foreach ($arr_of_book_id as &$book_id) {
+					$sql = "
+						insert into borrow_detail(borrow_id,book_id)
+						values({$last_insert_id},{$book_id})";
+					$d -> query($sql);
+				}
+			}catch(Exception $e){$log = new Log;$log->warn("{$e}");}
 		}
 		/// $selected == array of [book id]
 		function approve($selected,$uid){
