@@ -18,7 +18,7 @@
 	#wrapper {
 		width: 600px;
 		margin: 60px auto 0;
-		padding-top: 200px；
+		padding-top: 400px；
 		font: 1.2em Verdana, Arial, sans-serif;
 	}
 	</style>

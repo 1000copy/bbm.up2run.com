@@ -1,8 +1,11 @@
+
 # export PATH=$PATH:/usr/local/mysql-5.6.10-osx10.7-x86_64/bin
 # state =(normal,incart,commit,accept,returncommit) 0,1,2,3,4 ,共5种状态
 
 create database bb;
 use bb;
+
+
 
 drop table  if exists borrow;
 create table borrow(

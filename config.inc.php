@@ -296,7 +296,8 @@
 				$from = $_SESSION["user_name"];
 				$subject = "Your apply for book is approved(partly) ";
 				$sql = "
-					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
+					GROUP_CONCAT(b.id SEPARATOR ',' ) 
 					from book b
 					left join user u on b.borrow_user_id = u.id 
 					where 
@@ -310,6 +311,45 @@
 					$to = $row[2];
 					$this -> log->warn("approved:${to},${message},from ${from}");
 					$this -> send_mail($to,$message,$from,$subject);
+					// log
+					$book_ids= $row[3];
+					$arr_of_book_id = explode(",",$book_ids);
+					$borrow_user_id = $row[0];
+					$this->log__($uid,$borrow_user_id,$arr_of_book_id);
+				}
+				// update state = 3 
+				$sql = "update book set state = 3 where id in(${id_list})";
+				$result = $d -> query($sql);
+				
+			}catch(Exception $e){
+				$this -> log -> warn("${e}");
+			}
+		}
+		function log_data($uid){
+			$d = new DB;
+			try{
+				// mail to borrowers
+				$sql = "
+					select borrow_user_id,u.email as b_email,u1.email as d_email,
+					 GROUP_CONCAT(b.title SEPARATOR ',' ) ,
+					from borrow b
+					left join user u on b.borrow_user_id = u.id 
+					left join user u1 on b.devote_user_id = u.id 
+					left join borrow_detail bd on b.id = bd.borrow_id
+					
+					group by borrow.id
+				";
+				$result = $d -> query($sql);
+				while ($row = $d -> fetch_row($result)){
+					$message = $row[1] ;
+					$to = $row[2];
+					$this -> log->warn("approved:${to},${message},from ${from}");
+					$this -> send_mail($to,$message,$from,$subject);
+					// log
+					$book_ids= $row[3];
+					$arr_of_book_id = explode(",",$book_ids);
+					$borrow_user_id = $row[0];
+					$this->log__($uid,$borrow_user_id,$arr_of_book_id);
 				}
 				// update state = 3 
 				$sql = "update book set state = 3 where id in(${id_list})";

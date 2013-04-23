@@ -8,7 +8,8 @@
 		<li ><a href="/book_borrow_commit.php">commited</a></li>
 		<li ><a href="/book_approving.php">approving</a></li>
 		<li ><a href="/book_return_cart.php">returning</a></li>
-		<li ><a href="/book_return_confirm.php">return confirm</a></li>
+		<li ><a href="/book_return_confirm.php">retconfirm</a></li>
+		<li ><a href="/book_log.php">log</a></li>
 		<? if (!is_login()){ ?>
 			<li><a href="/login.php" >Login</a></li>
 		<?}else{?>
