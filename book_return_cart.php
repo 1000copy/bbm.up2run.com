@@ -66,33 +66,25 @@
 	$page = $_GET['page'];
 	$curr_user_id = $_SESSION["user_id"];
 	$title = trim($_POST['title']);
-	$pager = new ReturnCartPager($curr_user_id,$page,$title);
+	$p = new ReturnCartPager($curr_user_id,$page,$title);
 	try{
-		while ($pager ->next()) {
-			$id = $pager -> id ;
-			$title = $pager -> title;
-			$email = $pager -> email;
-			$devote_id = $pager -> devote_id;
-			$state = $pager -> state;
-			$borrowed = $pager -> state ==1;
+		while ($p ->next()) {
 			$url_e ="";
 			$url_d ="";
 			$url_borrow="";
-			$url_check="<input type='checkbox' value='${id}' name='selected[]' checked/>";
-			if ($devote_id == $curr_user_id){
-				 $url_e = "<a  href='book_edit.php?id=".$id."'>Edit</a>&nbsp;" ;
-				 $url_d = "<a  href='book_delete.php?id=".$id."'>Del</a>&nbsp;" ;
-			
+			$url_check="<input type='checkbox' value='{$p->id}' name='selected[]' checked/>";
+			if ($p->devote_id == $curr_user_id){
+				 $url_e = "<a  href='book_edit.php?id={$p->id}'>Edit</a>&nbsp;" ;
+				 $url_d = "<a  href='book_delete.php?id={$p->id}'>Del</a>&nbsp;" ;
 			}
-			$bstr = get_state($state);
+			$bstr = get_state($p->state);
 			// $bstr = $row[4];
 			$btn_group = "<div class=''>".$url_e. $url_d.$url_check."</div>" ;
 			echo "<tr>" .
 			 	  "<td>" . $btn_group. "</td>" . 
-			 	  "<td>" . $id . "</td>" .
-			 	  "<td>" . $title . "</td>" .
-			 	  // "<td>" . $bstr . "</td>" .
-			 	  "<td>" . $email . "</td>" ."<tr>";
+			 	  "<td>{$p->id}</td>" .
+			 	  "<td>{$p->title}</td>" .
+			 	  "<td>{$p->email}</td>" ."<tr>";
 		}
 		
 	}catch(Exception $e ){$log = new Log();$log -> warn("${e}");}
@@ -101,8 +93,8 @@
 </table>
 </form>
 <?	
-	echo $pager -> pager_str();
-	echo "totals: " . $pager -> total_records;
+	echo $p -> pager_str();
+	echo "totals: " . $p -> total_records;
 ?>
 </div><!-- end #wrapper -->
 </body>
