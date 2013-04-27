@@ -29,7 +29,14 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" >
 	<? bs_here();?>
-	<link rel="StyleSheet" href="wrapper.css" type="text/css"/>
+	<style type="text/css">
+	#wrapper {
+		width: 600px;
+		margin: 60px auto 0;
+		padding-top: 200px；
+		font: 1.2em Verdana, Arial, sans-serif;
+	}
+	</style>
 </head>
 <body>
 <? include "banner.php" ?>

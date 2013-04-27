@@ -5,8 +5,11 @@
 	$action = $_GET['action'];
 	$target = $_SERVER['PHP_SELF'];
 	if ($action =="confirm_all"){
-		$book = new Book;
-		$book -> return_confirm_all($user_id);
+		$sql = "update book set state = 0 ,borrow_user_id = null 
+			where state = 4 and devote_id ='${user_id}'";//2==commit
+		$result = db_query($sql);
+		if (!$result)
+			echo mysql_error();
 	}
 ?>
 <html>
@@ -15,7 +18,14 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<LINK REL="StyleSheet" HREF="bootstrap/css/bootstrap.min.css" TYPE="text/css" >
 	<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" >
-	<link type="text/css" REL="StyleSheet" href="wrapper.css"/>
+	<style type="text/css">
+	#wrapper {
+		width: 600px;
+		padding-top: 100px;
+		margin: 20px auto 0;
+		font: 1.2em Verdana, Arial, sans-serif;
+	}
+	</style>
 </head>
 <body>	
 	<? include "banner.php";?>

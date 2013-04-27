@@ -1,7 +1,46 @@
+<?
+	session_start(); 
+?>
 <html>
 <head>
-	<!-- inplace page -->
-	<meta HTTP-EQUIV="REFRESH" content="0; url=/index.php">
+	<title>bbm.up2run.com</title>
+	<LINK REL="StyleSheet" HREF="bootstrap/css/bootstrap.min.css" TYPE="text/css" >
+	<style type="text/css">
+		#index {
+			width: 600px;
+			margin: 20px auto 0;
+			padding-top: 150px ;
+			font: 1.2em Verdana, Arial, sans-serif;
+		}
+	</style>
 </head>
-</html>
+<body>
+<div id="index">
+	<h1>books</h1>
+	<a href="user_new.php">  new  </a>&nbsp;
+	<a href="book_list.php"> list </a>&nbsp;
+	<a href="book_new.php"> add </a>&nbsp;
+	<a href="book_edit.php?id=1">edit  </a>&nbsp;
+	<a href="book_upload.php">upload </a>&nbsp;
+	<a href="book_clear_all.php">clear all </a>&nbsp;
+	<a href="book_borrowed.php">borrowed </a>&nbsp;
+	<a href="book_returned.php">returned </a>&nbsp;
+	<a href="book_borrow.php">borrow </a>&nbsp;
+	<a href="book_return.php">return </a>&nbsp;
+	<h1>users</h1>
+	<a href="user_list.php"> list </a>
+	<h1>login</h1>
+	<a href="login.php">login</a>&nbsp;
+	<a href="logout.php">logout </a>&nbsp;
+	<h1>It tests!</h1>
+	<a href="a.php" class="btn"> a.php </a>&nbsp;
+	<a href="testMysql.php" class="btn"> testMysql.php </a>&nbsp;
+	<a href="testExceptionMysql.php" class="btn"> testException Mysql.php </a>&nbsp;
+	<a href="books.php" class="btn"> books </a>&nbsp;
+	<a href="c.php" class="btn">c.php</a>
+	<a href="niubi_test.php" class="btn"> niubi test </a>&nbsp;
+	<a href="a_session.php" class="btn">session</a>
+	<a href="douban.php" class="btn">douban</a>
+</div>
+</body></html>
 

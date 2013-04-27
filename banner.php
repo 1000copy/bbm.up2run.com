@@ -1,7 +1,7 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-		<a class="brand" href="/index.php">互助借书</a>
+		<a class="brand" href="#">互助借书</a>
 		<ul class="nav">
 		<li ><a href="/book_list.php">book</a></li>
 		<li ><a href="/book_borrow.php">borrowed</a></li>
@@ -9,6 +9,7 @@
 		<li ><a href="/book_approving.php">approving</a></li>
 		<li ><a href="/book_return_cart.php">returning</a></li>
 		<li ><a href="/book_return_confirm.php">retconfirm</a></li>
+		<li ><a href="/book_log.php">log</a></li>
 		<? if (!is_login()){ ?>
 			<li><a href="/login.php" >Login</a></li>
 		<?}else{?>
@@ -18,6 +19,7 @@
 <!--             	<a href="#" class="navbar-link"><? echo $_SESSION['user_id']?></a>
  -->        	</p>
 		<?}?>
+		<li ><a href="/user_list.php">user</a></li>
 		</ul>
     </div>
   </div>

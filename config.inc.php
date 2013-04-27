@@ -287,58 +287,6 @@
 				}
 			}catch(Exception $e){$log = new Log;$log->warn("{$e}");}
 		}
-		function return_confirm_all($user_id){
-			$d = new DB();
-			try{
-				$sql = "
-					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
-					GROUP_CONCAT(b.id SEPARATOR ',' )
-					from book b
-					left join user u on b.borrow_user_id = u.id 
-					where state = 4 and devote_id =${user_id} and borrow_user_id is not null
-					group by borrow_user_id
-				";
-				
-				$result = $d -> query($sql);
-				$subject = "Your return for book is confirmed";
-				$from = $user_name ;
-				while ($row = $d -> fetch_row($result)){
-					// mail 
-					$message = $row[1] ;
-					$to = $row[2];
-					$this -> log->warn("return_confirm_all:${to},${message},from ${from}");
-					$this -> send_mail($to,$message,$from,$subject);
-					// log
-					$book_ids= $row[3];
-					$arr_of_book_id = explode(",",$book_ids);
-					$borrow_user_id = $row[0];
-					$this->log_return($user_id,$borrow_user_id,$arr_of_book_id);
-				}
-				//
-				$sql = "update book set state = 0 ,borrow_user_id = null 
-			where state = 4 and devote_id ='${user_id}'";//2==commit
-				$result = $d -> query($sql);
-			}catch(Exception $e ){$l = new Log;$l-warn("$e");}
-		}
-		function log_return($devote_user_id,$borrow_user_id,$arr_of_book_id){
-			$d = new DB;
-			$log = new Log;
-			$log->warn("books:{$arr_of_book_id}");
-			try{
-				$sql = "
-					insert into borrow (devote_user_id,borrow_user_id,is_return)
-					values({$devote_user_id},{$borrow_user_id},1)";
-				$d -> query($sql);
-				$sql = "SELECT LAST_INSERT_ID()";
-				$last_insert_id = $d -> query_1_1($sql);
-				foreach ($arr_of_book_id as &$book_id) {
-					$sql = "
-						insert into borrow_detail(borrow_id,book_id)
-						values({$last_insert_id},{$book_id})";
-					$d -> query($sql);
-				}
-			}catch(Exception $e){$log = new Log;$log->warn("{$e}");$log -> warn($sql);}
-		}
 		/// $selected == array of [book id]
 		function approve($selected,$uid){
 			$id_list = implode(",",$selected);
@@ -485,30 +433,23 @@
 		private $pagerecords;
 		function __construct($sql,$page,$title){
 			$this -> db = $db = new DB;
-			try{
-				if (!$page)
-					$page = 1;
-				$this -> page = $page ;
-				$pagerecords = 10 ;
-				$from = ($page-1)*$pagerecords;
-				$to = $pagerecords;
-				//
-				if($title != "")
-					$sql = $sql . " and title like '%". $title ."%' ";
-				$this -> count_sql = "select count(1) from (${sql}) balias";
-				$this -> sql = $sql . " limit ${from},${to}";
-				// echo $sql;
-				// echo $count_sql;
-				$this -> result = $db -> query ($this -> count_sql);
-				$row = $db -> fetch_row ($this -> result);
-				$this -> total_records = $row[0];
-				$this -> result = $db -> query($this -> sql);
-			}catch(Exception $e){
-				$log = new Log();
-				$log -> warn("${e}");
-				$log -> warn($this -> count_sql);
-				$log -> warn($this -> sql);
-			}
+			if (!$page)
+				$page = 1;
+			$this -> page = $page ;
+			$pagerecords = 10 ;
+			$from = ($page-1)*$pagerecords;
+			$to = $pagerecords;
+			//
+			if($title != "")
+				$sql = $sql . " and title like '%". $title ."%' ";
+			$this -> count_sql = "select count(1) from (${sql}) balias";
+			$this -> sql = $sql . " limit ${from},${to}";
+			// echo $sql;
+			// echo $count_sql;
+			$this -> result = $db -> query ($this -> count_sql);
+			$row = $db -> fetch_row ($this -> result);
+			$this -> total_records = $row[0];
+			$this -> result = $db -> query($this -> sql);
 		}
 		public function pager_str(){
 			return getPaginationString(

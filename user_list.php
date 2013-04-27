@@ -10,7 +10,14 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" >
 	<LINK REL="StyleSheet" HREF="bootstrap/css/bootstrap.min.css" TYPE="text/css" >
-	<link type="text/css" REL="StyleSheet" href="wrapper.css"/>
+	<style type="text/css">
+	#wrapper {
+		width: 600px;
+		margin: 60px auto 0;
+		padding-top: 200px；
+		font: 1.2em Verdana, Arial, sans-serif;
+	}
+	</style>
 </head>
 <body>
 <? include "banner.php" ?>
@@ -73,6 +80,7 @@
 ?>
 </table>
 <?	
+	include "paginator.php";
 	$target = $_SERVER['PHP_SELF'];
 	echo getPaginationString($page, $total_records, 
 		$pagerecords, 1, $target, $pagestring = "?page=");
