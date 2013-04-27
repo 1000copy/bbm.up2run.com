@@ -1,12 +1,14 @@
 <?
 	session_start(); 
 ?>
+<? 
+include "config.inc.php" ;
+?>
 <?php
 	$user_id = $_SESSION['user_id'];
 	// echo $user_id;
 	if (!$user_id)
 		die("没有登录，不能上传");
-	include "config.inc.php";
 	$action = htmlspecialchars($_GET['action'], ENT_QUOTES);
 	if ($action){
 		define ('SITE_ROOT', realpath(dirname(__FILE__)));
@@ -73,18 +75,14 @@
 	<title>books</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" >
-	<style type="text/css">
-	#wrapper {
-		width: 600px;
-		margin: 20px auto 0;
-		font: 1.2em Verdana, Arial, sans-serif;
-	}
-	</style>
+	<LINK REL="StyleSheet" HREF="wrapper.css" TYPE="text/css" >
+	<? bs_here();?>
+	
 </head>
 
 <body>
-<div id="wrapper">
-	
+	<? include "banner.php" ;?>
+
 <h1>books upload</h1>
 <p>
 <ol>
@@ -108,6 +106,5 @@ uml精粹
 	<input type="submit" name="submit" value="Submit">
 </form>
 
-</div><!-- end #wrapper -->
 </body>
 </html>
