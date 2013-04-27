@@ -12,13 +12,16 @@ create table borrow(
      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
      borrow_user_id int not null,
      devote_user_id int not null,
-     w date 
+     w date ,
+     is_return int default 0 
 );
 drop table  if exists borrow_detail;
 create table borrow_detail(
      borrow_id int,
      book_id int not null
 );
+
+
 
 drop table  if exists book;
 create table book(

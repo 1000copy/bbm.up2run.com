@@ -38,14 +38,7 @@
 	<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" >
 	<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" >
 	<? bs_here();?>
-	<style type="text/css">
-	#wrapper {
-		width: 600px;
-		margin: 60px auto 0;
-		padding-top: 200px；
-		font: 1.2em Verdana, Arial, sans-serif;
-	}
-	</style>
+	<link type="text/css" REL="StyleSheet" href="wrapper.css"/>
 </head>
 <body>
 <? include "banner.php" ?>

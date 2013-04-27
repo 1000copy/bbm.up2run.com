@@ -14,13 +14,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<LINK REL="StyleSheet" HREF="bootstrap/css/bootstrap.min.css" TYPE="text/css" >
 	<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" >
-	<style type="text/css">
-	#wrapper {
-		width: 600px;
-		padding-top: 100px;
-		margin: 20px auto 0;
-		font: 1.2em Verdana, Arial, sans-serif;
-	}
+	<link type="text/css" REL="StyleSheet" href="wrapper.css"/>
 	</style>
 </head>
 <body>	
