@@ -107,6 +107,7 @@
 	}
 	class Dbe extends Exception{}
 	class DB {
+		var $result ;
 		function _construct(){
 			$link = $this -> connect($hostname, $username, $password);
 			$dbcheck = $this ->select("$database");
@@ -119,7 +120,8 @@
 			return $this->db_check(mysql_select_db($db));
 		}
 		public function query ($sql){
-			return $this->db_check(mysql_query($sql));
+			$this->result = $this->db_check(mysql_query($sql));
+			return $this -> result;
 		}
 		public function query_array ($sql,$column){
 			$result = $this->db_check(mysql_query($sql));
@@ -136,6 +138,10 @@
 		public function num_rows($result){
 			return $this->db_check(mysql_num_rows($result));
 		}
+		public function is_empty($result){
+			return $this -> num_rows($result) == 0 ;
+		}
+		
 		public function fetch_row($result){
 			return mysql_fetch_row($result);
 		}

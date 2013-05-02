@@ -74,37 +74,38 @@ include "config.inc.php" ;
 <head>
 	<title>books</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" >
-	<LINK REL="StyleSheet" HREF="wrapper.css" TYPE="text/css" >
-	<? bs_here();?>
+	<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" />
+	<!-- <LINK REL="StyleSheet" HREF="wrapper.css" TYPE="text/css" /> -->
 	
+	<? bs_here();?>
+	<link type="text/css" REL="StyleSheet" href="wrapper.css"/>
 </head>
 
 <body>
 	<? include "banner.php" ;?>
-
-<h1>books upload</h1>
-<p>
-<ol>
-<li> 文件请以csv为扩展名
-<li> 每行一本书的书名
-</ol>
-ex
-<pre>
------文件开始
-uml distilled
-uml精粹
------文件结束
-</pre>
-<form 
-	action="<?php echo $_SERVER['PHP_SELF']; ?>?action=upload"  
-	method="post"
-	enctype="multipart/form-data">
-	<input type="hidden" name="max_file_size" value="3554432">
-	<label for="file">File:</label>
-	<input type="file" name="file" id="file" placeholder="some csv file..."><br>
-	<input type="submit" name="submit" value="Submit">
-</form>
-
+	<div id="wrapper">
+		<h1>books upload</h1>
+		<p>
+		<ol>
+		<li> 文件请以csv为扩展名
+		<li> 每行一本书的书名
+		</ol>
+		就像这样：
+		<pre>
+		-----文件开始
+		uml distilled
+		uml精粹
+		-----文件结束
+		</pre>
+		<form 
+			action="<?php echo $_SERVER['PHP_SELF']; ?>?action=upload"  
+			method="post"
+			enctype="multipart/form-data">
+			<input type="hidden" name="max_file_size" value="3554432">
+			<label for="file">File:</label>
+			<input type="file" name="file" id="file" placeholder="some csv file..."><br>
+			<input type="submit" name="submit" value="Submit">
+		</form>
+	</div>
 </body>
 </html>

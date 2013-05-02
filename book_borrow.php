@@ -2,32 +2,22 @@
 	session_start();
 	include "config.inc.php";
 	$id = $_GET['id'];
+	$user_id = $_SESSION['user_id'];
+	$d = new DB;
 	$sql = "select title from book where id='${id}'";
-	$result = db_query($sql);
-	if (!$result){
-		echo mysql_error();
-	}else {
-		if (db_row_count($result) >0){
-			$row = db_fetch_row($result);
+	try{
+	$result = $d -> query($sql);
+		if (!$d -> is_empty($result)){
+			$row = $d -> fetch_row($result);
 			$title = $row[0];
 			$sql = "select id from  book where id='${id}' ";
-			$result = db_query($sql);
-			if (!result){
-				echo mysql_error();
-			}else if (db_row_count($result)>0){
-				$user_id = $_SESSION['user_id'];
+			$result = $d -> query($sql);
+			if ($d -> num_rows($result)>0){
 				$sql = "update book set state = 1,borrow_user_id =${user_id}  where id=${id}";
-				echo $sql;
-				$result = db_query($sql);
-				// $book_id = $id ;
-				// $sql = "insert into borrowed (user_id,book_id) values('${user_id}','${book_id}')";
-				// echo $sql;
-				// $result = db_query($sql);
-				if (!$result)
-					echo mysql_error();
+				$d -> query($sql);
 			}
 		}
-	}
+	}catch(Exception $e ){$log = new Log;$log->warn("${e}");}
 ?>
 <html>
 <head>

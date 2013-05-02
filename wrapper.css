@@ -1,6 +1,13 @@
 body {
-	  /*    padding-top: 10px ;
-		  padding-bottom: 40px;*/
+/*	      padding-top: 10px ;
+		  padding-bottom: 40px;
+*/	    color: #5a5a5a;
+		width: 800px;
+		margin: 50px auto 0;
+}
+#body {
+	      padding-top: 10px ;
+		  padding-bottom: 40px;
 	    color: #5a5a5a;
 		width: 800px;
 		margin: 50px auto 0;
