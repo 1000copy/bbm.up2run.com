@@ -123,3 +123,6 @@ Stack trace:
 [27.04.2013 - 14:10:16][!WARNING!] - approved:1000copy@gmail.com,失控,from 1000copy@gmail.com
 [27.04.2013 - 14:10:16][!WARNING!] - books:Array
 [27.04.2013 - 17:11:26][!WARNING!] - send apply mail: 追风筝的人 to 1000copy@gmail.com from 1000copy@gmail.com 
+[02.05.2013 - 17:05:35][!WARNING!] - send apply mail: 一只特立独行的猪,与全世界做生意 to 1000copy@gmail.com from 1000copy@gmail.com 
+[02.05.2013 - 17:10:40][!WARNING!] - reject:1000copy@gmail.com,一只特立独行的猪,与全世界做生意,from 1000copy@gmail.com
+[02.05.2013 - 17:10:40][!WARNING!] - reject:1000copy@gmail.com,一只特立独行的猪,与全世界做生意,from 1000copy@gmail.com
