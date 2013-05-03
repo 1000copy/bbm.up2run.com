@@ -22,10 +22,7 @@
 <html>
 <head>
 	<title>borrowed </title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<LINK REL="StyleSheet" HREF="bootstrap/css/bootstrap.min.css" TYPE="text/css" >
-	<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" >
-	<link type="text/css" REL="StyleSheet" href="wrapper.css"/>
+	<?bs_here();?>
 </head>
 <body>	
 	<? include "banner.php";?>

@@ -126,3 +126,32 @@ Stack trace:
 [02.05.2013 - 17:05:35][!WARNING!] - send apply mail: 一只特立独行的猪,与全世界做生意 to 1000copy@gmail.com from 1000copy@gmail.com 
 [02.05.2013 - 17:10:40][!WARNING!] - reject:1000copy@gmail.com,一只特立独行的猪,与全世界做生意,from 1000copy@gmail.com
 [02.05.2013 - 17:10:40][!WARNING!] - reject:1000copy@gmail.com,一只特立独行的猪,与全世界做生意,from 1000copy@gmail.com
+[02.05.2013 - 17:30:08][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #7)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #7)
+#3 {main}
+[02.05.2013 - 17:30:38][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:156
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(145): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(148): DB->num_rows(Resource id #7)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #7)
+#3 {main}
+[02.05.2013 - 17:36:01][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:156
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(145): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(148): DB->num_rows(Resource id #7)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #7)
+#3 {main}
+[02.05.2013 - 17:36:07][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:156
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(145): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(148): DB->num_rows(Resource id #7)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #7)
+#3 {main}
+[02.05.2013 - 17:36:09][!WARNING!] - send apply mail: 一只特立独行的猪 to 1000copy@gmail.com from 1000copy@gmail.com 
+[02.05.2013 - 17:36:17][!WARNING!] - approved_all:1000copy@gmail.com,一只特立独行的猪,from 1000copy@gmail.com
+[02.05.2013 - 17:36:17][!WARNING!] - books:Array
+[02.05.2013 - 17:36:26][!WARNING!] - return_confirm_all:1000copy@gmail.com,一只特立独行的猪,from 
+[02.05.2013 - 17:36:26][!WARNING!] - books:Array

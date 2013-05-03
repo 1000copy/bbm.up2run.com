@@ -73,7 +73,13 @@
 		}
 	}
 	function bs_here(){
-		echo '<LINK REL="StyleSheet" HREF="bootstrap/css/bootstrap.min.css" TYPE="text/css" >';
+		echo '
+			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+			<LINK REL="StyleSheet" HREF="bootstrap/css/bootstrap.min.css" TYPE="text/css" >
+			<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" >
+			<link type="text/css" REL="StyleSheet" href="wrapper.css"/>
+		'
+		;
 	}
 	function abbr($s){
 		$r = substr($s,0,6).'...';

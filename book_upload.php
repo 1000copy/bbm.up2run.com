@@ -73,17 +73,11 @@ include "config.inc.php" ;
 <html >
 <head>
 	<title>books</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" />
-	<!-- <LINK REL="StyleSheet" HREF="wrapper.css" TYPE="text/css" /> -->
-	
 	<? bs_here();?>
-	<link type="text/css" REL="StyleSheet" href="wrapper.css"/>
 </head>
-
 <body>
 	<? include "banner.php" ;?>
-	<div id="wrapper">
+	<!-- <div id="wrapper"> -->
 		<h1>books upload</h1>
 		<p>
 		<ol>
@@ -106,6 +100,6 @@ include "config.inc.php" ;
 			<input type="file" name="file" id="file" placeholder="some csv file..."><br>
 			<input type="submit" name="submit" value="Submit">
 		</form>
-	</div>
+	<!-- </div> -->
 </body>
 </html>
