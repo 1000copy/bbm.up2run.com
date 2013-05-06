@@ -3,35 +3,21 @@
 ?>
 <html>
 <head>
-  <LINK REL="StyleSheet" HREF="../bootstrap/css/bootstrap.min.css" TYPE="text/css" >
-      
+  <LINK REL="StyleSheet" HREF="../bootstrap/css/bootstrap.min.css" TYPE="text/css" >      
 </head>
 <body>
-<?
-
-// $html = <<< HTML
-// <html>
-// <h1>hello1<span>world</span></h1>
-// <p>random text</p>
-// <h1>title1</h1>
-// <h1>title2</h1>
-// </html>
-// HTML;
-
-// $dom = new DOMDocument;
-// $dom->loadHTML($html);
-// foreach ($dom->getElementsByTagName('h1') as $node) {
-//     // echo $dom->saveHtml($node);
-//     echo $node -> nodeValue."<br/>";
-// }
-
-?>
-
+  <form action="<?php echo $_SERVER['PHP_SELF']; ?>?action=search"  method="post" class="form-inline">
+  <input type="text" placeholder="some book title..." id="title" name="title" 
+  value="<?echo $_POST["title"]; ?>" class="search-query input-medium"/>
+  <input type="submit" value="search" class="btn-primary"/>
+</form>
 
 <?
-
+$action = $_GET["action"];
+if ($action=="search"){
+  $title = $_POST["title"];
   $dom = new DOMDocument;
-  $html = "http://book.douban.com/subject_search?search_text=%E7%81%BF%E7%83%82%E5%8D%83%E9%98%B3&cat=1001";
+  $html = "http://book.douban.com/subject_search?search_text={$title}&cat=1001";
   // suppress warning by "@" operator .yeah 
   @$dom->loadHTMLFile($html);
   // echo $dom -> documentElement -> tagName;
@@ -40,7 +26,6 @@
     if ($ul -> getAttribute("class") == "subject-list")
       break;
   }
-  echo '<ul class="thumbnails">';
   foreach ($ul->getElementsByTagName('li') as $node) {
       // echo $dom->saveHtml($node);
       // echo $node -> nodeValue."<br/>";
@@ -69,11 +54,8 @@
         // echo $title."<br/>";
         $title = $tag -> getAttribute("href");
         // echo $title."<br/>";
-        echo '<li class="span2"><a href="#" class="thumbnail">';
         echo "<img src='{$url}' alt='{$title}'/>";
-        echo "</li>";
       }
   }
-  echo "</ul>";
+}
 ?>
-
