@@ -28,7 +28,7 @@ create table book(
 	 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
      title NVARCHAR(100) NOT NULL,
      state int ,
-     douban_id int ,
+     douban_img NVARCHAR(100),
      author_id int,
      devote_id int,
      borrow_user_id int
@@ -47,34 +47,10 @@ create table user(
      weibo varchar(100) 
 );
 # password is space (md5..ed)
-insert into user (email,password)values("1000copy@gmail.com",'d41d8cd98f00b204e9800998ecf8427e');
-insert into user (email,password)values("2392349@qq.com",'d41d8cd98f00b204e9800998ecf8427e');
-
+insert into user (fullname,email,password)values("刘传君", "1000copy@gmail.com",'d41d8cd98f00b204e9800998ecf8427e');
+insert into user (fullname,email,password)values("顾苏浩", "2392349@qq.com",'d41d8cd98f00b204e9800998ecf8427e');
+insert into user (fullname,email,password)values("李亦飞", "2392349@qq.com",'d41d8cd98f00b204e9800998ecf8427e');
+insert into user (fullname,email,password)values("梁桥", "2392349@qq.com",'d41d8cd98f00b204e9800998ecf8427e');
 INSERT INTO book VALUES 
      (1,'失控',0,0,0,1,NULL),
-     (2,'追风筝的人',0,0,NULL,1,NULL),
---      (3,'灿烂千阳',0,0,NULL,1,NULL);
-
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
--- INSERT INTO book (title,state)VALUES ("some title",0);
-
-
-
+     (2,'追风筝的人',0,0,NULL,1,NULL);

@@ -30,6 +30,7 @@
 	<tr>
 		<th>#</th>
 		<th>No.</th>
+		<th>fullname</th>
 		<th>email</th>
 	</tr>
 <?
@@ -40,7 +41,7 @@
 	$from = ($page-1)*$pagerecords;
 	$to = $pagerecords;
 	if ($dbcheck) {
-		$sql = "select id  ,email from user u ";
+		$sql = "select id  ,email,fullname from user u ";
 		if ($action=="search"){
 			$email = trim($_POST['email']);
 			if($email != "")
@@ -65,6 +66,7 @@
 				echo "<tr>" .
 					  "<td>" . $url_e. $url_d. "</td>" . 
 					  "<td>" . $row[0] . "</td>" .
+					  "<td>" . $row[2] . "</td>" .
 					  "<td>" . $row[1] . "</td>" .
 					  "<tr>";
 			}

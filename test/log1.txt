@@ -155,3 +155,15 @@ Stack trace:
 [02.05.2013 - 17:36:17][!WARNING!] - books:Array
 [02.05.2013 - 17:36:26][!WARNING!] - return_confirm_all:1000copy@gmail.com,一只特立独行的猪,from 
 [02.05.2013 - 17:36:26][!WARNING!] - books:Array
+[07.05.2013 - 17:27:39][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:156
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(145): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(148): DB->num_rows(Resource id #7)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #7)
+#3 {main}
+[07.05.2013 - 17:27:53][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:156
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(145): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(148): DB->num_rows(Resource id #7)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #7)
+#3 {main}
