@@ -1,40 +1,71 @@
 <? session_start()?>
 <?php
 	include "config.inc.php";
+
+	class BookListPager extends Pager{
+		private $sql ;
+		public $id ;
+		public $title ;
+		public $devoter_name ;
+		public $devote_id ;
+		public $state ;
+		public $borrow_user_id ;
+		public $b_name ;
+		public $get_user_id;
+		public function __construct($user_id,$page,$title,$action){
+			$this -> sql = "
+			select b.id ,b.title ,u.email as devoter_name,b.devote_id,b.state ,b.borrow_user_id ,
+			u1.email as b_name
+			from book b 
+			left join user u on b.devote_id = u.id
+			left join user u1 on b.borrow_user_id = u1.id	
+		";
+			$sql = $this->sql;
+			$add_where = false;
+			if ($action=="search" && $title != "" ){
+				$sql = $sql . " where title like '%". $title ."%' ";
+				$add_where = true ;
+			}
+			$this->get_user_id = $user_id ;
+			if ($this->get_user_id){
+				if ($add_where)
+					$sql = $sql." and ";
+				else 
+					$sql = $sql." where ";
+				$sql = $sql."devote_id = {$this->get_user_id}";
+			}
+			$this->sql = $sql;
+			parent::__construct($this-> sql,$page,$title);
+		}
+		public function next(){
+			$row = $this -> db -> fetch_row($this -> result);
+			if ($row){
+				$this -> id = $row[0] ;
+				$this -> title = $row[1] ;
+				$this -> devoter_name = $row[2] ;
+				$this -> devote_id = $row[3];
+				$this -> state = $row[4] ;
+				$this -> borrow_user_id = $row[5] ;
+				$this -> b_name = $row[5];
+				return true;
+			}else return false;
+		}
+		public function pager_str(){
+			return getPaginationString(
+				$this -> page, 
+				$this->total_records, 
+				$this -> pagerecords, 
+				1,
+				$_SERVER['PHP_SELF']."?user={$this->get_user_id}", 
+				"&page=");
+		}
+	}
 	login_required();
 	$action = htmlspecialchars($_GET['action'], ENT_QUOTES);
 	$page = $_GET['page'];
 	$get_user_id = $_GET['user'];
-	if (!$page)
-		$page = 1;
-	$pagerecords = 10 ;
-	$from = ($page-1)*$pagerecords;
-	$to = $pagerecords;
-	if (!$dbcheck) {die();}
-	$sql = "
-		select b.id ,b.title ,u.email as devoter_name,b.devote_id,b.state ,b.borrow_user_id ,
-		u1.email as b_name
-		from book b 
-		left join user u on b.devote_id = u.id
-		left join user u1 on b.borrow_user_id = u1.id		
-	 ";
-	$add_where = false;
 	$title = trim($_POST['title']);
-	if ($action=="search" && $title != "" ){
-		$sql = $sql . " where title like '%". $title ."%' ";
-		$add_where = true ;
-	}
-	if ($get_user_id){
-		if ($add_where)
-			$sql = $sql." and ";
-		else 
-			$sql = $sql." where ";
-		$sql = $sql."devote_id = {$get_user_id}";
-	}
-	$count_sql = "select count(1) from (${sql}) balias";
-	$sql = $sql . " limit ${from},${to}";
-	$db = new DB;
-	$total_records = $db -> query_1_1($count_sql);
+	$p = new BookListPager($get_user_id,$page,$title,$action);
 ?>
 <html >
 <head>
@@ -47,7 +78,7 @@
 <body>
 <? include "banner.php" ?>
 <div id="wrapper">
-<h1>books/<? echo $total_records;?> </h1>
+<h1>books/<?echo $p->total_records;?> </h1>
 
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>?action=search&user=<?echo $get_user_id;?>"  method="post" class="form-inline">
 	<i class ="icon-search"></i><input type="text" placeholder="some book title..." id="title" name="title" 
@@ -66,39 +97,37 @@
 		<th>borrower</th>
 	</tr>
 <?
-	$result = $db -> query($sql);
-	if (mysql_num_rows($result) == 0) {die();}
-	while ($row = mysql_fetch_row($result)) {
-		$devote_id = $row[3];
-		$curr_user_id = $_SESSION["user_id"];
-		$borrowed = $row[4]!=0;
+	// $result = $db -> query($sql);
+	// if (mysql_num_rows($result) == 0) {die();}
+	// while ($row = mysql_fetch_row($result)) {
+	while($row = $p -> next()){
+		// $curr_user_id = $_SESSION["user_id"];
 		$url_e ="";
 		$url_d ="";
 		$url_borrow="";
 		if (!$borrowed)
-			$url_borrow = "<a class='' href='book_borrow.php?id=".$row[0]."'>Borrow</a>&nbsp;" ;
+			$url_borrow = "<a class='' href='book_borrow.php?id=".$p->id."'>Borrow</a>&nbsp;" ;
 		if ($devote_id == $curr_user_id){
-			 $url_e = "<a  href='book_edit.php?id=".$row[0]."'>Edit</a>&nbsp;" ;
-			 $url_d = "<a  href='book_delete.php?id=".$row[0]."'>Del</a>&nbsp;" ;
+			 $url_e = "<a  href='book_edit.php?id=".$p->id."'>Edit</a>&nbsp;" ;
+			 $url_d = "<a  href='book_delete.php?id=".$p->id."'>Del</a>&nbsp;" ;
 		
 		}
-		$bstr = get_state($row[4]);
+		$bstr = get_state($state);
 		$btn_group = "<div class=''>".$url_e. $url_d.$url_borrow."</div>" ;
 		echo "<tr>" .
 		 	  "<td>" . $btn_group. "</td>" . 
-		 	  "<td>" . $row[0] . "</td>" .
-		 	  "<td>" . $row[1] . "</td>" .
+		 	  "<td>" . $p->id . "</td>" .
+		 	  "<td>" . $p-> title. "</td>" .
 		 	  "<td>" . $bstr . "</td>" .
-		 	  "<td>" .abbr($row[2]) . "</td>".
-		 	  "<td>" . abbr($row[6]) . "</td>".
+		 	  "<td>" .abbr($p->devoter_name) . "</td>".
+		 	  "<td>" . abbr($p-> b_name) . "</td>".
 		 	  "<tr>";
 	}
 ?>
 </table>
 <?	
 	$target = $_SERVER['PHP_SELF'];
-	echo getPaginationString($page, $total_records, 
-		$pagerecords, 1, $target, $pagestring = "?page=");
+	echo $p -> pager_str();
 ?>
 </div><!-- end #wrapper -->
 </body>

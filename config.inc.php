@@ -512,29 +512,27 @@
 		public $total_records;
 		public $result ;
 		public $db ;
-		private $count_sql;
+		public $count_sql;
 		private $sql;
-		private $page;
-		private $pagerecords;
+		public $page;
+		public $pagerecords;
 		function __construct($sql,$page,$title){
 			$this -> db = $db = new DB;
 			try{
 				if (!$page)
 					$page = 1;
 				$this -> page = $page ;
-				$pagerecords = 10 ;
-				$from = ($page-1)*$pagerecords;
-				$to = $pagerecords;
+				$this->pagerecords = 10 ;
+				$from = ($page-1)*$this->pagerecords;
+				$to = $this->pagerecords;
 				//
 				if($title != "")
 					$sql = $sql . " and title like '%". $title ."%' ";
 				$this -> count_sql = "select count(1) from (${sql}) balias";
-				$this -> sql = $sql . " limit ${from},${to}";
+				$this -> sql = $sql . " limit ${from},${to} ";
 				// echo $sql;
 				// echo $count_sql;
-				$this -> result = $db -> query ($this -> count_sql);
-				$row = $db -> fetch_row ($this -> result);
-				$this -> total_records = $row[0];
+				$this -> total_records = $db -> query_1_1 ($this -> count_sql);
 				$this -> result = $db -> query($this -> sql);
 			}catch(Exception $e){
 				$log = new Log();
@@ -579,7 +577,7 @@
 				$this -> email = $row[2] ;
 				$this -> devote_id = $row[3];
 				$this -> state = $row[4] ;
-				return true;
+				return $row;
 			}else return false;
 		}
 

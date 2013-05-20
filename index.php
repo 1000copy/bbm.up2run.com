@@ -72,7 +72,7 @@
 					<p> <a href="book_clear_all.php" class="btn btn-warning">clear all</a>
 				</div>
 				<div class="span3">
-					<h2>Statis</h2>
+					<h2>Statics</h2>
 					<p> borrow totals : <?echo $borrow_totals ?></p>
 					<p> return totals : <?echo $return_totals ?></p>
 				</div>

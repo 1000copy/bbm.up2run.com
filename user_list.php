@@ -10,7 +10,8 @@
 	$from = ($page-1)*$pagerecords;
 	$to = $pagerecords;
 	if (!$dbcheck) {die();}
-	$sql = "select id  ,email,fullname ,notify from user u ";
+	$sql = "select id  ,email,fullname ,notify ,
+		(select count(1) from book where devote_id = u.id) as bc  from user u ";
 	if ($action=="search"){
 		$email = trim($_POST['email']);
 		if($email != "")
@@ -55,19 +56,23 @@ else{ ?>
 		<th>fullname</th>
 		<th>email</th>
 		<th>notify</th>
+		<th>books</th>
 	</tr>
 <?
 	
 	while ($row = mysql_fetch_row($result)) {
 		$notify = $row[3] == 0 ?"false":"true";
+		$bc = $row[4];
 		$url_e = "<a href='user_edit.php?id=".$row[0]."'>Edit</a>&nbsp;" ;
 		$url_d = "<a href='user_delete.php?id=".$row[0]."'>Del</a>" ;
+		$url_books = "<a href='book_list.php?user={$row[0]}'>{$bc}</a>" ;
 		echo "<tr>" .
 			  "<td>" . $url_e. $url_d. "</td>" . 
 			  "<td>" . $row[0] . "</td>" .
 			  "<td>" . $row[2] . "</td>" .
 			  "<td>" . $row[1] . "</td>" .
 			  "<td>" . $notify . "</td>" .
+			  "<td>" . $url_books . "</td>" .
 			  "<tr>";
 	} 
 ?>
