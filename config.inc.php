@@ -126,10 +126,14 @@
 			return $this->db_check(mysql_select_db($db));
 		}
 		public function query ($sql){
+			$log = new Log;
+			$log -> warn($sql);
 			$this->result = $this->db_check(mysql_query($sql));
 			return $this -> result;
 		}
 		public function query_array ($sql,$column){
+			$log = new Log;
+			$log -> warn($sql);
 			$result = $this->db_check(mysql_query($sql));
 			$arr = Array();
 			while($row = $this -> fetch_row($result)){
@@ -195,6 +199,7 @@
 		function __construct(){
 			$this -> log = new Log();
 		}
+		// depreciated
 		function commit($user_id){
 			try{
 				// set to commit state
@@ -225,7 +230,7 @@
 					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email
 					from book b
 					left join user u on b.borrow_user_id = u.id 
-					where state =2 and devote_id =${uid} and borrow_user_id is not null
+					where state =1 and devote_id =${uid} and borrow_user_id is not null
 					group by borrow_user_id
 				";
 				$result = $d -> query($sql);
@@ -236,7 +241,7 @@
 					$this -> send_mail($to,$message,$from,$subject);
 				}
 				$sql = "update book set state = 0 , borrow_user_id=null 
-					where state =2 and devote_id =${uid}"; 
+					where state = 1 and devote_id =${uid}"; 
 				$log->warn("reject:${to},${message},from ${from}");
 				$result = $d -> query($sql);
 			}catch (Exception $e ){
@@ -253,7 +258,7 @@
 					GROUP_CONCAT(b.id SEPARATOR ',' )
 					from book b
 					left join user u on b.borrow_user_id = u.id 
-					where state =2 and devote_id =${uid} and borrow_user_id is not null
+					where state = 1 and devote_id =${uid} and borrow_user_id is not null
 					group by borrow_user_id
 				";
 				$d = new DB();
@@ -273,7 +278,7 @@
 					$this->log__($uid,$borrow_user_id,$arr_of_book_id);
 				}
 				// update book state 
-				$sql = "update book set state = 3 where state =2 and devote_id =${uid}"; 
+				$sql = "update book set state = 3 where state = 1 and devote_id =${uid}"; 
 				$result = $d -> query($sql);
 				
 			}catch(Exception $e){
@@ -299,6 +304,45 @@
 				}
 			}catch(Exception $e){$log = new Log;$log->warn("{$e}");}
 		}
+		function return_confirm($selected,$user_id){
+			$this -> log -> warn ("{$selected}");
+			$id_list = implode(",",$selected);
+			$d = new DB();
+			try{
+				$sql = "
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
+					GROUP_CONCAT(b.id SEPARATOR ',' )
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where 
+					state = 3 and 
+					b.id in ('${id_list}') and 
+					devote_id =${user_id} and 
+					borrow_user_id is not null
+					group by borrow_user_id
+				";
+				
+				$result = $d -> query($sql);
+				$subject = "Your return for book is confirmed";
+				$from = $user_name ;
+				while ($row = $d -> fetch_row($result)){
+					// mail 
+					$message = $row[1] ;
+					$to = $row[2];
+					$this -> log->warn("return_confirm_all:${to},${message},from ${from}");
+					$this -> send_mail($to,$message,$from,$subject);
+					// log
+					$book_ids= $row[3];
+					$arr_of_book_id = $selected;
+					$borrow_user_id = $row[0];
+					$this->log_return($user_id,$borrow_user_id,$arr_of_book_id);
+				}
+				//
+				$sql = "update book set state = 0 ,borrow_user_id = null 
+						where state = 3 and devote_id ='${user_id}'";
+				$result = $d -> query($sql);
+			}catch(Exception $e ){$l = new Log;$l->warn("$e");}
+		}
 		function return_confirm_all($user_id){
 			$d = new DB();
 			try{
@@ -307,7 +351,7 @@
 					GROUP_CONCAT(b.id SEPARATOR ',' )
 					from book b
 					left join user u on b.borrow_user_id = u.id 
-					where state = 4 and devote_id =${user_id} and borrow_user_id is not null
+					where state = 3 and devote_id =${user_id} and borrow_user_id is not null
 					group by borrow_user_id
 				";
 				
@@ -328,7 +372,7 @@
 				}
 				//
 				$sql = "update book set state = 0 ,borrow_user_id = null 
-			where state = 4 and devote_id ='${user_id}'";//2==commit
+			where state = 3 and devote_id ='${user_id}'";//2==commit
 				$result = $d -> query($sql);
 			}catch(Exception $e ){$l = new Log;$l-warn("$e");}
 		}
@@ -365,7 +409,7 @@
 					from book b
 					left join user u on b.borrow_user_id = u.id 
 					where 
-					state =2 and devote_id =${uid} and borrow_user_id is not null
+					state = 1 and devote_id =${uid} and borrow_user_id is not null
 					and b.id in ($id_list)
 					group by borrow_user_id
 				";
@@ -435,7 +479,7 @@
 					from book b
 					left join user u on b.borrow_user_id = u.id 
 					where 
-					state =2 and devote_id =${uid} and borrow_user_id is not null
+					state = 1 and devote_id =${uid} and borrow_user_id is not null
 					and b.id in ($id_list)
 					group by borrow_user_id
 				";
@@ -454,35 +498,16 @@
 				$this -> log -> warn("${e}");
 			}
 		}
-		function return_($selected,$uid){
-			$this -> log -> warn ("{$selected}");
-			$id_list = implode(",",$selected);
-			$d = new DB;
-			try{
-				// update state = return confirm
-				$sql = "update book set state = 4  
-					where id in(${id_list}) and state =3 and borrow_user_id =${uid}";
-				$result = $d -> query($sql);
-			}catch(Exception $e){
-				$this -> log -> warn("${e}");
-				$this -> log -> warn($sql);
-			}
-		}
-		function return_all($uid){
-			try{
-				// 4 - return 
-				$sql = "update book set state = 4 where state =3 and borrow_user_id =${uid}";
-				$db = new DB();
-				$result = $db -> query($sql);
-				header("Location: book_return_confirm.php");
-			}catch(Exception $e){
-				$log = new Log();
-				$log -> warn($e);
-			}
-		}
 		private function send_mail($to,$message,$from,$subject){
-			$headers = "From: $from";
-			mail($to,$subject,$message,$headers);
+			if ($this->is_notify($to)){
+				$headers = "From: $from";
+				mail($to,$subject,$message,$headers);
+			}
+		}
+		private function is_notify($to){
+			$d = new DB;
+			$notify = $d->query_1_1("select notify from user where email ='${to}'");
+			return $notify == 1;
 		}
 	}
 

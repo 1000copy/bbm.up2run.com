@@ -1,169 +1,261 @@
-[24.04.2013 - 16:57:24][!WARNING!] - return_confirm_all:1000copy@gmail.com,失控,some title,灿烂千阳,some title,追风筝的人,some title,some title,from 
-[24.04.2013 - 16:57:24][!WARNING!] - books:Array
-[24.04.2013 - 16:57:24][!WARNING!] - exception 'Exception' with message 'You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,1)' at line 2' in /Users/lcjun/bbm.up2run.com/config.inc.php:144
+[20.05.2013 - 10:44:18][!WARNING!] - Array
+[20.05.2013 - 10:44:18][!WARNING!] - 
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
+					GROUP_CONCAT(b.id SEPARATOR ',' )
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where 
+					state = 3 and 
+					id in ('2') and 
+					devote_id =1 and 
+					borrow_user_id is not null
+					group by borrow_user_id
+				
+[20.05.2013 - 10:44:18][!WARNING!] - exception 'Exception' with message 'Column 'id' in where clause is ambiguous' in /Users/lcjun/bbm.up2run.com/config.inc.php:160
 Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(122): DB->db_check(false)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(331): DB->query('??????insert in...')
-#2 /Users/lcjun/bbm.up2run.com/config.inc.php(315): Book->log_return(NULL, '1', Array)
-#3 /Users/lcjun/bbm.up2run.com/book_return_confirm.php(9): Book->return_confirm_all('1')
-#4 {main}
-[24.04.2013 - 16:59:10][!WARNING!] - return_confirm_all:1000copy@gmail.com,失控,some title,灿烂千阳,some title,追风筝的人,some title,some title,from 
-[24.04.2013 - 16:59:10][!WARNING!] - books:Array
-[24.04.2013 - 16:59:10][!WARNING!] - exception 'Exception' with message 'You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,1)' at line 2' in /Users/lcjun/bbm.up2run.com/config.inc.php:144
-Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(122): DB->db_check(false)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(331): DB->query('??????insert in...')
-#2 /Users/lcjun/bbm.up2run.com/config.inc.php(315): Book->log_return(NULL, '1', Array)
-#3 /Users/lcjun/bbm.up2run.com/book_return_confirm.php(9): Book->return_confirm_all('1')
-#4 {main}
-[24.04.2013 - 16:59:10][!WARNING!] - 
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(131): DB->db_check(false)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(324): DB->query('??????select bo...')
+#2 /Users/lcjun/bbm.up2run.com/book_return_cart.php(18): Book->return_confirm(Array, '1')
+#3 {main}
+[20.05.2013 - 10:44:18][!WARNING!] - select count(1) from (
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		) balias
+[20.05.2013 - 10:44:18][!WARNING!] - 
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		 limit 0,10
+[20.05.2013 - 10:44:54][!WARNING!] - Array
+[20.05.2013 - 10:44:54][!WARNING!] - 
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
+					GROUP_CONCAT(b.id SEPARATOR ',' )
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where 
+					state = 3 and 
+					b.id in ('2') and 
+					devote_id =1 and 
+					borrow_user_id is not null
+					group by borrow_user_id
+				
+[20.05.2013 - 10:44:54][!WARNING!] - return_confirm_all:1000copy@gmail.com,追风筝的人,from 
+[20.05.2013 - 10:44:54][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 10:44:54][!WARNING!] - books:Array
+[20.05.2013 - 10:44:54][!WARNING!] - 
 					insert into borrow (devote_user_id,borrow_user_id,is_return)
-					values(,1,1)
-[24.04.2013 - 16:59:45][!WARNING!] - return_confirm_all:1000copy@gmail.com,失控,some title,灿烂千阳,some title,追风筝的人,some title,some title,from 
-[24.04.2013 - 16:59:45][!WARNING!] - books:Array
-[24.04.2013 - 16:59:45][!WARNING!] - exception 'Exception' with message 'You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,1)' at line 2' in /Users/lcjun/bbm.up2run.com/config.inc.php:144
+					values(1,1,1)
+[20.05.2013 - 10:44:54][!WARNING!] - SELECT LAST_INSERT_ID()
+[20.05.2013 - 10:44:54][!WARNING!] - 
+						insert into borrow_detail(borrow_id,book_id)
+						values(7,2)
+[20.05.2013 - 10:44:54][!WARNING!] - update book set state = 0 ,borrow_user_id = null 
+						where state = 3 and devote_id ='1'
+[20.05.2013 - 10:44:54][!WARNING!] - select count(1) from (
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		) balias
+[20.05.2013 - 10:44:54][!WARNING!] - 
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		 limit 0,10
+[20.05.2013 - 10:44:57][!WARNING!] - select title from book where id='2'
+[20.05.2013 - 10:44:57][!WARNING!] - select id from  book where id='2' 
+[20.05.2013 - 10:44:57][!WARNING!] - update book set state = 1,borrow_user_id =1  where id=2
+[20.05.2013 - 10:45:19][!WARNING!] - select count(1) from (
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		) balias
+[20.05.2013 - 10:45:19][!WARNING!] - 
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		 limit 0,10
+[20.05.2013 - 10:45:25][!WARNING!] - select title from book where id=''
+[20.05.2013 - 10:45:25][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:160
 Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(122): DB->db_check(false)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(331): DB->query('??????insert in...')
-#2 /Users/lcjun/bbm.up2run.com/config.inc.php(315): Book->log_return(NULL, '1', Array)
-#3 /Users/lcjun/bbm.up2run.com/book_return_confirm.php(9): Book->return_confirm_all('1')
-#4 {main}
-[24.04.2013 - 16:59:45][!WARNING!] - 
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(149): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(152): DB->num_rows(Resource id #9)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #9)
+#3 {main}
+[20.05.2013 - 10:45:31][!WARNING!] - select title from book where id=''
+[20.05.2013 - 10:45:31][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:160
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(149): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(152): DB->num_rows(Resource id #9)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #9)
+#3 {main}
+[20.05.2013 - 10:45:34][!WARNING!] - select title from book where id=''
+[20.05.2013 - 10:45:34][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:160
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(149): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(152): DB->num_rows(Resource id #9)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #9)
+#3 {main}
+[20.05.2013 - 10:45:44][!WARNING!] - select title from book where id=''
+[20.05.2013 - 10:45:44][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:160
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(149): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(152): DB->num_rows(Resource id #9)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #9)
+#3 {main}
+[20.05.2013 - 10:50:45][!WARNING!] - select title from book where id=''
+[20.05.2013 - 10:50:45][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:160
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(149): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(152): DB->num_rows(Resource id #9)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #9)
+#3 {main}
+[20.05.2013 - 10:50:48][!WARNING!] - select title from book where id=''
+[20.05.2013 - 10:50:48][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:160
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(149): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(152): DB->num_rows(Resource id #9)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #9)
+#3 {main}
+[20.05.2013 - 10:50:51][!WARNING!] - select title from book where id=''
+[20.05.2013 - 10:50:51][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:160
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(149): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(152): DB->num_rows(Resource id #9)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #9)
+#3 {main}
+[20.05.2013 - 10:50:55][!WARNING!] - 
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
+					GROUP_CONCAT(b.id SEPARATOR ',' )
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where state = 1 and devote_id =1 and borrow_user_id is not null
+					group by borrow_user_id
+				
+[20.05.2013 - 10:50:55][!WARNING!] - approved_all:1000copy@gmail.com,追风筝的人,from 1000copy@gmail.com
+[20.05.2013 - 10:50:55][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 10:50:55][!WARNING!] - books:Array
+[20.05.2013 - 10:50:55][!WARNING!] - 
+					insert into borrow (devote_user_id,borrow_user_id)
+					values(1,1)
+[20.05.2013 - 10:50:55][!WARNING!] - SELECT LAST_INSERT_ID()
+[20.05.2013 - 10:50:55][!WARNING!] - 
+						insert into borrow_detail(borrow_id,book_id)
+						values(8,2)
+[20.05.2013 - 10:50:55][!WARNING!] - update book set state = 3 where state = 1 and devote_id =1
+[20.05.2013 - 10:50:57][!WARNING!] - select count(1) from (
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		) balias
+[20.05.2013 - 10:50:57][!WARNING!] - 
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		 limit 0,10
+[20.05.2013 - 10:51:00][!WARNING!] - Array
+[20.05.2013 - 10:51:00][!WARNING!] - 
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
+					GROUP_CONCAT(b.id SEPARATOR ',' )
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where 
+					state = 3 and 
+					b.id in ('2') and 
+					devote_id =1 and 
+					borrow_user_id is not null
+					group by borrow_user_id
+				
+[20.05.2013 - 10:51:00][!WARNING!] - return_confirm_all:1000copy@gmail.com,追风筝的人,from 
+[20.05.2013 - 10:51:00][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 10:51:00][!WARNING!] - books:Array
+[20.05.2013 - 10:51:00][!WARNING!] - 
 					insert into borrow (devote_user_id,borrow_user_id,is_return)
-					values(,1,1)
-[24.04.2013 - 17:00:25][!WARNING!] - send apply mail: 失控 to 1000copy@gmail.com from 1000copy@gmail.com 
-[24.04.2013 - 17:00:29][!WARNING!] - approved_all:1000copy@gmail.com,失控,from 1000copy@gmail.com
-[24.04.2013 - 17:00:29][!WARNING!] - books:Array
-[24.04.2013 - 17:00:33][!WARNING!] - Array
-[24.04.2013 - 17:00:35][!WARNING!] - return_confirm_all:1000copy@gmail.com,失控,from 
-[24.04.2013 - 17:00:35][!WARNING!] - books:Array
-[24.04.2013 - 17:03:30][!WARNING!] - exception 'Exception' with message 'Unknown column 'b.is_borrow' in 'field list'' in /Users/lcjun/bbm.up2run.com/config.inc.php:144
+					values(1,1,1)
+[20.05.2013 - 10:51:00][!WARNING!] - SELECT LAST_INSERT_ID()
+[20.05.2013 - 10:51:00][!WARNING!] - 
+						insert into borrow_detail(borrow_id,book_id)
+						values(9,2)
+[20.05.2013 - 10:51:00][!WARNING!] - update book set state = 0 ,borrow_user_id = null 
+						where state = 3 and devote_id ='1'
+[20.05.2013 - 10:51:00][!WARNING!] - select count(1) from (
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		) balias
+[20.05.2013 - 10:51:00][!WARNING!] - 
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		 limit 0,10
+[20.05.2013 - 10:51:51][!WARNING!] - select count(1) from (
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		) balias
+[20.05.2013 - 10:51:51][!WARNING!] - 
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		 limit 0,10
+[20.05.2013 - 10:51:53][!WARNING!] - select title from book where id=''
+[20.05.2013 - 10:51:53][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:160
 Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(122): DB->db_check(false)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(502): DB->query('select count(1)...')
-#2 /Users/lcjun/bbm.up2run.com/book_log.php(44): Pager->__construct('?????select u1....', NULL, '')
-#3 /Users/lcjun/bbm.up2run.com/book_log.php(93): BookLogPager->__construct('1', NULL, '')
-#4 {main}
-[24.04.2013 - 17:03:30][!WARNING!] - select count(1) from (
-				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_borrow from 
-				(
-				     select b.devote_user_id,b.borrow_user_id ,
-				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
-				     bd.borrow_id ,b.is_borrow
-				     from borrow b left join 
-				          (
-				          	select bk.title,bdetail.borrow_id,bk.id 
-				          	from borrow_detail bdetail 
-				          	left join book bk on bdetail.book_id = bk.id 
-				          )
-				     bd on b.id = bd.borrow_id group by bd.borrow_id
-				) tt 
-				left join user u1 on tt.devote_user_id = u1.id 
-				left join user u2 on tt.borrow_user_id = u2.id 
-			) balias
-[24.04.2013 - 17:03:30][!WARNING!] - 
-				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_borrow from 
-				(
-				     select b.devote_user_id,b.borrow_user_id ,
-				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
-				     bd.borrow_id ,b.is_borrow
-				     from borrow b left join 
-				          (
-				          	select bk.title,bdetail.borrow_id,bk.id 
-				          	from borrow_detail bdetail 
-				          	left join book bk on bdetail.book_id = bk.id 
-				          )
-				     bd on b.id = bd.borrow_id group by bd.borrow_id
-				) tt 
-				left join user u1 on tt.devote_user_id = u1.id 
-				left join user u2 on tt.borrow_user_id = u2.id 
-			 limit 0,10
-[24.04.2013 - 17:03:39][!WARNING!] - exception 'Exception' with message 'Unknown column 'b.is_borrow' in 'field list'' in /Users/lcjun/bbm.up2run.com/config.inc.php:144
-Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(122): DB->db_check(false)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(502): DB->query('select count(1)...')
-#2 /Users/lcjun/bbm.up2run.com/book_log.php(44): Pager->__construct('?????select u1....', NULL, '')
-#3 /Users/lcjun/bbm.up2run.com/book_log.php(93): BookLogPager->__construct('1', NULL, '')
-#4 {main}
-[24.04.2013 - 17:03:39][!WARNING!] - select count(1) from (
-				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_borrow from 
-				(
-				     select b.devote_user_id,b.borrow_user_id ,
-				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
-				     bd.borrow_id ,b.is_borrow
-				     from borrow b left join 
-				          (
-				          	select bk.title,bdetail.borrow_id,bk.id 
-				          	from borrow_detail bdetail 
-				          	left join book bk on bdetail.book_id = bk.id 
-				          )
-				     bd on b.id = bd.borrow_id group by bd.borrow_id
-				) tt 
-				left join user u1 on tt.devote_user_id = u1.id 
-				left join user u2 on tt.borrow_user_id = u2.id 
-			) balias
-[24.04.2013 - 17:03:39][!WARNING!] - 
-				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_borrow from 
-				(
-				     select b.devote_user_id,b.borrow_user_id ,
-				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
-				     bd.borrow_id ,b.is_borrow
-				     from borrow b left join 
-				          (
-				          	select bk.title,bdetail.borrow_id,bk.id 
-				          	from borrow_detail bdetail 
-				          	left join book bk on bdetail.book_id = bk.id 
-				          )
-				     bd on b.id = bd.borrow_id group by bd.borrow_id
-				) tt 
-				left join user u1 on tt.devote_user_id = u1.id 
-				left join user u2 on tt.borrow_user_id = u2.id 
-			 limit 0,10
-[27.04.2013 - 14:08:04][!WARNING!] - send apply mail: 失控 to 1000copy@gmail.com from 1000copy@gmail.com 
-[27.04.2013 - 14:10:16][!WARNING!] - approved:1000copy@gmail.com,失控,from 1000copy@gmail.com
-[27.04.2013 - 14:10:16][!WARNING!] - books:Array
-[27.04.2013 - 17:11:26][!WARNING!] - send apply mail: 追风筝的人 to 1000copy@gmail.com from 1000copy@gmail.com 
-[02.05.2013 - 17:05:35][!WARNING!] - send apply mail: 一只特立独行的猪,与全世界做生意 to 1000copy@gmail.com from 1000copy@gmail.com 
-[02.05.2013 - 17:10:40][!WARNING!] - reject:1000copy@gmail.com,一只特立独行的猪,与全世界做生意,from 1000copy@gmail.com
-[02.05.2013 - 17:10:40][!WARNING!] - reject:1000copy@gmail.com,一只特立独行的猪,与全世界做生意,from 1000copy@gmail.com
-[02.05.2013 - 17:30:08][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
-Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #7)
-#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #7)
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(149): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(152): DB->num_rows(Resource id #9)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #9)
 #3 {main}
-[02.05.2013 - 17:30:38][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:156
-Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(145): DB->db_check(0)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(148): DB->num_rows(Resource id #7)
-#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #7)
-#3 {main}
-[02.05.2013 - 17:36:01][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:156
-Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(145): DB->db_check(0)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(148): DB->num_rows(Resource id #7)
-#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #7)
-#3 {main}
-[02.05.2013 - 17:36:07][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:156
-Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(145): DB->db_check(0)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(148): DB->num_rows(Resource id #7)
-#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #7)
-#3 {main}
-[02.05.2013 - 17:36:09][!WARNING!] - send apply mail: 一只特立独行的猪 to 1000copy@gmail.com from 1000copy@gmail.com 
-[02.05.2013 - 17:36:17][!WARNING!] - approved_all:1000copy@gmail.com,一只特立独行的猪,from 1000copy@gmail.com
-[02.05.2013 - 17:36:17][!WARNING!] - books:Array
-[02.05.2013 - 17:36:26][!WARNING!] - return_confirm_all:1000copy@gmail.com,一只特立独行的猪,from 
-[02.05.2013 - 17:36:26][!WARNING!] - books:Array
-[07.05.2013 - 17:27:39][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:156
-Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(145): DB->db_check(0)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(148): DB->num_rows(Resource id #7)
-#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #7)
-#3 {main}
-[07.05.2013 - 17:27:53][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:156
-Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(145): DB->db_check(0)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(148): DB->num_rows(Resource id #7)
-#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #7)
-#3 {main}
+[20.05.2013 - 10:52:04][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 1
+[20.05.2013 - 10:52:04][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 2
+[20.05.2013 - 10:52:04][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 3
+[20.05.2013 - 10:52:04][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 4
+[20.05.2013 - 10:52:04][!WARNING!] - select count(*) from book where devote_id = 1 and state = 2
+[20.05.2013 - 10:52:04][!WARNING!] - select count(*) from book where devote_id = 1 and state = 3
+[20.05.2013 - 10:52:04][!WARNING!] - select count(*) from book where devote_id = 1 and state = 4
+[20.05.2013 - 10:52:04][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 0 
+[20.05.2013 - 10:52:04][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 1 
+[20.05.2013 - 11:00:39][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 1
+[20.05.2013 - 11:00:39][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 2
+[20.05.2013 - 11:00:40][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 3
+[20.05.2013 - 11:00:40][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 4
+[20.05.2013 - 11:00:40][!WARNING!] - select count(*) from book where devote_id = 1 and state = 2
+[20.05.2013 - 11:00:40][!WARNING!] - select count(*) from book where devote_id = 1 and state = 3
+[20.05.2013 - 11:00:40][!WARNING!] - select count(*) from book where devote_id = 1 and state = 4
+[20.05.2013 - 11:00:40][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 0 
+[20.05.2013 - 11:00:40][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 1 

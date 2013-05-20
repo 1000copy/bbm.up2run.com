@@ -76,7 +76,7 @@
 		from book b 
 		left join user u on b.devote_id = u.id 
 		left join user u1 on b.borrow_user_id = u1.id 
-		where u.id = ${user_id} and state=2 
+		where u.id = ${user_id} and state=1 
 		";//commit
 		if ($action=="search"){
 			$title = trim($_POST['title']);

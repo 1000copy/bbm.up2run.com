@@ -15,10 +15,10 @@
 			$selected = $_POST['selected'];
 			// die( $selected);
 			// die("some");
-			$book -> return_($selected,$uid);    
+			$book -> return_confirm($selected,$uid);    
 		    break;
 		case 'return_all':
-			$book -> return_all($uid);    
+			$book -> return_confirm_all($uid);    
 		    break;
 	}
 
