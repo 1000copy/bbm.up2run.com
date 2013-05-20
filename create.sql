@@ -16,7 +16,7 @@ create table borrow(
      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
      borrow_user_id int not null,
      devote_user_id int not null,
-     w date ,
+     w datetime ,
      is_return int default 0 
 )  default character set utf8 default COLLATE utf8_bin;;
 drop table  if exists borrow_detail;

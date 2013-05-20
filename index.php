@@ -1,6 +1,8 @@
 <?
 	session_start(); 
+
 	include "config.inc.php";
+	login_required();
 ?>
 <html>
 <head>
@@ -12,6 +14,7 @@
 <body>
 	<? include "banner.php" ?>	
 		<?
+			
 			$d = new DB;
 			$borrowed = 0 ;
 			$approved = 100;

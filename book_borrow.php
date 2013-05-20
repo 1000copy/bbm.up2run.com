@@ -21,16 +21,16 @@
 ?>
 <html>
 <head>
-	<title>borrowed </title>
+	<title>borrowing </title>
 	<?bs_here();?>
 </head>
 <body>	
 	<? include "banner.php";?>
 	<div id="wrapper">
-		<h1>borrowed  </h1>
+		<h1>borrowing  </h1>
 		<p>  <?echo $title;?></p>
 		<a href="book_list.php" class="btn">back list</a>
-		<a href="book_borrow_commit.php?action=commit" class="btn">commit</a>
+		<!-- <a href="book_borrow_commit.php?action=commit" class="btn">commit</a> -->
 		<h1>cart</h1>
 		<table cellpadding="2" class="table table-striped table-bordered">
 		<tr>
@@ -70,7 +70,7 @@
 				$borrowed = $row[4]==1;
 				$url_e ="";
 				$url_d ="";
-				$url_d = "<a  href='book_remove_from_cart.php?id=".$row[0]."'>Remove from cart</a>&nbsp;" ;
+				$url_d = "<a  href='book_remove_from_cart.php?id=".$row[0]."'>drawback</a>&nbsp;" ;
 				$btn_group = "<div class=''>".$url_d."</div>" ;
 				echo "<tr>" .
 				 	  "<td>" . $btn_group. "</td>" . 

@@ -25,7 +25,7 @@
 ?>
 <html >
 <head>
-	<title>books return cart </title>
+	<title>returning </title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<LINK REL="StyleSheet" HREF="paginator.css" TYPE="text/css" >
 	<? bs_here();?>
@@ -37,7 +37,7 @@
 	
 
 
-<h1>books returning cart  </h1>
+<h1> returning  </h1>
 
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>?action=search"  method="post" class="form-inline">
 	<input type="text" placeholder="some book title..." id="title" name="title" 

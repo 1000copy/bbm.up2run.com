@@ -49,7 +49,7 @@
 	// autologin
 	function login_verify_ok($usr,$password_hash){
 		// echo $usr.$password_hash;
-		$sql = "select email,id from user 
+		$sql = "select email,id ,fullname from user 
 			where email='${usr}' and password = '${password_hash}'";
 		$result = db_query ($sql);
 		// echo $sql ;
@@ -62,6 +62,8 @@
 			$row = db_fetch_row($result);
 			$_SESSION['user_id'] = $row[1];
 			$_SESSION['user_name'] = $row[0];
+			$_SESSION['email'] = $row[0];
+			$_SESSION['fullname'] = $row[2];
 			return true ;
 		}
 	}
@@ -103,13 +105,6 @@
 		default:
 		  return 'error state';
 		}
-	}
-	$cookie_name = 'siteAuth';
-	$cookie_time = (3600 * 24 * 30); // 30 days
-	if(!$_SESSION['user_name'] && isSet($cookie_name) && isSet($_COOKIE[$cookie_name]))
-	{
-		parse_str($_COOKIE[$cookie_name]);
-		login_verify_ok($usr,$hash);
 	}
 	class Dbe extends Exception{}
 	class DB {
@@ -290,9 +285,10 @@
 			$log = new Log;
 			$log->warn("books:{$arr_of_book_id}");
 			try{
+				$w = getdate();
 				$sql = "
-					insert into borrow (devote_user_id,borrow_user_id)
-					values({$devote_user_id},{$borrow_user_id})";
+					insert into borrow (devote_user_id,borrow_user_id,w)
+					values({$devote_user_id},{$borrow_user_id},now())";
 				$d -> query($sql);
 				$sql = "SELECT LAST_INSERT_ID()";
 				$last_insert_id = $d -> query_1_1($sql);
@@ -382,8 +378,8 @@
 			$log->warn("books:{$arr_of_book_id}");
 			try{
 				$sql = "
-					insert into borrow (devote_user_id,borrow_user_id,is_return)
-					values({$devote_user_id},{$borrow_user_id},1)";
+					insert into borrow (devote_user_id,borrow_user_id,is_return,w)
+					values({$devote_user_id},{$borrow_user_id},1,now())";
 				$d -> query($sql);
 				$sql = "SELECT LAST_INSERT_ID()";
 				$last_insert_id = $d -> query_1_1($sql);
@@ -588,4 +584,18 @@
 		}
 
 	}
+	function try_autologin(){
+		$cookie_name = 'siteAuth';
+		$cookie_time = (3600 * 24 * 30); // 30 days
+		$log = new Log ;
+		$log -> warn("cookie verify begin");
+		if(!$_SESSION['user_name'] && isSet($cookie_name) && isSet($_COOKIE[$cookie_name]))
+		{
+			parse_str($_COOKIE[$cookie_name]);
+			$log -> warn("cookie verify $usr ,$hash");
+			login_verify_ok($usr,$hash);
+		}
+	}
+	try_autologin();
+	
 ?>

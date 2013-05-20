@@ -11,7 +11,7 @@
 		$fullname = $_POST['users'];
 		$password = $_POST['password'];
 		$autologin = $_POST['autologin'];
-		$result = db_query ("select email ,password,id from user where email='${fullname}'");
+		$result = db_query ("select email ,password,id ,fullname from user where email='${fullname}'");
 		if (!$result){
 			die (mysql_error());
 		}
@@ -20,13 +20,14 @@
 			if ($row[1] == md5($password )){
 				$user_id = $row[2];
 				$user_name = $row[0];
+				$fullname = $row[3];
 				$_SESSION['user_id'] = $user_id;
 				$_SESSION['user_name'] = $user_name;
+				$_SESSION['fullname'] = $fullname;
 				$password_hash = md5($password); 
-				$url = 'usr='.$fullname.'&hash='.$password_hash;
+				$url = 'usr='.$user_name.'&hash='.$password_hash;
 				setcookie ($cookie_name, $url, time() + $cookie_time);
 				header("Location:/book_list.php?user_id=${user_id}");
-				// print_r($_SESSION);
 			}else{
 				die("user / password do not match");	
 			}

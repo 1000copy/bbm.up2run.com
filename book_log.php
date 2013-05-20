@@ -23,13 +23,14 @@
 		public $to ;
 		public $titles ;
 		public $is_borrow ;
+		public $date;
 		public function __construct($user_id,$page,$title){
 			$this -> sql = "
-				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return from 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
 				(
 				     select b.devote_user_id,b.borrow_user_id ,
 				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
-				     bd.borrow_id ,b.is_return
+				     bd.borrow_id ,b.is_return,b.w 
 				     from borrow b left join 
 				          (
 				          	select bk.title,bdetail.borrow_id,bk.id 
@@ -40,6 +41,7 @@
 				) tt 
 				left join user u1 on tt.devote_user_id = u1.id 
 				left join user u2 on tt.borrow_user_id = u2.id 
+				order by tt.w desc 
 			";
 			parent::__construct($this-> sql,$page,$title);
 		}
@@ -50,6 +52,7 @@
 				$this -> to = $row[1] ;
 				$this -> titles = $row[2] ;
 				$this -> is_borrow = $row[3] !=1 ?"borrow":"return" ;
+				$this -> date = $row[4] ;
 				return true;
 			}else return false;
 		}
@@ -80,7 +83,8 @@
 <table cellpadding="2" class="table table-striped table-bordered">
 	<tr>
 		<th>#</th>
-		<th>borrorw? </th>
+		<th>borrow? </th>
+		<th>date</th>
 		<th>devote user </th>
 		<th>borrow user</th>
 		<th>books</th>
@@ -96,6 +100,7 @@
 			echo "<tr>" .
 			 	  "<td></td>" . 
 			 	  "<td>{$p->is_borrow}</td>" .
+			 	  "<td>{$p->date}</td>" .
 			 	  "<td>{$p->from}</td>" .
 			 	  "<td>{$p->to}</td>" .
 			 	  "<td>{$p->titles}</td><tr>";

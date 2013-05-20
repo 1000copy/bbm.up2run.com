@@ -46,7 +46,7 @@
 	
 
 
-<h1>books commited </h1>
+<h1>approving </h1>
 
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>?action=search"  method="post" class="form-inline">
 	<input type="text" placeholder="some book title..." id="title" name="title" 

@@ -1,142 +1,96 @@
-[20.05.2013 - 10:44:18][!WARNING!] - Array
-[20.05.2013 - 10:44:18][!WARNING!] - 
-					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
-					GROUP_CONCAT(b.id SEPARATOR ',' )
-					from book b
-					left join user u on b.borrow_user_id = u.id 
-					where 
-					state = 3 and 
-					id in ('2') and 
-					devote_id =1 and 
-					borrow_user_id is not null
-					group by borrow_user_id
-				
-[20.05.2013 - 10:44:18][!WARNING!] - exception 'Exception' with message 'Column 'id' in where clause is ambiguous' in /Users/lcjun/bbm.up2run.com/config.inc.php:160
+[20.05.2013 - 11:23:15][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:23:15][!WARNING!] - cookie verify 刘传君 ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 11:24:24][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:24:24][!WARNING!] - cookie verify 刘传君 ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 11:24:25][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:24:25][!WARNING!] - cookie verify 刘传君 ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 11:24:53][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:24:53][!WARNING!] - cookie verify 刘传君 ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 11:24:53][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:24:59][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:24:59][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 11:24:59][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 1
+[20.05.2013 - 11:24:59][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 2
+[20.05.2013 - 11:24:59][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 3
+[20.05.2013 - 11:24:59][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 4
+[20.05.2013 - 11:24:59][!WARNING!] - select count(*) from book where devote_id = 1 and state = 2
+[20.05.2013 - 11:24:59][!WARNING!] - select count(*) from book where devote_id = 1 and state = 3
+[20.05.2013 - 11:24:59][!WARNING!] - select count(*) from book where devote_id = 1 and state = 4
+[20.05.2013 - 11:24:59][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 0 
+[20.05.2013 - 11:24:59][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 1 
+[20.05.2013 - 11:27:10][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:27:10][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 11:27:10][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 1
+[20.05.2013 - 11:27:10][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 2
+[20.05.2013 - 11:27:10][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 3
+[20.05.2013 - 11:27:10][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 4
+[20.05.2013 - 11:27:10][!WARNING!] - select count(*) from book where devote_id = 1 and state = 2
+[20.05.2013 - 11:27:10][!WARNING!] - select count(*) from book where devote_id = 1 and state = 3
+[20.05.2013 - 11:27:10][!WARNING!] - select count(*) from book where devote_id = 1 and state = 4
+[20.05.2013 - 11:27:10][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 0 
+[20.05.2013 - 11:27:10][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 1 
+[20.05.2013 - 11:27:14][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:27:14][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:27:14][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
 Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(131): DB->db_check(false)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(324): DB->query('??????select bo...')
-#2 /Users/lcjun/bbm.up2run.com/book_return_cart.php(18): Book->return_confirm(Array, '1')
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
 #3 {main}
-[20.05.2013 - 10:44:18][!WARNING!] - select count(1) from (
-			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
-			from book b 
-			left join user u on b.devote_id = u.id 
-			left join user u1 on b.borrow_user_id = u1.id 
-			where u1.id = 1 and state= 3 
-		) balias
-[20.05.2013 - 10:44:18][!WARNING!] - 
-			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
-			from book b 
-			left join user u on b.devote_id = u.id 
-			left join user u1 on b.borrow_user_id = u1.id 
-			where u1.id = 1 and state= 3 
-		 limit 0,10
-[20.05.2013 - 10:44:54][!WARNING!] - Array
-[20.05.2013 - 10:44:54][!WARNING!] - 
-					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
-					GROUP_CONCAT(b.id SEPARATOR ',' )
-					from book b
-					left join user u on b.borrow_user_id = u.id 
-					where 
-					state = 3 and 
-					b.id in ('2') and 
-					devote_id =1 and 
-					borrow_user_id is not null
-					group by borrow_user_id
-				
-[20.05.2013 - 10:44:54][!WARNING!] - return_confirm_all:1000copy@gmail.com,追风筝的人,from 
-[20.05.2013 - 10:44:54][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
-[20.05.2013 - 10:44:54][!WARNING!] - books:Array
-[20.05.2013 - 10:44:54][!WARNING!] - 
-					insert into borrow (devote_user_id,borrow_user_id,is_return)
-					values(1,1,1)
-[20.05.2013 - 10:44:54][!WARNING!] - SELECT LAST_INSERT_ID()
-[20.05.2013 - 10:44:54][!WARNING!] - 
-						insert into borrow_detail(borrow_id,book_id)
-						values(7,2)
-[20.05.2013 - 10:44:54][!WARNING!] - update book set state = 0 ,borrow_user_id = null 
-						where state = 3 and devote_id ='1'
-[20.05.2013 - 10:44:54][!WARNING!] - select count(1) from (
-			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
-			from book b 
-			left join user u on b.devote_id = u.id 
-			left join user u1 on b.borrow_user_id = u1.id 
-			where u1.id = 1 and state= 3 
-		) balias
-[20.05.2013 - 10:44:54][!WARNING!] - 
-			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
-			from book b 
-			left join user u on b.devote_id = u.id 
-			left join user u1 on b.borrow_user_id = u1.id 
-			where u1.id = 1 and state= 3 
-		 limit 0,10
-[20.05.2013 - 10:44:57][!WARNING!] - select title from book where id='2'
-[20.05.2013 - 10:44:57][!WARNING!] - select id from  book where id='2' 
-[20.05.2013 - 10:44:57][!WARNING!] - update book set state = 1,borrow_user_id =1  where id=2
-[20.05.2013 - 10:45:19][!WARNING!] - select count(1) from (
-			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
-			from book b 
-			left join user u on b.devote_id = u.id 
-			left join user u1 on b.borrow_user_id = u1.id 
-			where u1.id = 1 and state= 3 
-		) balias
-[20.05.2013 - 10:45:19][!WARNING!] - 
-			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
-			from book b 
-			left join user u on b.devote_id = u.id 
-			left join user u1 on b.borrow_user_id = u1.id 
-			where u1.id = 1 and state= 3 
-		 limit 0,10
-[20.05.2013 - 10:45:25][!WARNING!] - select title from book where id=''
-[20.05.2013 - 10:45:25][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:160
+[20.05.2013 - 11:27:15][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:27:17][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:27:17][!WARNING!] - select title from book where id='2'
+[20.05.2013 - 11:27:17][!WARNING!] - select id from  book where id='2' 
+[20.05.2013 - 11:27:17][!WARNING!] - update book set state = 1,borrow_user_id =1  where id=2
+[20.05.2013 - 11:27:20][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:27:20][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:27:20][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
 Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(149): DB->db_check(0)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(152): DB->num_rows(Resource id #9)
-#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #9)
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
 #3 {main}
-[20.05.2013 - 10:45:31][!WARNING!] - select title from book where id=''
-[20.05.2013 - 10:45:31][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:160
+[20.05.2013 - 11:27:22][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:27:24][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:27:24][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:27:24][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
 Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(149): DB->db_check(0)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(152): DB->num_rows(Resource id #9)
-#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #9)
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
 #3 {main}
-[20.05.2013 - 10:45:34][!WARNING!] - select title from book where id=''
-[20.05.2013 - 10:45:34][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:160
+[20.05.2013 - 11:27:25][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:27:29][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:27:29][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:27:29][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
 Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(149): DB->db_check(0)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(152): DB->num_rows(Resource id #9)
-#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #9)
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
 #3 {main}
-[20.05.2013 - 10:45:44][!WARNING!] - select title from book where id=''
-[20.05.2013 - 10:45:44][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:160
-Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(149): DB->db_check(0)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(152): DB->num_rows(Resource id #9)
-#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #9)
-#3 {main}
-[20.05.2013 - 10:50:45][!WARNING!] - select title from book where id=''
-[20.05.2013 - 10:50:45][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:160
-Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(149): DB->db_check(0)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(152): DB->num_rows(Resource id #9)
-#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #9)
-#3 {main}
-[20.05.2013 - 10:50:48][!WARNING!] - select title from book where id=''
-[20.05.2013 - 10:50:48][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:160
-Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(149): DB->db_check(0)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(152): DB->num_rows(Resource id #9)
-#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #9)
-#3 {main}
-[20.05.2013 - 10:50:51][!WARNING!] - select title from book where id=''
-[20.05.2013 - 10:50:51][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:160
-Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(149): DB->db_check(0)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(152): DB->num_rows(Resource id #9)
-#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #9)
-#3 {main}
-[20.05.2013 - 10:50:55][!WARNING!] - 
+[20.05.2013 - 11:27:30][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:27:30][!WARNING!] - update book set state = 2 where borrow_user_id='1' and state=1
+[20.05.2013 - 11:27:30][!WARNING!] - select b.devote_id , GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email
+					from book b left join user u on b.devote_id = u.id 
+					where state = 2 and borrow_user_id =1 
+					group by b.devote_id
+[20.05.2013 - 11:27:30][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 11:27:30][!WARNING!] - send apply mail: 追风筝的人 to 1000copy@gmail.com from 1000copy@gmail.com 
+[20.05.2013 - 11:27:31][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:27:32][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:27:32][!WARNING!] - 
 					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
 					GROUP_CONCAT(b.id SEPARATOR ',' )
 					from book b
@@ -144,118 +98,1553 @@ Stack trace:
 					where state = 1 and devote_id =1 and borrow_user_id is not null
 					group by borrow_user_id
 				
-[20.05.2013 - 10:50:55][!WARNING!] - approved_all:1000copy@gmail.com,追风筝的人,from 1000copy@gmail.com
-[20.05.2013 - 10:50:55][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
-[20.05.2013 - 10:50:55][!WARNING!] - books:Array
-[20.05.2013 - 10:50:55][!WARNING!] - 
-					insert into borrow (devote_user_id,borrow_user_id)
-					values(1,1)
-[20.05.2013 - 10:50:55][!WARNING!] - SELECT LAST_INSERT_ID()
-[20.05.2013 - 10:50:55][!WARNING!] - 
-						insert into borrow_detail(borrow_id,book_id)
-						values(8,2)
-[20.05.2013 - 10:50:55][!WARNING!] - update book set state = 3 where state = 1 and devote_id =1
-[20.05.2013 - 10:50:57][!WARNING!] - select count(1) from (
+[20.05.2013 - 11:27:32][!WARNING!] - update book set state = 3 where state = 1 and devote_id =1
+[20.05.2013 - 11:27:34][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:27:34][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:27:34][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
+#3 {main}
+[20.05.2013 - 11:27:36][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:27:37][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:27:37][!WARNING!] - select count(1) from (
 			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
 			from book b 
 			left join user u on b.devote_id = u.id 
 			left join user u1 on b.borrow_user_id = u1.id 
 			where u1.id = 1 and state= 3 
 		) balias
-[20.05.2013 - 10:50:57][!WARNING!] - 
+[20.05.2013 - 11:27:37][!WARNING!] - 
 			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
 			from book b 
 			left join user u on b.devote_id = u.id 
 			left join user u1 on b.borrow_user_id = u1.id 
 			where u1.id = 1 and state= 3 
 		 limit 0,10
-[20.05.2013 - 10:51:00][!WARNING!] - Array
-[20.05.2013 - 10:51:00][!WARNING!] - 
+[20.05.2013 - 11:27:39][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:27:44][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:27:44][!WARNING!] - select count(1) from (
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		) balias
+[20.05.2013 - 11:27:44][!WARNING!] - 
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		 limit 0,10
+[20.05.2013 - 11:27:45][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:28:50][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:28:52][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:28:52][!WARNING!] - select title from book where id='1'
+[20.05.2013 - 11:28:52][!WARNING!] - select id from  book where id='1' 
+[20.05.2013 - 11:28:52][!WARNING!] - update book set state = 1,borrow_user_id =1  where id=1
+[20.05.2013 - 11:29:00][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:29:00][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:29:00][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
+#3 {main}
+[20.05.2013 - 11:29:06][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:29:06][!WARNING!] - update book set state = 2 where borrow_user_id='1' and state=1
+[20.05.2013 - 11:29:06][!WARNING!] - select b.devote_id , GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email
+					from book b left join user u on b.devote_id = u.id 
+					where state = 2 and borrow_user_id =1 
+					group by b.devote_id
+[20.05.2013 - 11:29:06][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 11:29:06][!WARNING!] - send apply mail: 失控 to 1000copy@gmail.com from 1000copy@gmail.com 
+[20.05.2013 - 11:29:08][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:29:12][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:29:12][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:29:12][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
+#3 {main}
+[20.05.2013 - 11:29:13][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:29:20][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:29:20][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:29:20][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
+#3 {main}
+[20.05.2013 - 11:29:21][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:29:28][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:29:29][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:29:31][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:29:31][!WARNING!] - select title from book where id='1'
+[20.05.2013 - 11:29:31][!WARNING!] - select id from  book where id='1' 
+[20.05.2013 - 11:29:31][!WARNING!] - update book set state = 1,borrow_user_id =1  where id=1
+[20.05.2013 - 11:29:34][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:29:34][!WARNING!] - update book set state = 2 where borrow_user_id='1' and state=1
+[20.05.2013 - 11:29:34][!WARNING!] - select b.devote_id , GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email
+					from book b left join user u on b.devote_id = u.id 
+					where state = 2 and borrow_user_id =1 
+					group by b.devote_id
+[20.05.2013 - 11:29:34][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 11:29:34][!WARNING!] - send apply mail: 失控 to 1000copy@gmail.com from 1000copy@gmail.com 
+[20.05.2013 - 11:29:53][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:29:54][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:29:54][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:29:54][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
+#3 {main}
+[20.05.2013 - 11:29:56][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:29:57][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:29:57][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:29:57][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
+#3 {main}
+[20.05.2013 - 11:30:00][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:30:00][!WARNING!] - update book set state = 2 where borrow_user_id='1' and state=1
+[20.05.2013 - 11:30:00][!WARNING!] - select b.devote_id , GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email
+					from book b left join user u on b.devote_id = u.id 
+					where state = 2 and borrow_user_id =1 
+					group by b.devote_id
+[20.05.2013 - 11:30:00][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 11:30:00][!WARNING!] - send apply mail: 失控 to 1000copy@gmail.com from 1000copy@gmail.com 
+[20.05.2013 - 11:30:01][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:30:01][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:30:01][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
+#3 {main}
+[20.05.2013 - 11:30:07][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:30:09][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:30:09][!WARNING!] - select title from book where id='2'
+[20.05.2013 - 11:30:09][!WARNING!] - select id from  book where id='2' 
+[20.05.2013 - 11:30:09][!WARNING!] - update book set state = 1,borrow_user_id =1  where id=2
+[20.05.2013 - 11:30:11][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:30:11][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:30:11][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
+#3 {main}
+[20.05.2013 - 11:30:23][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:30:25][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:30:25][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:30:25][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
+#3 {main}
+[20.05.2013 - 11:30:42][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:30:42][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:30:42][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
+#3 {main}
+[20.05.2013 - 11:30:44][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:30:45][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:30:45][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:30:45][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
+#3 {main}
+[20.05.2013 - 11:30:47][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:30:48][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:30:48][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:30:48][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
+#3 {main}
+[20.05.2013 - 11:30:50][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:30:58][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:30:58][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:30:58][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
+#3 {main}
+[20.05.2013 - 11:30:59][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:31:00][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:31:03][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:31:09][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:31:09][!WARNING!] - 
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
+					GROUP_CONCAT(b.id SEPARATOR ',' )
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where state = 1 and devote_id =1 and borrow_user_id is not null
+					group by borrow_user_id
+				
+[20.05.2013 - 11:31:09][!WARNING!] - approved_all:1000copy@gmail.com,追风筝的人,from 1000copy@gmail.com
+[20.05.2013 - 11:31:09][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 11:31:09][!WARNING!] - books:Array
+[20.05.2013 - 11:31:09][!WARNING!] - 
+					insert into borrow (devote_user_id,borrow_user_id)
+					values(1,1)
+[20.05.2013 - 11:31:09][!WARNING!] - SELECT LAST_INSERT_ID()
+[20.05.2013 - 11:31:09][!WARNING!] - 
+						insert into borrow_detail(borrow_id,book_id)
+						values(1,2)
+[20.05.2013 - 11:31:09][!WARNING!] - update book set state = 3 where state = 1 and devote_id =1
+[20.05.2013 - 11:31:10][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:31:10][!WARNING!] - select count(1) from (
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		) balias
+[20.05.2013 - 11:31:10][!WARNING!] - 
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		 limit 0,10
+[20.05.2013 - 11:31:12][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:31:12][!WARNING!] - 
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
+					GROUP_CONCAT(b.id SEPARATOR ',' )
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where state = 3 and devote_id =1 and borrow_user_id is not null
+					group by borrow_user_id
+				
+[20.05.2013 - 11:31:12][!WARNING!] - return_confirm_all:1000copy@gmail.com,追风筝的人,from 
+[20.05.2013 - 11:31:12][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 11:31:12][!WARNING!] - books:Array
+[20.05.2013 - 11:31:12][!WARNING!] - 
+					insert into borrow (devote_user_id,borrow_user_id,is_return)
+					values(1,1,1)
+[20.05.2013 - 11:31:12][!WARNING!] - SELECT LAST_INSERT_ID()
+[20.05.2013 - 11:31:12][!WARNING!] - 
+						insert into borrow_detail(borrow_id,book_id)
+						values(2,2)
+[20.05.2013 - 11:31:12][!WARNING!] - update book set state = 0 ,borrow_user_id = null 
+			where state = 3 and devote_id ='1'
+[20.05.2013 - 11:31:12][!WARNING!] - select count(1) from (
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		) balias
+[20.05.2013 - 11:31:12][!WARNING!] - 
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		 limit 0,10
+[20.05.2013 - 11:31:13][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:31:20][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:31:26][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:31:26][!WARNING!] - select title from book where id='1'
+[20.05.2013 - 11:31:26][!WARNING!] - select id from  book where id='1' 
+[20.05.2013 - 11:31:26][!WARNING!] - update book set state = 1,borrow_user_id =1  where id=1
+[20.05.2013 - 11:31:30][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:31:34][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:31:34][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:31:34][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
+#3 {main}
+[20.05.2013 - 11:31:36][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:31:40][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:31:40][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:31:40][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
+#3 {main}
+[20.05.2013 - 11:31:57][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:31:57][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:31:57][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
+#3 {main}
+[20.05.2013 - 11:32:31][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:32:31][!WARNING!] - select title from book where id=''
+[20.05.2013 - 11:32:31][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
+#3 {main}
+[20.05.2013 - 11:32:35][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:32:35][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 11:32:35][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:32:39][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:32:39][!WARNING!] - select title from book where id='1'
+[20.05.2013 - 11:32:39][!WARNING!] - select id from  book where id='1' 
+[20.05.2013 - 11:32:39][!WARNING!] - update book set state = 1,borrow_user_id =1  where id=1
+[20.05.2013 - 11:32:56][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:33:01][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:33:01][!WARNING!] - 
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where 
+					state = 1 and devote_id =1 and borrow_user_id is not null
+					and b.id in (1)
+					group by borrow_user_id
+				
+[20.05.2013 - 11:33:01][!WARNING!] - rejected:1000copy@gmail.com,失控,from 1000copy@gmail.com
+[20.05.2013 - 11:33:01][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 11:33:01][!WARNING!] - update book set state = 0 , borrow_user_id =null where id in(1)
+[20.05.2013 - 11:33:03][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:33:04][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:33:04][!WARNING!] - select title from book where id='1'
+[20.05.2013 - 11:33:04][!WARNING!] - select id from  book where id='1' 
+[20.05.2013 - 11:33:04][!WARNING!] - update book set state = 1,borrow_user_id =1  where id=1
+[20.05.2013 - 11:33:06][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:33:11][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:33:11][!WARNING!] - 
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
+					GROUP_CONCAT(b.id SEPARATOR ',' ) 
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where 
+					state = 1 and devote_id =1 and borrow_user_id is not null
+					and b.id in (1)
+					group by borrow_user_id
+				
+[20.05.2013 - 11:33:11][!WARNING!] - approved:1000copy@gmail.com,失控,from 1000copy@gmail.com
+[20.05.2013 - 11:33:11][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 11:33:11][!WARNING!] - books:Array
+[20.05.2013 - 11:33:11][!WARNING!] - 
+					insert into borrow (devote_user_id,borrow_user_id)
+					values(1,1)
+[20.05.2013 - 11:33:11][!WARNING!] - SELECT LAST_INSERT_ID()
+[20.05.2013 - 11:33:11][!WARNING!] - 
+						insert into borrow_detail(borrow_id,book_id)
+						values(1,1)
+[20.05.2013 - 11:33:11][!WARNING!] - update book set state = 3 where id in(1)
+[20.05.2013 - 11:33:12][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:33:12][!WARNING!] - select count(1) from (
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		) balias
+[20.05.2013 - 11:33:12][!WARNING!] - 
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		 limit 0,10
+[20.05.2013 - 11:33:15][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:33:15][!WARNING!] - Array
+[20.05.2013 - 11:33:15][!WARNING!] - 
 					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
 					GROUP_CONCAT(b.id SEPARATOR ',' )
 					from book b
 					left join user u on b.borrow_user_id = u.id 
 					where 
 					state = 3 and 
-					b.id in ('2') and 
+					b.id in ('1') and 
 					devote_id =1 and 
 					borrow_user_id is not null
 					group by borrow_user_id
 				
-[20.05.2013 - 10:51:00][!WARNING!] - return_confirm_all:1000copy@gmail.com,追风筝的人,from 
-[20.05.2013 - 10:51:00][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
-[20.05.2013 - 10:51:00][!WARNING!] - books:Array
-[20.05.2013 - 10:51:00][!WARNING!] - 
+[20.05.2013 - 11:33:15][!WARNING!] - return_confirm_all:1000copy@gmail.com,失控,from 
+[20.05.2013 - 11:33:15][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 11:33:15][!WARNING!] - books:Array
+[20.05.2013 - 11:33:15][!WARNING!] - 
 					insert into borrow (devote_user_id,borrow_user_id,is_return)
 					values(1,1,1)
-[20.05.2013 - 10:51:00][!WARNING!] - SELECT LAST_INSERT_ID()
-[20.05.2013 - 10:51:00][!WARNING!] - 
+[20.05.2013 - 11:33:15][!WARNING!] - SELECT LAST_INSERT_ID()
+[20.05.2013 - 11:33:15][!WARNING!] - 
 						insert into borrow_detail(borrow_id,book_id)
-						values(9,2)
-[20.05.2013 - 10:51:00][!WARNING!] - update book set state = 0 ,borrow_user_id = null 
+						values(2,1)
+[20.05.2013 - 11:33:15][!WARNING!] - update book set state = 0 ,borrow_user_id = null 
 						where state = 3 and devote_id ='1'
-[20.05.2013 - 10:51:00][!WARNING!] - select count(1) from (
+[20.05.2013 - 11:33:15][!WARNING!] - select count(1) from (
 			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
 			from book b 
 			left join user u on b.devote_id = u.id 
 			left join user u1 on b.borrow_user_id = u1.id 
 			where u1.id = 1 and state= 3 
 		) balias
-[20.05.2013 - 10:51:00][!WARNING!] - 
+[20.05.2013 - 11:33:15][!WARNING!] - 
 			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
 			from book b 
 			left join user u on b.devote_id = u.id 
 			left join user u1 on b.borrow_user_id = u1.id 
 			where u1.id = 1 and state= 3 
 		 limit 0,10
-[20.05.2013 - 10:51:51][!WARNING!] - select count(1) from (
+[20.05.2013 - 11:33:22][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:33:48][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:33:55][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:33:55][!WARNING!] - select count(1) from (
 			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
 			from book b 
 			left join user u on b.devote_id = u.id 
 			left join user u1 on b.borrow_user_id = u1.id 
 			where u1.id = 1 and state= 3 
 		) balias
-[20.05.2013 - 10:51:51][!WARNING!] - 
+[20.05.2013 - 11:33:56][!WARNING!] - 
 			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
 			from book b 
 			left join user u on b.devote_id = u.id 
 			left join user u1 on b.borrow_user_id = u1.id 
 			where u1.id = 1 and state= 3 
 		 limit 0,10
-[20.05.2013 - 10:51:53][!WARNING!] - select title from book where id=''
-[20.05.2013 - 10:51:53][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:160
+[20.05.2013 - 11:34:45][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:34:45][!WARNING!] - select count(1) from (
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		) balias
+[20.05.2013 - 11:34:45][!WARNING!] - 
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		 limit 0,10
+[20.05.2013 - 11:34:57][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:34:57][!WARNING!] - select count(1) from (
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		) balias
+[20.05.2013 - 11:34:57][!WARNING!] - 
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		 limit 0,10
+[20.05.2013 - 11:35:27][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:35:27][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 1
+[20.05.2013 - 11:35:27][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 2
+[20.05.2013 - 11:35:27][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 3
+[20.05.2013 - 11:35:27][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 4
+[20.05.2013 - 11:35:27][!WARNING!] - select count(*) from book where devote_id = 1 and state = 2
+[20.05.2013 - 11:35:27][!WARNING!] - select count(*) from book where devote_id = 1 and state = 3
+[20.05.2013 - 11:35:27][!WARNING!] - select count(*) from book where devote_id = 1 and state = 4
+[20.05.2013 - 11:35:27][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 0 
+[20.05.2013 - 11:35:27][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 1 
+[20.05.2013 - 11:35:29][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:35:29][!WARNING!] - select count(1) from (select id  ,email,fullname ,notify from user u ) balias
+[20.05.2013 - 11:35:29][!WARNING!] - select id  ,email,fullname ,notify from user u  limit 0,10
+[20.05.2013 - 11:35:34][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:35:46][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:35:46][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 1
+[20.05.2013 - 11:35:46][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 2
+[20.05.2013 - 11:35:46][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 3
+[20.05.2013 - 11:35:46][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 4
+[20.05.2013 - 11:35:46][!WARNING!] - select count(*) from book where devote_id = 1 and state = 2
+[20.05.2013 - 11:35:46][!WARNING!] - select count(*) from book where devote_id = 1 and state = 3
+[20.05.2013 - 11:35:46][!WARNING!] - select count(*) from book where devote_id = 1 and state = 4
+[20.05.2013 - 11:35:46][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 0 
+[20.05.2013 - 11:35:46][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 1 
+[20.05.2013 - 11:35:47][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:35:47][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 11:35:47][!WARNING!] - select count(1) from (
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			) balias
+[20.05.2013 - 11:35:47][!WARNING!] - 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			 limit 0,10
+[20.05.2013 - 11:38:16][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:38:16][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 11:38:16][!WARNING!] - select count(1) from (
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			) balias
+[20.05.2013 - 11:38:16][!WARNING!] - 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			 limit 0,10
+[20.05.2013 - 11:38:18][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:38:18][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 11:38:18][!WARNING!] - select count(1) from (
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			) balias
+[20.05.2013 - 11:38:18][!WARNING!] - 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			 limit 0,10
+[20.05.2013 - 11:42:52][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:42:52][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 11:42:52][!WARNING!] - select count(1) from (
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			) balias
+[20.05.2013 - 11:42:52][!WARNING!] - 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			 limit 0,10
+[20.05.2013 - 11:42:57][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:43:00][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:43:00][!WARNING!] - select title from book where id='1'
+[20.05.2013 - 11:43:00][!WARNING!] - select id from  book where id='1' 
+[20.05.2013 - 11:43:00][!WARNING!] - update book set state = 1,borrow_user_id =1  where id=1
+[20.05.2013 - 11:43:03][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:43:06][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:43:06][!WARNING!] - 
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
+					GROUP_CONCAT(b.id SEPARATOR ',' ) 
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where 
+					state = 1 and devote_id =1 and borrow_user_id is not null
+					and b.id in (1)
+					group by borrow_user_id
+				
+[20.05.2013 - 11:43:06][!WARNING!] - approved:1000copy@gmail.com,失控,from 1000copy@gmail.com
+[20.05.2013 - 11:43:06][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 11:43:06][!WARNING!] - books:Array
+[20.05.2013 - 11:43:06][!WARNING!] - 
+					insert into borrow (devote_user_id,borrow_user_id,w)
+					values(1,1,'Array'')
+[20.05.2013 - 11:43:06][!WARNING!] - exception 'Exception' with message 'You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''Array'')' at line 2' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
 Stack trace:
-#0 /Users/lcjun/bbm.up2run.com/config.inc.php(149): DB->db_check(0)
-#1 /Users/lcjun/bbm.up2run.com/config.inc.php(152): DB->num_rows(Resource id #9)
-#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #9)
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(126): DB->db_check(false)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(292): DB->query('??????insert in...')
+#2 /Users/lcjun/bbm.up2run.com/config.inc.php(422): Book->log__('1', '1', Array)
+#3 /Users/lcjun/bbm.up2run.com/book_approving.php(27): Book->approve(Array, '1')
+#4 {main}
+[20.05.2013 - 11:43:06][!WARNING!] - update book set state = 3 where id in(1)
+[20.05.2013 - 11:43:09][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:43:09][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 1
+[20.05.2013 - 11:43:09][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 2
+[20.05.2013 - 11:43:09][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 3
+[20.05.2013 - 11:43:09][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 4
+[20.05.2013 - 11:43:09][!WARNING!] - select count(*) from book where devote_id = 1 and state = 2
+[20.05.2013 - 11:43:09][!WARNING!] - select count(*) from book where devote_id = 1 and state = 3
+[20.05.2013 - 11:43:09][!WARNING!] - select count(*) from book where devote_id = 1 and state = 4
+[20.05.2013 - 11:43:09][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 0 
+[20.05.2013 - 11:43:09][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 1 
+[20.05.2013 - 11:43:10][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:43:10][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 11:43:10][!WARNING!] - select count(1) from (
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			) balias
+[20.05.2013 - 11:43:10][!WARNING!] - 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			 limit 0,10
+[20.05.2013 - 11:43:11][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:43:11][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 11:43:11][!WARNING!] - select count(1) from (
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			) balias
+[20.05.2013 - 11:43:11][!WARNING!] - 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			 limit 0,10
+[20.05.2013 - 11:43:12][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:43:12][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 11:43:12][!WARNING!] - select count(1) from (
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			) balias
+[20.05.2013 - 11:43:12][!WARNING!] - 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			 limit 0,10
+[20.05.2013 - 11:43:12][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:43:12][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 11:43:12][!WARNING!] - select count(1) from (
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			) balias
+[20.05.2013 - 11:43:12][!WARNING!] - 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			 limit 0,10
+[20.05.2013 - 11:43:12][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:43:12][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 11:43:12][!WARNING!] - select count(1) from (
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			) balias
+[20.05.2013 - 11:43:12][!WARNING!] - 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			 limit 0,10
+[20.05.2013 - 11:46:13][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:46:14][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:46:14][!WARNING!] - select count(1) from (
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		) balias
+[20.05.2013 - 11:46:14][!WARNING!] - 
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		 limit 0,10
+[20.05.2013 - 11:46:16][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:46:16][!WARNING!] - Array
+[20.05.2013 - 11:46:16][!WARNING!] - 
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
+					GROUP_CONCAT(b.id SEPARATOR ',' )
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where 
+					state = 3 and 
+					b.id in ('1') and 
+					devote_id =1 and 
+					borrow_user_id is not null
+					group by borrow_user_id
+				
+[20.05.2013 - 11:46:16][!WARNING!] - return_confirm_all:1000copy@gmail.com,失控,from 
+[20.05.2013 - 11:46:16][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 11:46:16][!WARNING!] - books:Array
+[20.05.2013 - 11:46:16][!WARNING!] - 
+					insert into borrow (devote_user_id,borrow_user_id,is_return)
+					values(1,1,1)
+[20.05.2013 - 11:46:16][!WARNING!] - SELECT LAST_INSERT_ID()
+[20.05.2013 - 11:46:16][!WARNING!] - 
+						insert into borrow_detail(borrow_id,book_id)
+						values(3,1)
+[20.05.2013 - 11:46:16][!WARNING!] - update book set state = 0 ,borrow_user_id = null 
+						where state = 3 and devote_id ='1'
+[20.05.2013 - 11:46:16][!WARNING!] - select count(1) from (
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		) balias
+[20.05.2013 - 11:46:16][!WARNING!] - 
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		 limit 0,10
+[20.05.2013 - 11:46:17][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:46:18][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:46:18][!WARNING!] - select title from book where id='1'
+[20.05.2013 - 11:46:18][!WARNING!] - select id from  book where id='1' 
+[20.05.2013 - 11:46:18][!WARNING!] - update book set state = 1,borrow_user_id =1  where id=1
+[20.05.2013 - 11:46:20][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:46:21][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:46:21][!WARNING!] - 
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
+					GROUP_CONCAT(b.id SEPARATOR ',' ) 
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where 
+					state = 1 and devote_id =1 and borrow_user_id is not null
+					and b.id in (1)
+					group by borrow_user_id
+				
+[20.05.2013 - 11:46:21][!WARNING!] - approved:1000copy@gmail.com,失控,from 1000copy@gmail.com
+[20.05.2013 - 11:46:21][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 11:46:21][!WARNING!] - books:Array
+[20.05.2013 - 11:46:21][!WARNING!] - 
+					insert into borrow (devote_user_id,borrow_user_id)
+					values(1,1)
+[20.05.2013 - 11:46:21][!WARNING!] - SELECT LAST_INSERT_ID()
+[20.05.2013 - 11:46:21][!WARNING!] - 
+						insert into borrow_detail(borrow_id,book_id)
+						values(4,1)
+[20.05.2013 - 11:46:21][!WARNING!] - update book set state = 3 where id in(1)
+[20.05.2013 - 11:46:33][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:46:33][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 1
+[20.05.2013 - 11:46:33][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 2
+[20.05.2013 - 11:46:33][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 3
+[20.05.2013 - 11:46:33][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 4
+[20.05.2013 - 11:46:33][!WARNING!] - select count(*) from book where devote_id = 1 and state = 2
+[20.05.2013 - 11:46:33][!WARNING!] - select count(*) from book where devote_id = 1 and state = 3
+[20.05.2013 - 11:46:33][!WARNING!] - select count(*) from book where devote_id = 1 and state = 4
+[20.05.2013 - 11:46:33][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 0 
+[20.05.2013 - 11:46:33][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 1 
+[20.05.2013 - 11:46:35][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:46:35][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 11:46:35][!WARNING!] - select count(1) from (
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			) balias
+[20.05.2013 - 11:46:35][!WARNING!] - 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			 limit 0,10
+[20.05.2013 - 11:47:18][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:47:22][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:47:22][!WARNING!] - select title from book where id='2'
+[20.05.2013 - 11:47:22][!WARNING!] - select id from  book where id='2' 
+[20.05.2013 - 11:47:22][!WARNING!] - update book set state = 1,borrow_user_id =1  where id=2
+[20.05.2013 - 11:47:24][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:47:26][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:47:26][!WARNING!] - 
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
+					GROUP_CONCAT(b.id SEPARATOR ',' )
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where state = 1 and devote_id =1 and borrow_user_id is not null
+					group by borrow_user_id
+				
+[20.05.2013 - 11:47:26][!WARNING!] - approved_all:1000copy@gmail.com,追风筝的人,from 1000copy@gmail.com
+[20.05.2013 - 11:47:26][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 11:47:26][!WARNING!] - books:Array
+[20.05.2013 - 11:47:26][!WARNING!] - 
+					insert into borrow (devote_user_id,borrow_user_id,w)
+					values(1,1,now())
+[20.05.2013 - 11:47:26][!WARNING!] - SELECT LAST_INSERT_ID()
+[20.05.2013 - 11:47:26][!WARNING!] - 
+						insert into borrow_detail(borrow_id,book_id)
+						values(5,2)
+[20.05.2013 - 11:47:26][!WARNING!] - update book set state = 3 where state = 1 and devote_id =1
+[20.05.2013 - 11:47:34][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:47:34][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 1
+[20.05.2013 - 11:47:34][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 2
+[20.05.2013 - 11:47:34][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 3
+[20.05.2013 - 11:47:34][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 4
+[20.05.2013 - 11:47:34][!WARNING!] - select count(*) from book where devote_id = 1 and state = 2
+[20.05.2013 - 11:47:34][!WARNING!] - select count(*) from book where devote_id = 1 and state = 3
+[20.05.2013 - 11:47:34][!WARNING!] - select count(*) from book where devote_id = 1 and state = 4
+[20.05.2013 - 11:47:34][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 0 
+[20.05.2013 - 11:47:34][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 1 
+[20.05.2013 - 11:47:36][!WARNING!] - cookie verify begin
+[20.05.2013 - 11:47:36][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 11:47:36][!WARNING!] - select count(1) from (
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			) balias
+[20.05.2013 - 11:47:36][!WARNING!] - 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			 limit 0,10
+[20.05.2013 - 14:05:14][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:05:14][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 14:05:14][!WARNING!] - select count(1) from (
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			) balias
+[20.05.2013 - 14:05:14][!WARNING!] - 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			 limit 0,10
+[20.05.2013 - 14:05:16][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:05:17][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:05:17][!WARNING!] - select title from book where id='1'
+[20.05.2013 - 14:05:17][!WARNING!] - select id from  book where id='1' 
+[20.05.2013 - 14:05:17][!WARNING!] - update book set state = 1,borrow_user_id =1  where id=1
+[20.05.2013 - 14:05:19][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:05:20][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:05:20][!WARNING!] - 
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
+					GROUP_CONCAT(b.id SEPARATOR ',' )
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where state = 1 and devote_id =1 and borrow_user_id is not null
+					group by borrow_user_id
+				
+[20.05.2013 - 14:05:20][!WARNING!] - approved_all:1000copy@gmail.com,失控,from 1000copy@gmail.com
+[20.05.2013 - 14:05:20][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 14:05:20][!WARNING!] - books:Array
+[20.05.2013 - 14:05:20][!WARNING!] - 
+					insert into borrow (devote_user_id,borrow_user_id,w)
+					values(1,1,now())
+[20.05.2013 - 14:05:20][!WARNING!] - SELECT LAST_INSERT_ID()
+[20.05.2013 - 14:05:20][!WARNING!] - 
+						insert into borrow_detail(borrow_id,book_id)
+						values(1,1)
+[20.05.2013 - 14:05:20][!WARNING!] - update book set state = 3 where state = 1 and devote_id =1
+[20.05.2013 - 14:05:24][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:05:24][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 1
+[20.05.2013 - 14:05:24][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 2
+[20.05.2013 - 14:05:24][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 3
+[20.05.2013 - 14:05:24][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 4
+[20.05.2013 - 14:05:24][!WARNING!] - select count(*) from book where devote_id = 1 and state = 2
+[20.05.2013 - 14:05:24][!WARNING!] - select count(*) from book where devote_id = 1 and state = 3
+[20.05.2013 - 14:05:24][!WARNING!] - select count(*) from book where devote_id = 1 and state = 4
+[20.05.2013 - 14:05:24][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 0 
+[20.05.2013 - 14:05:24][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 1 
+[20.05.2013 - 14:05:25][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:05:25][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 14:05:25][!WARNING!] - select count(1) from (
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			) balias
+[20.05.2013 - 14:05:25][!WARNING!] - 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			 limit 0,10
+[20.05.2013 - 14:05:39][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:05:39][!WARNING!] - select count(1) from (
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		) balias
+[20.05.2013 - 14:05:39][!WARNING!] - 
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		 limit 0,10
+[20.05.2013 - 14:05:40][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:05:40][!WARNING!] - Array
+[20.05.2013 - 14:05:40][!WARNING!] - 
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
+					GROUP_CONCAT(b.id SEPARATOR ',' )
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where 
+					state = 3 and 
+					b.id in ('1') and 
+					devote_id =1 and 
+					borrow_user_id is not null
+					group by borrow_user_id
+				
+[20.05.2013 - 14:05:40][!WARNING!] - return_confirm_all:1000copy@gmail.com,失控,from 
+[20.05.2013 - 14:05:40][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 14:05:40][!WARNING!] - books:Array
+[20.05.2013 - 14:05:40][!WARNING!] - 
+					insert into borrow (devote_user_id,borrow_user_id,is_return)
+					values(1,1,1)
+[20.05.2013 - 14:05:40][!WARNING!] - SELECT LAST_INSERT_ID()
+[20.05.2013 - 14:05:40][!WARNING!] - 
+						insert into borrow_detail(borrow_id,book_id)
+						values(2,1)
+[20.05.2013 - 14:05:40][!WARNING!] - update book set state = 0 ,borrow_user_id = null 
+						where state = 3 and devote_id ='1'
+[20.05.2013 - 14:05:40][!WARNING!] - select count(1) from (
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		) balias
+[20.05.2013 - 14:05:40][!WARNING!] - 
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		 limit 0,10
+[20.05.2013 - 14:05:42][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:05:42][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 1
+[20.05.2013 - 14:05:42][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 2
+[20.05.2013 - 14:05:42][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 3
+[20.05.2013 - 14:05:42][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 4
+[20.05.2013 - 14:05:42][!WARNING!] - select count(*) from book where devote_id = 1 and state = 2
+[20.05.2013 - 14:05:42][!WARNING!] - select count(*) from book where devote_id = 1 and state = 3
+[20.05.2013 - 14:05:42][!WARNING!] - select count(*) from book where devote_id = 1 and state = 4
+[20.05.2013 - 14:05:42][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 0 
+[20.05.2013 - 14:05:42][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 1 
+[20.05.2013 - 14:05:43][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:05:43][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 14:05:43][!WARNING!] - select count(1) from (
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			) balias
+[20.05.2013 - 14:05:43][!WARNING!] - 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			 limit 0,10
+[20.05.2013 - 14:06:25][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:06:25][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 14:06:25][!WARNING!] - select count(1) from (
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			) balias
+[20.05.2013 - 14:06:25][!WARNING!] - 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			 limit 0,10
+[20.05.2013 - 14:06:26][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:06:28][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:06:28][!WARNING!] - select title from book where id='1'
+[20.05.2013 - 14:06:28][!WARNING!] - select id from  book where id='1' 
+[20.05.2013 - 14:06:28][!WARNING!] - update book set state = 1,borrow_user_id =1  where id=1
+[20.05.2013 - 14:06:30][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:06:31][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:06:31][!WARNING!] - 
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
+					GROUP_CONCAT(b.id SEPARATOR ',' )
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where state = 1 and devote_id =1 and borrow_user_id is not null
+					group by borrow_user_id
+				
+[20.05.2013 - 14:06:31][!WARNING!] - approved_all:1000copy@gmail.com,失控,from 1000copy@gmail.com
+[20.05.2013 - 14:06:31][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 14:06:31][!WARNING!] - books:Array
+[20.05.2013 - 14:06:31][!WARNING!] - 
+					insert into borrow (devote_user_id,borrow_user_id,w)
+					values(1,1,now())
+[20.05.2013 - 14:06:31][!WARNING!] - SELECT LAST_INSERT_ID()
+[20.05.2013 - 14:06:31][!WARNING!] - 
+						insert into borrow_detail(borrow_id,book_id)
+						values(3,1)
+[20.05.2013 - 14:06:31][!WARNING!] - update book set state = 3 where state = 1 and devote_id =1
+[20.05.2013 - 14:06:32][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:06:32][!WARNING!] - select count(1) from (
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		) balias
+[20.05.2013 - 14:06:32][!WARNING!] - 
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		 limit 0,10
+[20.05.2013 - 14:06:34][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:06:34][!WARNING!] - Array
+[20.05.2013 - 14:06:34][!WARNING!] - 
+					select borrow_user_id,GROUP_CONCAT(b.title SEPARATOR ',' ) ,u.email,
+					GROUP_CONCAT(b.id SEPARATOR ',' )
+					from book b
+					left join user u on b.borrow_user_id = u.id 
+					where 
+					state = 3 and 
+					b.id in ('1') and 
+					devote_id =1 and 
+					borrow_user_id is not null
+					group by borrow_user_id
+				
+[20.05.2013 - 14:06:34][!WARNING!] - return_confirm_all:1000copy@gmail.com,失控,from 
+[20.05.2013 - 14:06:34][!WARNING!] - select notify from user where email ='1000copy@gmail.com'
+[20.05.2013 - 14:06:34][!WARNING!] - books:Array
+[20.05.2013 - 14:06:34][!WARNING!] - 
+					insert into borrow (devote_user_id,borrow_user_id,is_return,w)
+					values(1,1,1,now())
+[20.05.2013 - 14:06:34][!WARNING!] - SELECT LAST_INSERT_ID()
+[20.05.2013 - 14:06:34][!WARNING!] - 
+						insert into borrow_detail(borrow_id,book_id)
+						values(4,1)
+[20.05.2013 - 14:06:34][!WARNING!] - update book set state = 0 ,borrow_user_id = null 
+						where state = 3 and devote_id ='1'
+[20.05.2013 - 14:06:34][!WARNING!] - select count(1) from (
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		) balias
+[20.05.2013 - 14:06:34][!WARNING!] - 
+			select b.id ,b.title ,u.email,b.devote_id,b.state ,u1.email as borrow_email
+			from book b 
+			left join user u on b.devote_id = u.id 
+			left join user u1 on b.borrow_user_id = u1.id 
+			where u1.id = 1 and state= 3 
+		 limit 0,10
+[20.05.2013 - 14:06:35][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:06:36][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:06:36][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 1
+[20.05.2013 - 14:06:36][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 2
+[20.05.2013 - 14:06:36][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 3
+[20.05.2013 - 14:06:36][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 4
+[20.05.2013 - 14:06:36][!WARNING!] - select count(*) from book where devote_id = 1 and state = 2
+[20.05.2013 - 14:06:36][!WARNING!] - select count(*) from book where devote_id = 1 and state = 3
+[20.05.2013 - 14:06:36][!WARNING!] - select count(*) from book where devote_id = 1 and state = 4
+[20.05.2013 - 14:06:36][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 0 
+[20.05.2013 - 14:06:36][!WARNING!] - select count(*) 
+				from borrow  b left join borrow_detail d 
+				on b.id = d.borrow_id 
+				where is_return = 1 
+[20.05.2013 - 14:06:38][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:06:38][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 14:06:38][!WARNING!] - select count(1) from (
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			) balias
+[20.05.2013 - 14:06:38][!WARNING!] - 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+			 limit 0,10
+[20.05.2013 - 14:07:14][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:07:14][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 14:07:14][!WARNING!] - select count(1) from (
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+				order by tt.w desc 
+			) balias
+[20.05.2013 - 14:07:14][!WARNING!] - 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+				order by tt.w desc 
+			 limit 0,10
+[20.05.2013 - 14:19:53][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:19:53][!WARNING!] - cookie verify 1000copy@gmail.com ,d41d8cd98f00b204e9800998ecf8427e
+[20.05.2013 - 14:19:53][!WARNING!] - delete from borrow
+[20.05.2013 - 14:19:53][!WARNING!] - delete from borrow_detail
+[20.05.2013 - 14:19:53][!WARNING!] - select count(1) from (
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+				order by tt.w desc 
+			) balias
+[20.05.2013 - 14:19:53][!WARNING!] - 
+				select u1.email as email1,u2.email as email2, tt.titles ,tt.is_return ,tt.w from 
+				(
+				     select b.devote_user_id,b.borrow_user_id ,
+				     GROUP_CONCAT(bd.title SEPARATOR ',' ) titles,
+				     bd.borrow_id ,b.is_return,b.w 
+				     from borrow b left join 
+				          (
+				          	select bk.title,bdetail.borrow_id,bk.id 
+				          	from borrow_detail bdetail 
+				          	left join book bk on bdetail.book_id = bk.id 
+				          )
+				     bd on b.id = bd.borrow_id group by bd.borrow_id
+				) tt 
+				left join user u1 on tt.devote_user_id = u1.id 
+				left join user u2 on tt.borrow_user_id = u2.id 
+				order by tt.w desc 
+			 limit 0,10
+[20.05.2013 - 14:19:54][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:19:55][!WARNING!] - cookie verify begin
+[20.05.2013 - 14:19:55][!WARNING!] - select title from book where id=''
+[20.05.2013 - 14:19:55][!WARNING!] - exception 'Exception' in /Users/lcjun/bbm.up2run.com/config.inc.php:155
+Stack trace:
+#0 /Users/lcjun/bbm.up2run.com/config.inc.php(144): DB->db_check(0)
+#1 /Users/lcjun/bbm.up2run.com/config.inc.php(147): DB->num_rows(Resource id #10)
+#2 /Users/lcjun/bbm.up2run.com/book_borrow.php(10): DB->is_empty(Resource id #10)
 #3 {main}
-[20.05.2013 - 10:52:04][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 1
-[20.05.2013 - 10:52:04][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 2
-[20.05.2013 - 10:52:04][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 3
-[20.05.2013 - 10:52:04][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 4
-[20.05.2013 - 10:52:04][!WARNING!] - select count(*) from book where devote_id = 1 and state = 2
-[20.05.2013 - 10:52:04][!WARNING!] - select count(*) from book where devote_id = 1 and state = 3
-[20.05.2013 - 10:52:04][!WARNING!] - select count(*) from book where devote_id = 1 and state = 4
-[20.05.2013 - 10:52:04][!WARNING!] - select count(*) 
-				from borrow  b left join borrow_detail d 
-				on b.id = d.borrow_id 
-				where is_return = 0 
-[20.05.2013 - 10:52:04][!WARNING!] - select count(*) 
-				from borrow  b left join borrow_detail d 
-				on b.id = d.borrow_id 
-				where is_return = 1 
-[20.05.2013 - 11:00:39][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 1
-[20.05.2013 - 11:00:39][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 2
-[20.05.2013 - 11:00:40][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 3
-[20.05.2013 - 11:00:40][!WARNING!] - select count(*) from book where borrow_user_id = 1 and state = 4
-[20.05.2013 - 11:00:40][!WARNING!] - select count(*) from book where devote_id = 1 and state = 2
-[20.05.2013 - 11:00:40][!WARNING!] - select count(*) from book where devote_id = 1 and state = 3
-[20.05.2013 - 11:00:40][!WARNING!] - select count(*) from book where devote_id = 1 and state = 4
-[20.05.2013 - 11:00:40][!WARNING!] - select count(*) 
-				from borrow  b left join borrow_detail d 
-				on b.id = d.borrow_id 
-				where is_return = 0 
-[20.05.2013 - 11:00:40][!WARNING!] - select count(*) 
-				from borrow  b left join borrow_detail d 
-				on b.id = d.borrow_id 
-				where is_return = 1 
