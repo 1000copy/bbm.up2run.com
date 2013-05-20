@@ -54,9 +54,9 @@ create table user(
 # password is space (md5..ed)
 insert into user (fullname,email,password,notify)values
 ("刘传君", "1000copy@gmail.com",'d41d8cd98f00b204e9800998ecf8427e',1),
-("顾苏浩", "2392349@qq.com",'d41d8cd98f00b204e9800998ecf8427e',0),
-("李亦飞", "2392349@qq.com",'d41d8cd98f00b204e9800998ecf8427e',0),
-("梁桥", "2392349@qq.com",'d41d8cd98f00b204e9800998ecf8427e',0);
+("顾苏浩", "68699915@qq.com",'d41d8cd98f00b204e9800998ecf8427e',0),
+("李亦飞", "yifei.wang@163.com",'d41d8cd98f00b204e9800998ecf8427e',0),
+("梁桥", "lqiao@hackeen.com",'d41d8cd98f00b204e9800998ecf8427e',0);
 INSERT INTO book VALUES 
      (1,'失控',0,0,0,1,NULL),
      (2,'追风筝的人',0,0,NULL,1,NULL);

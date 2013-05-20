@@ -584,9 +584,9 @@
 		}
 
 	}
+	$cookie_name = 'siteAuth';
+	$cookie_time = (3600 * 24 * 30); // 30 days
 	function try_autologin(){
-		$cookie_name = 'siteAuth';
-		$cookie_time = (3600 * 24 * 30); // 30 days
 		$log = new Log ;
 		$log -> warn("cookie verify begin");
 		if(!$_SESSION['user_name'] && isSet($cookie_name) && isSet($_COOKIE[$cookie_name]))

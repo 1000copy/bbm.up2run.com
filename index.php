@@ -67,8 +67,9 @@
 				</div>
 				<div class="span3">
 					<h2>System</h2>
-					<a href="book_log.php">history</a>
-					<p> <a href="user_list.php"> users</a> </p>
+					<a href="book_log.php" class="btn">history</a>
+					<p> <a href="user_list.php" class="btn"> users</a> 
+					<p> <a href="book_clear_all.php" class="btn btn-warning">clear all</a>
 				</div>
 				<div class="span3">
 					<h2>Statis</h2>

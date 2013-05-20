@@ -35,7 +35,7 @@
 <body>
 <? include "banner.php" ?>
 <div id="wrapper">
-<h1>users </h1>
+<h1>users/ <?echo $total_records;?></h1>
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>?action=search"  method="post" class="form-inline">
 	<input type="text" placeholder="some user name ..." id="email" name="email" 
 	value="<?echo $_POST["email"]; ?>" class="search-query input-medium"/>
@@ -77,7 +77,6 @@ else{ ?>
 	$target = $_SERVER['PHP_SELF'];
 	echo getPaginationString($page, $total_records, 
 		$pagerecords, 1, $target, $pagestring = "?page=");
-	echo "totals: " . $total_records;
 ?>
 
 
